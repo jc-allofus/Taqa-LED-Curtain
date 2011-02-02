@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Taqa" basedir="../" default="06. Debug application">
+
+	<!-- user.properties -->
+	<available file="${basedir}/build/user.properties" property="userPropertiesExist" />
+	<fail unless="userPropertiesExist" message="Please rename the user.properties.default to user.properties and add it to the SVN or GIT ignore list" />
+	<property file="${basedir}/build/user.properties"/>
+	
+	<!-- build.properties -->
+	<available file="${basedir}/build/build.properties" property="buildPropertiesExist" />
+	<fail unless="buildPropertiesExist" message="FAIL. where is the build.properties file??" />
+	<property file="${basedir}/build/build.properties"/>
+	
+	<!-- get the Ant tasks that come with the Flex SDK -->
+	<taskdef resource="flexTasks.tasks" classpath="${flex.home}/ant/lib/flexTasks.jar" />
+	<property name="FLEX_HOME" value="${flex.home}" />
+	
+	<!-- uses ant-contrib (http://ant-contrib.sourceforge.net) for some tasks -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${project.libpath}/ant/ant-contrib.jar" />
+	
+	<!-- uses BigSource Zarkov (http://zarkov.bigsource.de) for some compile tasks -->
+	<taskdef file="${project.libpath}/ant/bigsource_zarkov.xml" classpath="${project.libpath}/ant/bigsource_zarkov.jar"/>
+	
+	<!-- check to see if we have a certificate -->
+	<available file="${cert.target}" property="hasCertificate" />
+	
+	
+	<target name="01. Clean" description="delete and create the bin and asset folders">
+		<delete dir="${project.binpath.debug}" />
+		<mkdir dir="${project.binpath.debug}" />
+		<mkdir dir="${project.binpath.debug}" />
+		<copy todir="${project.binpath.debug}/assets">
+			<fileset dir="${project.assetspath.deploy}" />
+		</copy>
+	</target>
+	
+	<target name="01a. Copy update.xml to deploy">
+		<copy todir="${project.binpath.release}" file="${project.libpath}/air/update.xml"/>
+	</target>
+	
+<!--	
+	<target name="02. Compile fonts" description="compiles fonts to swf for runtime loading">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${FLEX_HOME}">
+			<debug value="true" />
+			<static_link_runtime_shared_libraries value="true" />
+			<default_frame_rate value="31" />
+			<default_background_color value="0xFFFFFF" />
+			<default_size width="400" height="400" />
+			<source_path path="${project.srcpath}" append="true"/>
+			<file_specs path="${fonts.documentClass}" />
+			<output path="${fonts.outputSWF}" />
+		</bigsource.mxmlc>
+	</target>
+-->
+	
+	<target name="03. Copy Assets" description="copy assets into newly created bin folder">
+		<copy todir="${project.binpath.debug}/assets">
+			<fileset dir="${project.assetspath.deploy}" />
+		</copy>
+	</target>
+	
+	<target name="04. Compile MXMLC" description="uses the mxmlc task from FlexSDK to compile the application to swf">
+		<mxmlc 
+			file="${basedir}/${project.documentClass}" 
+			output="${basedir}/${project.outputSWF}" 
+			incremental="true" 
+			debug="true" 
+			benchmark="true" 
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
+			<source-path path-element="${basedir}/${project.srcpath}" />
+			<source-path path-element="${basedir}/${project.libpath}/as/MonsterDebugger" />
+			<source-path path-element="${basedir}/${project.libpath}/as/Stats" />
+			<!--<source-path path-element="${basedir}/${project.libpath}/as/SimpleGUI" />-->
+			<library-path dir="${basedir}/${project.libpath}/swc" includes="*.swc" append="true" />
+			<default-size width="${swf.width}" height="${swf.height}" />
+			<target-player>10.1</target-player>
+		</mxmlc>
+	</target>
+	
+	<target name="05. Compile BigSource Zarkov" description="user zarkov FCSH wrapper to compile the application to swf">
+		<bigsource.mxmlc basedir="${basedir}" sdk="${FLEX_HOME}">
+			<debug value="true" />
+			<static_link_runtime_shared_libraries value="true" />
+			<load_config path="${FLEX_HOME}/frameworks/air-config.xml"/>
+			<default_frame_rate value="31" />
+			<default_background_color value="0x000000" />
+			<default_size width="1064" height="440" />
+			<source_path path="${project.srcpath}" append="true"/>
+			<source_path path="${project.libpath}/as/MonsterDebugger" append="true"/>
+			<source_path path="${project.libpath}/as/Stats" append="true"/>
+			<!--<source_path path="${project.libpath}/as/SimpleGUI" append="true"/>-->
+			<library_path path="${FLEX_HOME}/frameworks/libs"/>
+			<library_path path="${project.libpath}/swc" />
+			<file_specs path="${project.documentClass}" />
+			<output path="${project.outputSWF}" />
+		</bigsource.mxmlc>
+	</target>
+	
+	<target name="06. Debug application" depends="05. Compile BigSource Zarkov" description="Compile and debug using Air Debug Launcher">
+		<exec executable="${FLEX_HOME}/bin/adl" failonerror="true">
+			<arg value="${project.descriptor}" />
+			<arg value="${project.binpath.debug}" />
+			<arg value="--"/>
+			<arg value="true"/>
+		</exec> 
+	</target>
+	
+	<target name="07. Make certificate" description="create self-signed code signing cert.  skips if there is already one there...">
+		<if>
+			<equals arg1="${hasCertificate}" arg2="true"/>
+			<then>
+				<echo>Already have cert, not generating another one...</echo>
+			</then>
+			<else>
+				<echo>No certificate found, generate a self-signed one.</echo>
+				<bigsource.adt_certificate basedir="${basedir}" sdk="${FLEX_HOME}">
+					<common_name value="${cert.name}" />  
+					<country value="${cert.country}" />
+					<organisation value="none" />
+					<organisation_unit value="Development" />  
+					<storetype value="1024-RSA" />  
+					<keystore path="${cert.target}" />  
+					<keypass value="${cert.pass}" />  
+				</bigsource.adt_certificate>
+			</else>
+		</if>
+	</target>
+	
+	<target name="08. Package air application" description="use bigsource ADT wrapper to create the AIR file, copies update xml to deploy folder">
+		<bigsource.adt_package basedir="${basedir}" sdk="${FLEX_HOME}">
+			<air_file path="${project.air.target}"/>
+			<app_xml path="${project.descriptor}"/>
+			<rootpath path="${project.binpath.debug}/"/>
+			<keystore path="${cert.target}"/>
+			<storetype value="pkcs12"/>
+			<storepass value="${cert.pass}"/>
+			<add_file path="${project.name}.swf"/> 
+			<add_dir path="assets"/>
+		</bigsource.adt_package>
+	</target>
+	
+	<target name="09. Complete Build - Debug" description="clean and rebuild project from scratch, launch the debug version">
+			<antcall target="01. Clean" />
+			<!--<antcall target="02. Compile fonts" />-->
+			<antcall target="03. Copy Assets" />
+			<antcall target="06. Debug application" />
+		</target>
+	
+	<target name="10. Complete Build - Air" description="clean and rebuild project from scratch, package as air">
+		<antcall target="01. Clean" />
+		<!--<antcall target="02. Compile fonts" />-->
+		<antcall target="03. Copy Assets" />
+		<antcall target="04. Compile MXMLC" />
+		<antcall target="07. Make certificate" />
+		<antcall target="08. Package air application" />
+		<antcall target="01a. Copy update.xml to deploy" />
+	</target>
+
+</project>

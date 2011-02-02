@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><application xmlns="http://ns.adobe.com/air/application/2.5" minimumPatchLevel="0">
+<!-- AIR Application Descriptor File. See http://www.adobe.com/go/learn_air_1.0_application_descriptor_en. -->
+	<id>TaqaLEDCurtain</id>
+	<name>TaqaLEDCurtain</name>
+        <versionNumber>0.0.1</versionNumber>
+        <versionLabel>alpha 0.0.1</versionLabel>
+	<filename>TaqaLEDCurtain</filename>
+	<description>
+		<text xml:lang="en">Taqa LED Curtains</text>
+	</description>
+	<copyright>2011 AllofUs Inc.</copyright>
+	<initialWindow>
+		<content>TaqaLEDCurtain.swf</content>
+		<title>Taqa LED Curtain</title>
+		<systemChrome>standard</systemChrome>
+		<transparent>false</transparent>
+		<visible>true</visible>
+		<minimizable>true</minimizable>
+		<maximizable>true</maximizable>
+		<resizable>true</resizable>
+		<width>1064</width>
+		<height>440</height>
+		<x>150</x>
+		<y>150</y>
+		<minSize>1064 440</minSize>
+		<maxSize>1064 440</maxSize>
+	</initialWindow>
+	<installFolder>Example Company/Example Application</installFolder>
+	<programMenuFolder>Example Company/Example Application</programMenuFolder>
+	
+	<customUpdateUI>false</customUpdateUI>
+	<allowBrowserInvocation>false</allowBrowserInvocation>
+<!--	<fileTypes>-->
+<!--		<fileType>-->
+<!--			<name>com.example</name>-->
+<!--			<extension>xmpl</extension>-->
+<!--			<description>Example file</description>-->
+<!--			<contentType>example/x-data-type</contentType>-->
+<!--		</fileType>-->
+<!--	</fileTypes>-->
+</application>
