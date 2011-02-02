@@ -1,0 +1,11 @@
+# OS generated files #
+######################
+.DS_Store
+ehthumbs.db
+Icon
+Thumbs.db
+
+# Flash project specific ignores #
+##################################
+bin-debug
+build/user.properties
