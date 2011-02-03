@@ -1,15 +1,10 @@
 package
 {
-	import com.allofus.taqa.led.view.EnglishScrollText;
-	import com.allofus.taqa.led.view.BannerSnapshot;
-	import net.hires.debug.Stats;
-
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.logging.LogWriter;
 	import com.allofus.shared.logging.MonsterDebuggerTarget;
 	import com.allofus.shared.logging.SOSLoggingTarget;
 	import com.allofus.shared.logging.formatters.JSONFormatter;
-	import com.allofus.taqa.led.view.video.LoopVideoPlayer;
 
 	import mx.logging.ILogger;
 	import mx.logging.Log;
@@ -30,9 +25,9 @@ package
 		private static const logger:ILogger = GetLogger.qualifiedName( TaqaLEDCurtain );
 		
 		private var _invoked:Boolean = false;
+		private var context:TaqaLEDCurtainContext;
 		
 		//sprite layers
-		private var _statsLayer:Sprite;
 		
 		public function TaqaLEDCurtain()
 		{
@@ -100,34 +95,37 @@ package
 		
 		protected function createLayers():void
 		{
-			var a:Array = ["assets/videos/s1_01_sun_848x34.mp4", "assets/videos/s1_01_wind_848x34.mp4"];
-			var vidLoop1:LoopVideoPlayer = new LoopVideoPlayer(848, 34, a,true);
-			vidLoop1.x = 75;
-			vidLoop1.y = 150;
-			addChild(vidLoop1);
-			
-			var b:Array = ["assets/videos/s2_sun_640x127.mp4", "assets/videos/s2_wind_640x127.mp4"];
-			var vidLoop2:LoopVideoPlayer = new LoopVideoPlayer(640, 127, b);
-			vidLoop2.x = 75;
-			vidLoop2.y = 200;
-			addChild(vidLoop2);
-			
-			var snapshot:BannerSnapshot = new BannerSnapshot(vidLoop1);
-			addChild(snapshot);
-			
-			vidLoop1.showTestPattern(0.4);
+//			var a:Array = ["assets/videos/s1_01_sun_848x34.mp4", "assets/videos/s1_01_wind_848x34.mp4"];
+//			var vidLoop1:LoopVideoPlayer = new LoopVideoPlayer(848, 34, a,true);
+//			vidLoop1.x = 75;
+//			vidLoop1.y = 150;
+//			addChild(vidLoop1);
+//			
+//			var b:Array = ["assets/videos/s2_sun_640x127.mp4", "assets/videos/s2_wind_640x127.mp4"];
+//			var vidLoop2:LoopVideoPlayer = new LoopVideoPlayer(640, 127, b);
+//			vidLoop2.x = 75;
+//			vidLoop2.y = 200;
+//			addChild(vidLoop2);
+//			
+//			var snapshot:BannerSnapshot = new BannerSnapshot(vidLoop1);
+//			addChild(snapshot);
+//			
+//			vidLoop1.showTestPattern(0.4);
 			
 
-			_statsLayer = new Sprite();
-			//_statsLayer.visible = false;
-			var stats : Stats = new Stats();
-			_statsLayer.addChild(stats);
-			addChild(_statsLayer);
+//			_statsLayer = new Sprite();
+//			//_statsLayer.visible = false;
+//			
+//			addChild(_statsLayer);
+
+//			addChild(new PreferencesPane());
+			
+			
 		}
 		
 		protected function createContext() : void
 		{
-			//context = new PGAMarketingCentreContext(this);
+			context = new TaqaLEDCurtainContext(this);
 		}
 	}
 }
