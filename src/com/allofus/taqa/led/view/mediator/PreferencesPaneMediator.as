@@ -20,11 +20,18 @@ package com.allofus.taqa.led.view.mediator
 		public override function onRegister():void
 		{
 			eventMap.mapListener(eventDispatcher, PreferencesPane.TOGGLE_PREF_PANE, handleTogglePrefPane);
+			eventMap.mapListener(view, PreferencesPane.CHANGED, handlePreferencesChanged);
 		}
 		
 		protected function handleTogglePrefPane(event:Event):void
 		{
 			view.toggleHidden();
+		}
+		
+		protected function handlePreferencesChanged(event:Event):void
+		{
+			//relay to system
+			dispatch(event);
 		}
 	}
 }

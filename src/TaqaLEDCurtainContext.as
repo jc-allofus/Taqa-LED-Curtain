@@ -1,5 +1,6 @@
 package
 {
+	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
 	import com.allofus.taqa.led.model.InternetConnectionProxy;
 	import com.allofus.taqa.led.model.ConfigProxy;
 	import com.allofus.taqa.led.view.mediator.SmallLEDSlicedMediator;
@@ -58,6 +59,7 @@ package
 			
 			//CONTROLLER
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);
+			commandMap.mapEvent(PreferencesPane.CHANGED, WriteNewPreferencesCommand);
 			
 			//kick it off!
 			dispatchEvent(new ContextEvent(ContextEvent.STARTUP));

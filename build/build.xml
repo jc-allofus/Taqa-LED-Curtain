@@ -38,7 +38,7 @@
 		<copy todir="${project.binpath.release}" file="${project.libpath}/air/update.xml"/>
 	</target>
 	
-<!--	
+	
 	<target name="02. Compile fonts" description="compiles fonts to swf for runtime loading">
 		<bigsource.mxmlc basedir="${basedir}" sdk="${FLEX_HOME}">
 			<debug value="true" />
@@ -51,7 +51,6 @@
 			<output path="${fonts.outputSWF}" />
 		</bigsource.mxmlc>
 	</target>
--->
 	
 	<target name="03. Copy Assets" description="copy assets into newly created bin folder">
 		<copy todir="${project.binpath.debug}/assets">
@@ -142,14 +141,14 @@
 	
 	<target name="09. Complete Build - Debug" description="clean and rebuild project from scratch, launch the debug version">
 			<antcall target="01. Clean" />
-			<!--<antcall target="02. Compile fonts" />-->
+			<antcall target="02. Compile fonts" />
 			<antcall target="03. Copy Assets" />
 			<antcall target="06. Debug application" />
 		</target>
 	
 	<target name="10. Complete Build - Air" description="clean and rebuild project from scratch, package as air">
 		<antcall target="01. Clean" />
-		<!--<antcall target="02. Compile fonts" />-->
+		<antcall target="02. Compile fonts" />
 		<antcall target="03. Copy Assets" />
 		<antcall target="04. Compile MXMLC" />
 		<antcall target="07. Make certificate" />

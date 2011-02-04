@@ -24,7 +24,7 @@ package com.allofus.taqa.led.controller.startup
 		{
 			logger.info(inetConnectionProxy + " will be detecting internet connection to URL from" + configProxy);
 			inetConnectionProxy.eventDispatcher.addEventListener(InternetConnectionEvent.STATUS, handleStatusObtained);
-			inetConnectionProxy.detectConnection(configProxy.apiBaseURL);
+			inetConnectionProxy.detectConnection(configProxy.updateURL);
 		}
 
 		protected function handleStatusObtained(event : InternetConnectionEvent) : void

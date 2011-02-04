@@ -2,14 +2,12 @@
 <TaqaLEDCurtain>
 	<UpdateURL path="http://pga.allofusit.com/catalunya/deploy/update.xml" />
 	<APIEndpoints>
-		<APIBaseURL path="http://diacon.local/kca/feeds" />
+		<APIBaseURL path="http://diacon.local/kca" />
 		<SmallLEDFeed path="http://diacon.local/kca/feeds/small-led" />
 		<CinemaLEDFeed path="http://diacon.local/kca/feeds/cinema-led" />
 	</APIEndpoints>
-	<!-- 
 	<LoaderMax name="locale-assets" load="true">
-        <CSSLoader url="assets/styles/defaultStyles.css" name="locale-css" />
-        <SWFLoader url="assets/fonts/PGAFonts.swf" name="locale-fonts" estimatedBytes="1500"  />
+<!--        <CSSLoader url="assets/styles/defaultStyles.css" name="locale-css" />-->
+        <SWFLoader url="assets/fonts/TaqaFonts.swf" name="locale-fonts" estimatedBytes="1500"  />
     </LoaderMax>
-   	-->
 </TaqaLEDCurtain>

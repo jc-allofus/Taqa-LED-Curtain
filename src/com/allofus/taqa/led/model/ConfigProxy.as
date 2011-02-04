@@ -72,9 +72,10 @@ package com.allofus.taqa.led.model
 			logger.debug("result: " + result);
 			if(result)
 			{
-				logger.fatal("havent done anything w/ data yet! implement!");
 				_apiBaseURL = result.APIEndpoints.APIBaseURL.@path;
-				logger.debug("base url: "+ _apiBaseURL);
+				_smallLEDFeedPath = result.APIEndpoints.SmallLEDFeed.@path;
+				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
+				_updateURL = result.UpdateURL.@path;
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
 			}
 			else

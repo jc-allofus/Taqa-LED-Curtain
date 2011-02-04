@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library name="futuraEnglish" output="lib/font" format="2">
+	<font id="pixelArabic" family="Arial" style="0" cs="0" type="1" path="/env/workspace_fdt/TaqaLEDCurtain/lib/font/Al Abdali 8 Regular.otf" ascff="false">
+		<include chars=" "/>
+	</font>
+	<font id="helveticaArabic" family="Arial" style="0" cs="0" type="1" path="/env/workspace_fdt/TaqaLEDCurtain/lib/font/HelveticaNeueLTArabic-Bold.ttf" ascff="false">
+		<include chars=" "/>
+	</font>
+	<font id="pixelEnglish" family="Arial" style="0" cs="0" type="1" path="/env/workspace_fdt/TaqaLEDCurtain/lib/font/Unibody 8-Regular.otf" ascff="false">
+		<include chars=" "/>
+	</font>
+	<font id="font4" family="Arial" style="0" cs="0" type="1" path="/env/workspace_fdt/TaqaLEDCurtain/lib/font/FUTURAB.TTF" ascff="false">
+		<include chars=" "/>
+	</font>
+</library>
