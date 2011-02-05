@@ -7,5 +7,7 @@ Thumbs.db
 
 # Flash project specific ignores #
 ##################################
+*.cache
 bin-debug
 build/user.properties
+build/user.build.xml
