@@ -1,31 +1,25 @@
 package com.allofus.taqa.led.service
 {
-	import com.allofus.taqa.led.view.PreferencesPane;
 	import com.allofus.shared.logging.GetLogger;
-
-	import org.robotlegs.mvcs.Actor;
-
-	import mx.logging.ILogger;
-
+	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import mx.logging.ILogger;
+	import org.robotlegs.mvcs.Actor;
 
 	/**
 	 * @author jcehle
 	 */
 	public class PreferencesService extends Actor
 	{
-		
-		public static const FILE_ID:String = "preferences.xml";
-		
 		public static const UPDATED:String 	= "preferencesService/readComplete";
 		
 		//API
-		public function readPreferences():XML
+		public function readPreferences(filePath:String):XML
 		{
-			var file:File = File.applicationStorageDirectory.resolvePath(FILE_ID);
+			var file:File = File.applicationStorageDirectory.resolvePath(filePath);
 			if(file.exists)
 			{
 				var readStream:FileStream = new FileStream();
@@ -40,21 +34,15 @@ package com.allofus.taqa.led.service
 			return null;
 		}
 		
-		public function writePreferences():void
+		public function writePreferences(filePath:String, contentsString:String):void
 		{
-			var writeString:String = '<?xml version="1.0" encoding="utf-8"?>\n';
-			var xml:XML = PreferencesPane.preferencesXML;
-			writeString += xml.toXMLString();
-			writeString = writeString.replace(/\n/g, File.lineEnding); 
-			
-			var file:File = File.applicationStorageDirectory.resolvePath(FILE_ID);
+			var file:File = File.applicationStorageDirectory.resolvePath(filePath);
 			var writeStream:FileStream = new FileStream();
 			writeStream.open(file, FileMode.WRITE);
-			writeStream.writeUTFBytes(writeString);
+			writeStream.writeUTFBytes(contentsString);
 			writeStream.close();
 			dispatch(new Event(UPDATED));
 		}
-		
 		
 		private static const logger:ILogger = GetLogger.qualifiedName(PreferencesService);
 	}

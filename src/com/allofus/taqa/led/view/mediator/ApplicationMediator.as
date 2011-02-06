@@ -1,12 +1,15 @@
 package com.allofus.taqa.led.view.mediator
 {
-	import flash.ui.Keyboard;
-	import flash.events.KeyboardEvent;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 
 	import org.robotlegs.mvcs.Mediator;
 
 	import mx.logging.ILogger;
+
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 
 	/**
 	 * @author jc
@@ -30,7 +33,13 @@ package com.allofus.taqa.led.view.mediator
 			switch (event.keyCode)
 			{
 				case Keyboard.P:
-					logger.fatal("toggle show/hide pref pane.");
+				case Keyboard.NUMBER_1:
+				case Keyboard.NUMBER_2:
+					logger.info("dispatch to system (picked up by pref pane)");
+					dispatch(event);
+					break;
+					
+				default:
 					break;
 			}
 		}

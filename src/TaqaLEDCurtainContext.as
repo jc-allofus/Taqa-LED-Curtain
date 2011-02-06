@@ -1,28 +1,25 @@
 package
 {
-	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
-	import com.allofus.taqa.led.model.InternetConnectionProxy;
-	import com.allofus.taqa.led.model.ConfigProxy;
-	import com.allofus.taqa.led.view.mediator.SmallLEDSlicedMediator;
-	import com.allofus.taqa.led.view.SmallLEDSliced;
-	import com.allofus.taqa.led.view.mediator.CinemaLEDMediator;
-	import com.allofus.taqa.led.view.CinemaLED;
-	import com.allofus.taqa.led.view.mediator.SmallLEDSourceMediator;
-	import com.allofus.taqa.led.view.SmallLEDSource;
-	import com.allofus.taqa.led.view.mediator.PreferencesPaneMediator;
-	import com.allofus.taqa.led.view.PreferencesPane;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
 	import com.allofus.taqa.led.controller.startup.PrepareFSMCommand;
+	import com.allofus.taqa.led.model.ConfigProxy;
+	import com.allofus.taqa.led.model.InternetConnectionProxy;
 	import com.allofus.taqa.led.service.ApplicationUpdaterService;
 	import com.allofus.taqa.led.service.PreferencesService;
+	import com.allofus.taqa.led.view.CinemaLED;
+	import com.allofus.taqa.led.view.SmallLEDSliced;
+	import com.allofus.taqa.led.view.SmallLEDSource;
 	import com.allofus.taqa.led.view.mediator.ApplicationMediator;
-
+	import com.allofus.taqa.led.view.mediator.CinemaLEDMediator;
+	import com.allofus.taqa.led.view.mediator.PreferencesPaneMediator;
+	import com.allofus.taqa.led.view.mediator.SmallLEDSlicedMediator;
+	import com.allofus.taqa.led.view.mediator.SmallLEDSourceMediator;
+	import com.allofus.taqa.led.view.preferences.PreferencesPane;
+	import flash.display.DisplayObjectContainer;
+	import mx.logging.ILogger;
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
-
-	import mx.logging.ILogger;
-
-	import flash.display.DisplayObjectContainer;
 
 	/**
 	 * @author jc
@@ -59,7 +56,7 @@ package
 			
 			//CONTROLLER
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);
-			commandMap.mapEvent(PreferencesPane.CHANGED, WriteNewPreferencesCommand);
+			commandMap.mapEvent(PreferencesPane.UPDATE, WriteNewPreferencesCommand);
 			
 			//kick it off!
 			dispatchEvent(new ContextEvent(ContextEvent.STARTUP));

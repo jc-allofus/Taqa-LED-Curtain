@@ -1,13 +1,17 @@
 package com.allofus.taqa.led.controller.startup
 {
-	import org.robotlegs.utilities.statemachine.StateEvent;
-	import com.allofus.taqa.led.view.PreferencesPane;
-	import com.allofus.taqa.led.service.PreferencesService;
+	import com.allofus.taqa.led.view.preferences.TypeStylePreferences;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.service.PreferencesService;
+	import com.allofus.taqa.led.view.preferences.PositionPreferences;
+	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 
 	import org.robotlegs.mvcs.Command;
+	import org.robotlegs.utilities.statemachine.StateEvent;
 
 	import mx.logging.ILogger;
+
+	import flash.events.Event;
 
 	/**
 	 * @author jc
@@ -19,18 +23,35 @@ package com.allofus.taqa.led.controller.startup
 		override public function execute():void
 		{
 			logger.info("check app preferences.");
-			var prefsXML:XML = preferencesService.readPreferences();
-			if(prefsXML)
+			
+			// position prefs
+			var positionPrefs : XML = preferencesService.readPreferences(PositionPreferences.FILE_ID);
+			if(positionPrefs)
 			{
 				//update w/ xml that was read in
-				logger.debug("update from file: " + prefsXML);
-				PreferencesPane.preferencesXML = prefsXML;	
+				logger.debug("update from file: " + positionPrefs);
+				PositionPreferences.preferencesXML = positionPrefs;	
 			}
 			else
 			{
-				//write default prefs to local storage:
+				//the file doesn't exist in local storage (this is probably the 1st time the app has been run.
+				//fire the write prefs command and it will create the file from the xml it was compiled with.
+				//check out the PositionPreferences.as to see the default settings.
 				logger.debug("write defaults.");
-				preferencesService.writePreferences();
+				dispatch(new Event(PreferencesPane.UPDATE));
+			}
+			
+			// font styles prefs
+			var fontPrefs : XML = preferencesService.readPreferences(TypeStylePreferences.FILE_ID);
+			if(fontPrefs)
+			{
+				logger.debug("update from file: " + fontPrefs);
+				TypeStylePreferences.preferencesXML = fontPrefs;	
+			}
+			else
+			{
+				logger.debug("write defaults.");
+				dispatch(new Event(PreferencesPane.UPDATE));
 			}
 			
 			dispatch(new StateEvent(StateEvent.ACTION, FSMConstants.CHECKING_PREFERENCES_COMPLETE));

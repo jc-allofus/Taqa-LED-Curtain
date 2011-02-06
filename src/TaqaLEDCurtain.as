@@ -1,5 +1,10 @@
 package
 {
+	import flashx.textLayout.formats.Direction;
+	import com.allofus.shared.text.TLFTextManager;
+	import flashx.textLayout.elements.SpanElement;
+	import flashx.textLayout.elements.ParagraphElement;
+	import flashx.textLayout.elements.TextFlow;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.logging.LogWriter;
 	import com.allofus.shared.logging.MonsterDebuggerTarget;
@@ -19,7 +24,7 @@ package
 	/**
 	 * @author jc
 	 */
-	[SWF(backgroundColor="#000000", frameRate="31", width="1064", height="440")]
+	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="1064", height="440")]
 	public class TaqaLEDCurtain extends Sprite
 	{
 		private static const logger:ILogger = GetLogger.qualifiedName( TaqaLEDCurtain );
@@ -119,7 +124,8 @@ package
 //			addChild(_statsLayer);
 
 //			addChild(new PreferencesPane());
-			
+
+
 			
 		}
 		

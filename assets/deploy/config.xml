@@ -7,7 +7,7 @@
 		<CinemaLEDFeed path="http://diacon.local/kca/feeds/cinema-led" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
-<!--        <CSSLoader url="assets/styles/defaultStyles.css" name="locale-css" />-->
-        <SWFLoader url="assets/fonts/TaqaFonts.swf" name="locale-fonts" estimatedBytes="1500"  />
+        <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />
     </LoaderMax>
+    <RandomArabicString> بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
 </TaqaLEDCurtain>

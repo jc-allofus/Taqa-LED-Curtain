@@ -1,10 +1,10 @@
 package com.allofus.taqa.led.view.mediator
 {
-	import com.allofus.taqa.led.view.PreferencesPane;
-
-	import org.robotlegs.mvcs.Mediator;
-
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
+	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 	import flash.events.Event;
+	import org.robotlegs.mvcs.Mediator;
 
 	/**
 	 * @author jc
@@ -19,13 +19,30 @@ package com.allofus.taqa.led.view.mediator
 		
 		public override function onRegister():void
 		{
-			eventMap.mapListener(eventDispatcher, PreferencesPane.TOGGLE_PREF_PANE, handleTogglePrefPane);
-			eventMap.mapListener(view, PreferencesPane.CHANGED, handlePreferencesChanged);
+			eventMap.mapListener(eventDispatcher, KeyboardEvent.KEY_DOWN, handleKeyDown);
+			eventMap.mapListener(view, PreferencesPane.UPDATE, handlePreferencesChanged);
 		}
 		
-		protected function handleTogglePrefPane(event:Event):void
+		
+		protected function handleKeyDown(event:KeyboardEvent):void
 		{
-			view.toggleHidden();
+			switch (event.keyCode)
+			{
+				case Keyboard.P:
+					view.toggleHidden();
+					break;
+					
+				case Keyboard.NUMBER_1:
+					view.showPage(1);
+					break;
+					
+				case Keyboard.NUMBER_2:
+					view.showPage(2);
+					break;
+					
+				default:
+					break;
+			}
 		}
 		
 		protected function handlePreferencesChanged(event:Event):void

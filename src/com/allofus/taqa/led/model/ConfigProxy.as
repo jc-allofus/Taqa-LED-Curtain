@@ -23,6 +23,7 @@ package com.allofus.taqa.led.model
 		public static const LOAD_FAIL:String = "ConfigProxy/LoadFail";
 		
 		private static const LOADER_ID:String = "ConfigProxyLoader";
+		private static const CSS_LOADER_ID:String = "taqa-css";
 		private static const FILE_ID:String = "configXML";
 		private static const ESTIMATED_BYTES:int = 1024;
 		
@@ -32,6 +33,7 @@ package com.allofus.taqa.led.model
 		protected var _cinemaLEDFeedPath:String;
 		protected var _updateURL : String;
 		protected var _apiBaseURL : String;
+		private var _randomArabic : String;
 		
 		public function ConfigProxy()
 		{
@@ -68,6 +70,7 @@ package com.allofus.taqa.led.model
 		
 		protected function handleLoadConfigSuccess(event:LoaderEvent):void
 		{
+			//config xml
 			var result:XML = loader.getContent(FILE_ID) as XML;
 			logger.debug("result: " + result);
 			if(result)
@@ -76,6 +79,7 @@ package com.allofus.taqa.led.model
 				_smallLEDFeedPath = result.APIEndpoints.SmallLEDFeed.@path;
 				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
 				_updateURL = result.UpdateURL.@path;
+				_randomArabic = result.RandomArabicString.toString();
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
 			}
 			else
@@ -103,7 +107,12 @@ package com.allofus.taqa.led.model
 		{
 			return _updateURL;
 		}
-		
-		private static const logger:ILogger = GetLogger.qualifiedName( ConfigProxy );
+
+		private static const logger : ILogger = GetLogger.qualifiedName(ConfigProxy);
+
+		public function get randomArabic() : String
+		{
+			return _randomArabic;
+		}
 	}
 }
