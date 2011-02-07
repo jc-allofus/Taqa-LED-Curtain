@@ -44,8 +44,8 @@ package com.allofus.shared.text
 			p.addChild(span);
 			flow.addChild(p);
 			flow.flowComposer.updateAllControllers();
-			container.graphics.beginFill(0x00cc00, 0.5);
-			container.graphics.drawRect(0, 0, container.width, container.height);
+//			container.graphics.beginFill(0x00cc00, 0.5);
+//			container.graphics.drawRect(0, 0, container.width, container.height);
 			container.flow = flow;
 			
 			return container;

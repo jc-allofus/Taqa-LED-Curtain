@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.view.preferences
 {
+	import flash.display.DisplayObject;
+	import com.bit101.components.Label;
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.view.text.TLFContainer;
 	import com.allofus.shared.logging.GetLogger;
@@ -25,20 +27,24 @@ package com.allofus.taqa.led.view.preferences
 		public var es_fontsize:HUISlider;
 		public var es_color:ColorChooser;
 		
+		protected var englishSmallLabel:Label;
 		protected var englishSmallSample:TLFContainer;
 		
 		protected var config:MinimalConfigurator;
+		
+		private static const PADDING_VERTICAL:int = 10;
 		
 		public function TypeStylePreferences()
 		{
 			config = new MinimalConfigurator(this);
 			config.parseXML(preferencesXML);
 			
+			englishSmallLabel = new Label(this,15,130,"English small sample:");
+			
 			englishSmallSample = TLFTextManager.createText("sample of english small text", TypeStyles.englishSmall);
-			englishSmallSample.x = 15;
-			englishSmallSample.y = 150;
 			addChild(englishSmallSample);
 			
+			redraw();
 			addListeners();
 		}
 		
@@ -52,7 +58,7 @@ package com.allofus.taqa.led.view.preferences
 		{
 			logger.warn("dispatch updated pos prefs");
 			updateValues();
-			updateSamples();
+			redraw();
 			dispatchEvent(new Event(CHANGED));
 		}
 		
@@ -62,10 +68,6 @@ package com.allofus.taqa.led.view.preferences
 			_xml..ColorChooser.(@id == "es_color").@value = TypeStyles.ES_color = es_color.value;
 		}
 		
-		protected function updateSamples():void
-		{
-			englishSmallSample.format = TypeStyles.englishSmall;
-		}
 		
 		public static function get preferencesXML():XML
 		{
@@ -75,6 +77,20 @@ package com.allofus.taqa.led.view.preferences
 		public static function set preferencesXML(value:XML):void
 		{
 			_xml = value;
+			TypeStyles.ES_fontSize = _xml..HUISlider.(@id == "es_fontsize").@value;
+			TypeStyles.ES_color = _xml..ColorChooser.(@id == "es_color").@value;
+		}
+		
+		protected function redraw():void
+		{
+			englishSmallSample.format = TypeStyles.englishSmall;
+			positionUnder(englishSmallSample, englishSmallLabel);
+		}
+		
+		protected function positionUnder(obj:DisplayObject, goesUnder:DisplayObject):void
+		{
+			obj.x = goesUnder.x;
+			obj.y = goesUnder.y + goesUnder.height + PADDING_VERTICAL;
 		}
 		
 		protected static var _xml:XML =

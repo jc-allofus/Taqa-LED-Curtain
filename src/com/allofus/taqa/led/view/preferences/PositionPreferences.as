@@ -71,6 +71,7 @@ package com.allofus.taqa.led.view.preferences
 		
 		protected function updateValues():void
 		{
+			//set XML & statics based on values from the components
 			_xml..CheckBox.(@id == "showSmallBannerSource").@selected = SHOW_SMALL_LED_SOURCE = showSmallBannerSource.selected;
 			_xml..CheckBox.(@id == "showSmallBannerTestPattern").@selected = SHOW_SMALL_LED_TESTPATTERN = showSmallBannerTestPattern.selected;
 			_xml..NumericStepper.(@id == "sbx").@value = SMALL_LED_X = sbx.value;
@@ -89,6 +90,15 @@ package com.allofus.taqa.led.view.preferences
 		public static function set preferencesXML(value:XML):void
 		{
 			_xml = value;
+			//set statics based on values from XML
+			SHOW_SMALL_LED_SOURCE = _xml..CheckBox.(@id == "showSmallBannerSource").@selected;
+			SHOW_SMALL_LED_TESTPATTERN = _xml..CheckBox.(@id == "showSmallBannerTestPattern").@selected;
+			SMALL_LED_X = _xml..NumericStepper.(@id == "sbx").@value;
+			SMALL_LED_Y = _xml..NumericStepper.(@id == "sby").@value;
+			CINEMA_LED_X = _xml..NumericStepper.(@id == "lbx").@value;
+			CINEMA_LED_Y = _xml..NumericStepper.(@id == "lby").@value;
+			SLICED_SMALL_LED_X = _xml..NumericStepper.(@id == "ssbx").@value;
+			SLICED_SMALL_LED_Y = _xml..NumericStepper.(@id == "ssby").@value;
 		}
 		
 		protected static var _xml:XML =
