@@ -1,6 +1,5 @@
 package com.allofus.taqa.led.view.preferences
 {
-	import com.bit101.components.ColorChooser;
 	import net.hires.debug.Stats;
 
 	import com.allofus.shared.logging.GetLogger;
@@ -26,9 +25,12 @@ package com.allofus.taqa.led.view.preferences
 		
 		protected var page2:TypeStylePreferences;
 		
-		public function PreferencesPane()
+		protected var _sampleArabicString:String;
+		
+		public function PreferencesPane(sampleArabicString:String = null)
 		{
-			visible = false;
+			visible = true;
+			_sampleArabicString = sampleArabicString;
 			if(!stage)
 			{
 				addEventListener(Event.ADDED_TO_STAGE, initPanel);
@@ -49,11 +51,13 @@ package com.allofus.taqa.led.view.preferences
 			page1 = new PositionPreferences();
 			page1.addEventListener(PositionPreferences.CHANGED, handlePositinoPrefsChanged);			addChild(page1);
 			
-			page2 = new TypeStylePreferences();
+			page2 = new TypeStylePreferences(_sampleArabicString);
 			page2.addEventListener(PositionPreferences.CHANGED, handlePositinoPrefsChanged);
 			addChild(page2);
 			
 			addChild(new Stats());
+			
+			showPage(1);
 		}
 
 		protected function handlePositinoPrefsChanged(event : Event) : void

@@ -21,7 +21,7 @@ package com.allofus.taqa.led.controller.startup
 		{
 			logger.info("constructing initial view." );
 			
-			var preferencesPane:PreferencesPane = new PreferencesPane();
+			var preferencesPane:PreferencesPane = new PreferencesPane(configProxy.randomArabic);
 			contextView.addChild(preferencesPane);
 			FontManager.listFonts();
 

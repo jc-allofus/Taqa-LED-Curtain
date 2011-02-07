@@ -58,7 +58,7 @@ package com.allofus.shared.text
 			//f.fontLookup = FontLookup.EMBEDDED_CFF;
 			f.direction = Direction.LTR;
 			
-			f.fontFamily = "Arial, ";
+			f.fontFamily = "Courier New, Courier, _serif";
 			f.fontSize = 20;
 			f.color = 0xff0000;
 			return f;
