@@ -2,12 +2,13 @@
 <TaqaLEDCurtain>
 	<UpdateURL path="http://pga.allofusit.com/catalunya/deploy/update.xml" />
 	<APIEndpoints>
-		<APIBaseURL path="http://diacon.local/kca" />
-		<SmallLEDFeed path="http://diacon.local/kca/feeds/small-led" />
-		<CinemaLEDFeed path="http://diacon.local/kca/feeds/cinema-led" />
+		<APIBaseURL path="http://taqa-cms.local:8888/" />
+		<ImageBasePath path="sites/default/files/imagecache/" />
+		<SmallLEDFeed path="http://taqa-cms.local:8888/feeds/small-led" />
+		<CinemaLEDFeed path="http://taqa-cms.local:8888/feeds/cinema-led" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />
     </LoaderMax>
-    <RandomArabicString> بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
+    <RandomArabicString>بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
 </TaqaLEDCurtain>

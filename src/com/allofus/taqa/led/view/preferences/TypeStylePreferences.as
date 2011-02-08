@@ -1,20 +1,20 @@
 package com.allofus.taqa.led.view.preferences
 {
-	import flash.display.DisplayObject;
-	import com.bit101.components.Label;
-	import com.allofus.shared.text.TLFTextManager;
-	import com.allofus.taqa.led.view.text.TLFContainer;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.ApplicationGlobals;
-	import com.allofus.taqa.led.view.TypeStyles;
+	import com.allofus.taqa.led.view.text.TLFContainer;
+	import com.allofus.taqa.led.view.text.TypeStyles;
 	import com.bit101.components.ColorChooser;
 	import com.bit101.components.HUISlider;
+	import com.bit101.components.Label;
 	import com.bit101.utils.MinimalConfigurator;
-
-	import mx.logging.ILogger;
-
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import mx.logging.ILogger;
+
+
 
 	/**
 	 * @author jcehle

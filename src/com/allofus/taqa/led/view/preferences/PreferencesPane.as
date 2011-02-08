@@ -62,7 +62,6 @@ package com.allofus.taqa.led.view.preferences
 
 		protected function handlePositinoPrefsChanged(event : Event) : void
 		{
-			logger.info("i see prefs changed.");
 			dispatchEvent(new Event(UPDATE));
 		}
 		

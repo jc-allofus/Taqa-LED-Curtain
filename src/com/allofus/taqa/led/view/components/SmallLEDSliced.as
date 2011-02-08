@@ -1,22 +1,25 @@
-package com.allofus.taqa.led.view
+package com.allofus.taqa.led.view.components
 {
+	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 
 	import mx.logging.ILogger;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Matrix;
-	import flash.geom.Rectangle;
 
 	/**
 	 * @author jc
 	 */
-	public class BannerSnapshot extends Sprite
+	public class SmallLEDSliced extends Sprite
 	{
+		protected var _source:SmallLEDSource;
+		
+		
 		protected var bmd1:BitmapData;
 		protected var bmd2:BitmapData;
 		protected var bmd3:BitmapData;
@@ -31,15 +34,12 @@ package com.allofus.taqa.led.view
 		protected var bm3:Bitmap;
 		protected var bm4:Bitmap;
 		
-		private static const OFFSET_X: int = 800;
-		private static const OFFSET_Y:int = 200;
+		protected var bitmaps:Vector.<Bitmap>;
 		
-		protected var _source:DisplayObject;
-		
-		
-		public function BannerSnapshot(source:DisplayObject)
+		public function SmallLEDSliced(source:SmallLEDSource)
 		{
 			_source = source;
+			bitmaps = new Vector.<Bitmap>();
 			if(!stage)
 			{
 				addEventListener(Event.ADDED_TO_STAGE, initBannerSnapshot);
@@ -50,40 +50,45 @@ package com.allofus.taqa.led.view
 			}
 		}
 		
+		public function updateToPrefs():void
+		{
+			x = PositionPreferences.SLICED_SMALL_LED_X;
+			y = PositionPreferences.SLICED_SMALL_LED_Y;
+			if(bitmaps.length > 0)
+			{
+				for (var i : int = 0; i < bitmaps.length; i++) 
+				{
+					bitmaps[i].rotation = PositionPreferences.SLICED_SMALL_LED_ROTATION;
+					bitmaps[i].x = i* PositionPreferences.SLICED_SMALL_LED_SPACING;
+				}
+			}
+			bm1.rotation = bm2.rotation = bm3.rotation = bm4.rotation = PositionPreferences.SLICED_SMALL_LED_ROTATION;
+		}
+		
 		protected function initBannerSnapshot(e:Event = null):void
 		{
-			var r1:Rectangle = _source.getBounds(_source);	
-			var r2:Rectangle = _source.getBounds(stage);
-			
 			bmd1 = new BitmapData(217, 34,false,0xFFFFFF);
 			bm1 = new Bitmap(bmd1);
-			bm1.x = OFFSET_X;
-			bm1.y = OFFSET_Y;
 			addChild(bm1);
 			
 			bmd2 = new BitmapData(217, 34,false,0x00cc00);
 			m2 = new Matrix(1,0,0,1,-217,0);
 			bm2 = new Bitmap(bmd2);
-			bm2.x = OFFSET_X;
-			bm2.y = 35 + OFFSET_Y;
 			addChild(bm2);
 			
 			bmd3 = new BitmapData(217, 34, false, 0x00cc00);
 			m3 = new Matrix(1,0,0,1,-434,0);
 			bm3 = new Bitmap(bmd3);
-			bm3.x = OFFSET_X;
-			bm3.y = 69 + OFFSET_Y;
 			addChild(bm3);
 			
 			bmd4 = new BitmapData(197, 34, false, 0x00cc00);
 			m4 = new Matrix(1,0,0,1,-651, 0);
 			bm4 = new Bitmap(bmd4);
-			bm4.x = OFFSET_X;
-			bm4.y = 103 +OFFSET_Y;
 			addChild(bm4);
 			
-			//bm1.rotation = bm2.rotation = bm3.rotation = bm4.rotation = 90;
+			bitmaps.push(bm1,bm2,bm3,bm4);
 			
+			updateToPrefs();
 			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 		}
 
@@ -94,7 +99,12 @@ package com.allofus.taqa.led.view
 			bmd3.draw(_source, m3);
 			bmd4.draw(_source, m4);
 		}
+
+		public function queueSlide(getNext : ISlideVO) : void
+		{
+			
+		}
 		
-		private static const logger:ILogger = GetLogger.qualifiedName( BannerSnapshot );
+		private static const logger : ILogger = GetLogger.qualifiedName(SmallLEDSliced);
 	}
 }

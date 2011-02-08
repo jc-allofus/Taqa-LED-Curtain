@@ -1,9 +1,11 @@
 package com.allofus.taqa.led.controller.startup
 {
+	import com.allofus.taqa.led.view.components.SmallLEDSliced;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.text.FontManager;
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.model.ConfigProxy;
+	import com.allofus.taqa.led.view.components.SmallLEDSource;
 	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 	import flash.display.Sprite;
 	import flashx.textLayout.formats.Direction;
@@ -21,19 +23,15 @@ package com.allofus.taqa.led.controller.startup
 		{
 			logger.info("constructing initial view." );
 			
+			var smallLEDSource:SmallLEDSource = new SmallLEDSource();
+			contextView.addChild(smallLEDSource);
+			
+			var smallLEDSliced:SmallLEDSliced = new SmallLEDSliced(smallLEDSource);
+			contextView.addChild(smallLEDSliced);
+			
+			
 			var preferencesPane:PreferencesPane = new PreferencesPane(configProxy.randomArabic);
 			contextView.addChild(preferencesPane);
-			FontManager.listFonts();
-
-//			var tf : Sprite = TLFTextManager.createText(configProxy.randomArabic);
-//			contextView.addChild(tf);
-//			tf.x = 15;
-//			tf.y = 150;
-//
-//			var tf1 : Sprite = TLFTextManager.createText(TLFTextManager.LOREM_IPSUM);
-//			contextView.addChild(tf1);
-//			tf1.x = 15;
-//			tf1.y = 250;
 			
 			TLFTextManager.listFonts();
 		}

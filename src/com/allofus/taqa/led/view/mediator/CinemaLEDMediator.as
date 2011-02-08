@@ -1,6 +1,6 @@
 package com.allofus.taqa.led.view.mediator
 {
-	import com.allofus.taqa.led.view.CinemaLED;
+	import com.allofus.taqa.led.view.components.CinemaLED;
 	import org.robotlegs.mvcs.Mediator;
 
 	/**
