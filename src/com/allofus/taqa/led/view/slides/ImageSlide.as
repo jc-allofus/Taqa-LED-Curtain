@@ -1,8 +1,10 @@
 package com.allofus.taqa.led.view.slides
 {
 
+	import flash.events.TimerEvent;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
+	import com.greensock.TweenMax;
 	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
 	import com.greensock.loading.LoaderStatus;
@@ -11,6 +13,7 @@ package com.allofus.taqa.led.view.slides
 	import mx.logging.ILogger;
 
 	import flash.display.Sprite;
+	import flash.utils.Timer;
 	/**
 	 * @author jc
 	 */
@@ -18,11 +21,14 @@ package com.allofus.taqa.led.view.slides
 	{
 		protected var _imgVO:ImageSlideVO;
 		protected var imgContainer:Sprite;
+		protected var timer:Timer;
 		
 		public function ImageSlide(vo:ImageSlideVO):void
 		{
 			_imgVO = vo;
 			imgContainer = new Sprite();
+			timer = new Timer(2000, 1);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			addChild(imgContainer);	
 			loadImage();
 		}
@@ -72,18 +78,41 @@ package com.allofus.taqa.led.view.slides
 		protected function handleLoadComplete(event:LoaderEvent):void
 		{
 			logger.debug("image finished loading");
+			ready = true;
 		}
 		
-		
-		public function transitionIn() : void
+		override public function transitionIn():void
 		{
 			visible = true;
+			alpha = 1;
+			TweenMax.from(this, 0.5, {alpha:0, onComplete:handleTransitionInComplete});
 		}
-
-		public function transitionOut() : void
+		
+		override protected function handleTransitionInComplete():void
 		{
-			visible = false;
+			timer.reset();
+			timer.start();
+			super.handleTransitionInComplete();
 		}
+		
+		override public function dispose():void
+		{
+			_loader.dispose(true);
+			_loader = null;
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
+			timer = null;
+			removeChild(imgContainer);
+			imgContainer = null;
+		}
+		
+		protected function handleTimerComplete(event:TimerEvent):void
+		{
+			logger.debug("image finished, dispatch complete.");
+			onComplete();
+		}
+		
+		
 		private static const logger:ILogger = GetLogger.qualifiedName( ImageSlide );
 	}
 }

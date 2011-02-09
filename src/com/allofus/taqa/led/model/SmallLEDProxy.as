@@ -8,6 +8,8 @@ package com.allofus.taqa.led.model
 
 	import mx.logging.ILogger;
 
+	import flash.events.Event;
+
 	/**
 	 * @author jc
 	 */
@@ -15,19 +17,24 @@ package com.allofus.taqa.led.model
 	{
 		[Inject] public var configProxy:ConfigProxy; 
 		
+		public static const UPDATED:String = "smallLEDProxy/updated";
+		
 		protected var allItems:Vector.<ISlideVO>;
 		protected var headlineItems:Vector.<ISlideVO>;
 		protected var notHeadlineItems:Vector.<ISlideVO>;
 		
 		protected var history:Vector.<ISlideVO>;
 		
-		protected var  basePathRegex:RegExp;
+		protected var imagePathRegex:RegExp;
+		
+		protected var index:int = 0;
 		
 		public function SmallLEDProxy()
 		{
 			allItems = new Vector.<ISlideVO>();
 			headlineItems = new Vector.<ISlideVO>();
 			notHeadlineItems = new Vector.<ISlideVO>();
+			history = new Vector.<ISlideVO>();
 			
 			//basePathRegex= new RegExp(configProxy.apiBaseURL + configProxy.imageBasePath, "g");
 			logger.debug("dp" + configProxy);
@@ -36,9 +43,23 @@ package com.allofus.taqa.led.model
 		public function getNext():ISlideVO
 		{
 			var selected:ISlideVO;
-			selected = allItems[0];
-			history.push(selected);
-			return allItems[0];	
+			if(allItems && allItems.length > 0)
+			{
+				selected = allItems[index];
+				history.push(selected);
+				logger.fatal("sending: " + selected + " i: " + index);
+				if(index + 1 > allItems.length -1)
+				{
+					index = 0;
+				}
+				else
+				{
+					index++;
+				}
+				return selected;	
+			}
+			logger.warn("nothing to give.");
+			return null;
 		}
 		
 		public function set data(xml:XML):void
@@ -63,19 +84,22 @@ package com.allofus.taqa.led.model
 				
 				if(vo)
 				{
+					logger.fatal("push to all items: " + vo);
+					logger.fatal("is it headline: " + vo.isHeadlineContent);
 					allItems.push(vo);
 					vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
 				}
 				vo = null;
 			}
+			dispatch(new Event(UPDATED));
 		}
 
 		protected function parseImageSlideVO(item:XML) : ImageSlideVO
 		{
 			var vo:ImageSlideVO = new ImageSlideVO();
 			vo.id = item.body.toString();
-			vo.id = vo.id.replace(basePathRegex, "");
-			vo.imageURL = item.body.toString();
+			vo.id = vo.id.replace(imagePathRegex, "");
+			vo.imageURL = configProxy.apiBaseURL + item.body.toString();
 			return vo;
 		}
 		
