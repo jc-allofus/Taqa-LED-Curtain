@@ -26,6 +26,8 @@ package com.allofus.taqa.led.view.mediator
 		public override function onRegister():void
 		{
 			eventMap.mapListener(view.stage, KeyboardEvent.KEY_DOWN, handleKeyDown);
+			
+			//eventMap.mapListener(view.stage.
 		}
 		
 		protected function handleKeyDown(event:KeyboardEvent):void

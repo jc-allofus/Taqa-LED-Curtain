@@ -1,5 +1,7 @@
 package
 {
+	import com.allofus.taqa.led.view.mediator.PositionPreferencesMediator;
+	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
 	import com.allofus.taqa.led.controller.startup.PrepareFSMCommand;
@@ -54,6 +56,7 @@ package
 			mediatorMap.createMediator(contextView); 
 			
 			mediatorMap.mapView(PreferencesPane, PreferencesPaneMediator);
+			mediatorMap.mapView(PositionPreferences, PositionPreferencesMediator);
 			mediatorMap.mapView(SmallLEDSource, SmallLEDSourceMediator);
 			mediatorMap.mapView(CinemaLED, CinemaLEDMediator);
 			mediatorMap.mapView(SmallLEDSliced, SmallLEDSlicedMediator);

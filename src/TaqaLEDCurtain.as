@@ -1,10 +1,5 @@
 package
 {
-	import flashx.textLayout.formats.Direction;
-	import com.allofus.shared.text.TLFTextManager;
-	import flashx.textLayout.elements.SpanElement;
-	import flashx.textLayout.elements.ParagraphElement;
-	import flashx.textLayout.elements.TextFlow;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.logging.LogWriter;
 	import com.allofus.shared.logging.MonsterDebuggerTarget;
@@ -43,7 +38,6 @@ package
 		
 		protected function initApp(event : Event = null) : void
 		{
-			trace("init app");
 //			initializeMonsterDebuggerLogging();
 			//initializeTraceLogging();
 			//initializeMonsterDebuggerLogging();
@@ -52,6 +46,9 @@ package
 			createLayers();
 			createContext();
 		}
+
+
+		
 		
 		protected function onApplicationInvoked(event : InvokeEvent) : void
 		{
