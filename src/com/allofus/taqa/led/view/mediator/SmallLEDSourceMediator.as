@@ -35,7 +35,7 @@ package com.allofus.taqa.led.view.mediator
 			eventMap.mapListener(eventDispatcher, SmallLEDProxy.UPDATED, handleModelUpdated);
 			
 			//listen for component events
-			eventMap.mapListener(view, AbstractLEDSource.PLAYING_NEXT_SLIDE, handleNextSlidePlaying);
+			eventMap.mapListener(view, AbstractLEDSource.REQUEST_NEXT_SLIDE, handleNextSlidePlaying);
 		}
 		
 		protected function handleModelUpdated(event:Event):void

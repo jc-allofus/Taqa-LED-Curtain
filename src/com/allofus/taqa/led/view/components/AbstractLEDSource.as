@@ -10,7 +10,7 @@ package com.allofus.taqa.led.view.components
 	public class AbstractLEDSource extends Sprite
 	{
 		
-		public static const PLAYING_NEXT_SLIDE:String = "abstractLEDSource/playingNext";
+		public static const REQUEST_NEXT_SLIDE:String = "abstractLEDSource/playingNext";
 		
 		public function AbstractLEDSource()
 		{
@@ -18,7 +18,7 @@ package com.allofus.taqa.led.view.components
 		
 		protected function notifyNextPlaying():void
 		{
-			dispatchEvent(new Event(PLAYING_NEXT_SLIDE));
+			dispatchEvent(new Event(REQUEST_NEXT_SLIDE));
 		}
 		
 		protected function bringToTop(vp:DisplayObject):void

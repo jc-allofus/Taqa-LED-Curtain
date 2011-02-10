@@ -26,6 +26,11 @@ package com.allofus.taqa.led.controller.startup
 		public static const CHECKING_PREFERENCES:String					= "state/checkingPreferences";
 		public static const CHECKING_PREFERENCES_COMPLETE:String		= "event/checkPreferencesComplete";
 		
+		public static const COPYING_VIDEOS:String						= "state/copyingVideos";
+		public static const COPY_VIDEOS:String							= "event/copyVideos";
+		public static const COPY_VIDEOS_COMPLETE:String					= "event/copyVideosComplete";
+		public static const COPY_VIDEOS_FAIL:String						= "event/copyVideosFail";
+		
 		public static const PREPARE_MODELS:String						= "event/prepareModelsCommand";
 		public static const PREPARING_MODELS:String						= "state/preparingModels";
 		public static const PREPARE_MODELS_SUCCESS:String				= "action/prepareModelsSuccess";
@@ -63,7 +68,12 @@ package com.allofus.taqa.led.controller.startup
 				</state>
 				
 				<state name={CHECKING_PREFERENCES} changed={CHECK_PREFERENCES}>
-					<transition action={CHECKING_PREFERENCES_COMPLETE} target={PREPARING_MODELS}/>
+					<transition action={CHECKING_PREFERENCES_COMPLETE} target={COPYING_VIDEOS}/>
+				</state>
+				
+				<state name={COPYING_VIDEOS} changed={COPY_VIDEOS}>
+					<transition action={COPY_VIDEOS_COMPLETE} target={PREPARING_MODELS} />
+					<transition action={COPY_VIDEOS_FAIL} target={PREPARING_MODELS} />
 				</state>
 				
 				<state name={PREPARING_MODELS} changed={PREPARE_MODELS}>

@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.view.components
 {
+	import com.allofus.taqa.led.view.slides.VideoSlide;
+	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -49,7 +51,17 @@ package com.allofus.taqa.led.view.components
 			logger.debug("make & show a slide: " + vo);
 			
 			queuedSlide = makeSlide(vo);
-			addChild(queuedSlide);
+			if(queuedSlide)
+			{
+				addChild(queuedSlide);
+			}
+			else
+			{
+				//logger.debug("we got null returned from a call to makeSlide() so request the next one.");
+				dispatchEvent(new Event(AbstractLEDSource.REQUEST_NEXT_SLIDE));
+				return;
+			}
+			
 			if(currentSlide)
 			{
 				//wait to get finished event from slide
@@ -76,6 +88,10 @@ package com.allofus.taqa.led.view.components
 			{
 				case ImageSlideVO.TYPE:
 					slide = new ImageSlide(vo as ImageSlideVO);
+					break;
+					
+				case VideoSlideVO.TYPE:
+					slide = new VideoSlide(vo as VideoSlideVO, WIDTH, HEIGHT);
 					break;
 			}
 			return slide;

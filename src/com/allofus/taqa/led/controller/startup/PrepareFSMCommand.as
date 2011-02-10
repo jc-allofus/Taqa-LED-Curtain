@@ -20,6 +20,7 @@ package com.allofus.taqa.led.controller.startup
 			commandMap.mapEvent(FSMConstants.DETECT_INTERNET_CONNECTION, DetectInternetConnectionCommand);
 			commandMap.mapEvent(FSMConstants.CHECK_APP_UPDATE, CheckApplicationUpdateCommand);
 			commandMap.mapEvent(FSMConstants.CHECK_PREFERENCES, CheckPreferencesCommand);
+			commandMap.mapEvent(FSMConstants.COPY_VIDEOS, CopyVideosCommand);
 			commandMap.mapEvent(FSMConstants.PREPARE_MODELS, PrepareModelCommand);
 			commandMap.mapEvent(FSMConstants.CONSTRUCT_VIEW, ConstructInitialViewCommand);
 			commandMap.mapEvent(FSMConstants.DO_APP_RUNNING, AppRunningCommand);

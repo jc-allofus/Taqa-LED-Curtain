@@ -1,12 +1,11 @@
 package com.allofus.taqa.led.view.preferences
 {
-	import com.bit101.components.Text;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.bit101.components.CheckBox;
-	import com.bit101.components.Label;
 	import com.bit101.components.NumericStepper;
 	import com.bit101.components.PushButton;
+	import com.bit101.components.Text;
 	import com.bit101.utils.MinimalConfigurator;
 
 	import mx.logging.ILogger;
@@ -56,6 +55,8 @@ package com.allofus.taqa.led.view.preferences
 		public var wpx:Text;
 		public var wpy:Text;
 		
+		public static var VIDEOS_DIR:File;
+		
 		public var btnOpnDir:PushButton;
 		
 		protected var config:MinimalConfigurator;		
@@ -83,7 +84,7 @@ package com.allofus.taqa.led.view.preferences
 		}
 		protected function handleOpenVidDir(event:Event = null):void
 		{
-			File.documentsDirectory.openWithDefaultApplication();	
+			VIDEOS_DIR.openWithDefaultApplication();	
 		}
 		
 		protected function handlePrefsChanged(event:Event):void

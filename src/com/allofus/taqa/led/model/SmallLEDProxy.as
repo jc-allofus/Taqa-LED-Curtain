@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.model
 {
+	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -72,6 +73,10 @@ package com.allofus.taqa.led.model
 						vo = parseImageSlideVO(item);
 						break;
 						
+					case SlideTypes.VIDEO_SMALL:
+						vo = parseVideoSlideVO(item);
+						break;
+						
 					default:
 						logger.warn("cannot handle this type in proxy for small LED: " + type);
 						vo = null;
@@ -94,6 +99,14 @@ package com.allofus.taqa.led.model
 			vo.id = item.body.toString();
 			vo.id = vo.id.replace(imagePathRegex, "");
 			vo.imageURL = configProxy.apiBaseURL + item.body.toString();
+			return vo;
+		}
+		
+		protected function parseVideoSlideVO(item:XML):VideoSlideVO
+		{
+			var vo:VideoSlideVO = new VideoSlideVO();
+			vo.id = item.body.toString();
+			vo.videoURL = configProxy.videosDir.url + "/" + item.body.toString();
 			return vo;
 		}
 		

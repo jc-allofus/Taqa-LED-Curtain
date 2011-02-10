@@ -1,13 +1,10 @@
 package com.allofus.taqa.led.view.video
 {
-	import com.allofus.taqa.led.view.EnglishScrollText;
-	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice;
 	import com.allofus.shared.logging.GetLogger;
 	import com.greensock.TweenMax;
 
 	import mx.logging.ILogger;
 
-	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -33,26 +30,18 @@ package com.allofus.taqa.led.view.video
 		
 		protected var transitionTimer:Timer;
 		
-		protected var testPattern:Bitmap;
-		
-		public function LoopVideoPlayer(width:int, height:int, vids:Array, useScrollingText:Boolean = false)
+		public function LoopVideoPlayer(width:int, height:int, vids:Array)
 		{
 			this.vids = vids;
 			
 			transitionTimer = new Timer(250);
 			transitionTimer.addEventListener(TimerEvent.TIMER, handleTimerTick);
 			
-			vid1 = new VideoPlayer("player 1", width, height, true);
+			vid1 = new VideoPlayer("player 1", width, height);
 
 			
 			vid2 = new VideoPlayer("player 2", width, height);
 			
-			if(useScrollingText)
-			{
-				logger.debug("showing scrolltext");
-				vid2.addTextScroller(new EnglishScrollText());
-			}
-
 			vid1.queueVideo(vids[currentIndex], true);
 			queuedIndex = getNext();
 			vid2.queueVideo(vids[queuedIndex]);
@@ -84,15 +73,7 @@ package com.allofus.taqa.led.view.video
 			queuedPlayer.alpha = 1;
 			queuedPlayer.visible = true;
 			queuedPlayer.play();
-			if(currentPlayer.usingMask)
-			{
-				currentPlayer.alphaMaskOut();
-				TweenMax.delayedCall(TRANSITION_DURATION, transitionComplete);
-			}
-			else
-			{
-				TweenMax.to(currentPlayer, TRANSITION_DURATION, {autoAlpha:0, onComplete:transitionComplete});
-			}
+			TweenMax.to(currentPlayer, TRANSITION_DURATION, {autoAlpha:0, onComplete:transitionComplete});
 		}
 		
 		protected function transitionComplete():void
@@ -116,10 +97,6 @@ package com.allofus.taqa.led.view.video
 			);
 			
 			transitionTimer.start();
-			if(currentPlayer.hasScrollText)
-			{
-				currentPlayer.startTextScrolling();
-			}
 		}
 		
 		protected function getNext():int
@@ -129,32 +106,9 @@ package com.allofus.taqa.led.view.video
 		
 		protected function bringToTop(vp:VideoPlayer):void
 		{
-			var ti:int = testPattern ? numChildren-2 : numChildren -1;
-			setChildIndex(vp, ti);
+			setChildIndex(vp, numChildren -1);
 		}
 		
-		public function showTestPattern(alpha:Number = 1):void
-		{
-			if(!testPattern)
-			{
-				testPattern = new Bitmap(new TestBitmapSlice(0, 0));
-				testPattern.alpha = alpha;
-				addChild(testPattern);
-			}
-		}
-		
-		public function hideTestPattern():void
-		{
-			if(testPattern)
-			{
-				if(contains(testPattern))
-				{
-					removeChild(testPattern);
-				}
-				testPattern.bitmapData.dispose();
-				testPattern = null;
-			}
-		}
 		
 		private static const logger:ILogger = GetLogger.qualifiedName( LoopVideoPlayer );
 	}

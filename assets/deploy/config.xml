@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaqaLEDCurtain>
 	<UpdateURL path="http://pga.allofusit.com/catalunya/deploy/update.xml" />
+	<!-- inside user's documents directory -->
+	<VideoPath path="TaqaLEDCurtainVideos"/>
 	<APIEndpoints>
 		<APIBaseURL path="http://taqa-cms.local:8888/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />

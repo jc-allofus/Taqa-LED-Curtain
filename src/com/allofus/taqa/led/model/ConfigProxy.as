@@ -12,6 +12,7 @@ package com.allofus.taqa.led.model
 	import mx.logging.ILogger;
 
 	import flash.events.Event;
+	import flash.filesystem.File;
 
 	/**
 	 * @author jc
@@ -33,6 +34,7 @@ package com.allofus.taqa.led.model
 		protected var _updateURL : String;
 		protected var _apiBaseURL : String;
 		protected var _imageBasePath:String;
+		protected var _videosDir:File;
 		private var _randomArabic : String;
 		
 		public function ConfigProxy()
@@ -80,6 +82,8 @@ package com.allofus.taqa.led.model
 				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
 				_updateURL = result.UpdateURL.@path;
 				_imageBasePath = result.ImageBasePath.@path;
+				var vidPath:String =result.VideoPath.@path; 
+				_videosDir = File.documentsDirectory.resolvePath(vidPath);
 				_randomArabic = result.RandomArabicString.toString();
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
 			}
@@ -118,6 +122,12 @@ package com.allofus.taqa.led.model
 		{
 			return _imageBasePath;
 		}
+
+		public function get videosDir() : File
+		{
+			return _videosDir;
+		}
+
 		private static const logger : ILogger = GetLogger.qualifiedName(ConfigProxy);
 	}
 }

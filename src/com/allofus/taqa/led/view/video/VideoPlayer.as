@@ -1,15 +1,10 @@
 package com.allofus.taqa.led.view.video
 {
-	import flash.display.DisplayObject;
-	import com.allofus.taqa.led.view.EnglishScrollText;
-	import com.greensock.TweenMax;
-	import nl.demonsters.debugger.MonsterDebugger;
-
 	import com.allofus.shared.logging.GetLogger;
 
 	import mx.logging.ILogger;
 
-	import flash.display.Shape;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
@@ -23,6 +18,8 @@ package com.allofus.taqa.led.view.video
 	public class VideoPlayer extends Sprite
 	{
 		
+		public static const READY:String = "videoplayer/ready";
+		
 		public var id:String;
 		
 		protected var videoWidth:int;
@@ -33,24 +30,19 @@ package com.allofus.taqa.led.view.video
 		protected var video:Video;
 		
 		protected var _renderState:String;
-		
 		private var _videoAttached : Boolean = false;
 		
 		private var _vidURL:String;
 		private var _autoplay:Boolean = false;
 		private var _duration:Number;
-		private var _useMask:Boolean;
 		
-		private var _mask : Shape;
-		private var scrollText : EnglishScrollText;
 
-		public function VideoPlayer(id:String, width:int, height:int, useMask:Boolean = false)
+		public function VideoPlayer(id:String, width:int, height:int)
 		{
 			this.id = id;
 			
 			videoWidth = width;
 			videoHeight = height;
-			_useMask = useMask;
 			if(stage == null)
 			{
 				addEventListener(Event.ADDED_TO_STAGE, initPlayer);
@@ -68,7 +60,10 @@ package com.allofus.taqa.led.view.video
 
 		protected function initPlayer(event : Event = null) : void
 		{
-			logger.debug("initPlayer.");
+			//logger.debug("initPlayer.");
+			
+			removeEventListener(Event.ADDED_TO_STAGE, initPlayer);
+			
 			connection = new NetConnection();
 			connection.connect(null);
 			
@@ -81,23 +76,12 @@ package com.allofus.taqa.led.view.video
 
 		protected function attachVideo():void
 		{
-			logger.info("creating video object..");
+//			logger.debug("creating video object..");
 			video = new Video(videoWidth, videoHeight);
 //			video.addEventListener(VideoEvent.RENDER_STATE, handleVideoObjectRender); //available in flash player v10.2, not sure which air runtime
 			video.attachNetStream(stream);
 			addChild(video);
 			_videoAttached = true;
-			
-			if(_useMask)
-			{
-				_mask = new Shape();
-				_mask.graphics.beginFill(0x0000cc);
-				_mask.graphics.drawRect(0, 0, videoWidth, videoHeight);
-				addChild(_mask);
-				mask = _mask;
-			}
-			
-					
 			
 			if(_vidURL)
 			{
@@ -105,59 +89,34 @@ package com.allofus.taqa.led.view.video
 			}
 		}
 
-//		private function handleVideoObjectRender(event : VideoEvent) : void
-//		{
-//			logger.info("event status: " + event.status);
-//			switch (event.status)
-//			{
-//				case VideoEvent.RENDER_STATUS_ACCELERATED:
-//					_renderState = VideoEvent.RENDER_STATUS_ACCELERATED;
-//					logger.info("GPU decoding, compositing in software.");
-//					break;
-//					
-//				case VideoEvent.RENDER_STATUS_SOFTWARE:
-//					_renderState = VideoEvent.RENDER_STATUS_SOFTWARE;
-//					logger.info("no GPU decoding, no GPU compositing");
-//					break;
-//					
-//				case VideoEvent.RENDER_STATUS_UNAVAILABLE:
-//					_renderState = VideoEvent.RENDER_STATUS_UNAVAILABLE;
-//					logger.info("unavialiable from regular video object.");
-//					break;
-//					
-//				default:
-//					logger.info("regular video object got a status that can't be recognized: " + event.status);
-//					break;
-//			}
-//		}
-
 		private function handleNetStatus(event : NetStatusEvent) : void
 		{
-			//logger.fatal("status: " + event.info.code);
+			//logger.debug("status: " + event.info.code);
 			switch(event.info["code"])
 			{
 				case "NetStream.Play.Stop":
 					// finished
-					logger.info("intro finished.");
+					logger.debug("stream reached end finished.");
+					dispatchEvent(new Event(Event.COMPLETE));
 					break;
 			}
 		}
 		
 		public function onMetaData(e:Object):void
 		{
-			logger.debug("loaded video metadata: " + e["duration"]);
-			MonsterDebugger.trace("metadata: " , e);
+			//logger.debug("loaded video metadata: " + e["duration"]);
 			_duration = Number(e["duration"]);
+			dispatchEvent(new Event(READY));
 		}
 		
 		public function onXMPData(e:Object):void
 		{
-			logger.debug("got XMPData : " + e);
+			//logger.debug("got XMPData : " + e);
 		}
 		
 		public function queueVideo(vidURL : String, autoplay:Boolean = false) : void
 		{
-			logger.debug("queue video: " + vidURL + ", autoplay: " + autoplay);
+			//logger.debug("queue video: " + vidURL + ", autoplay: " + autoplay);
 			_autoplay = autoplay;
 			if (_vidURL != vidURL)
 			{
@@ -171,16 +130,6 @@ package com.allofus.taqa.led.view.video
 			if(stream.time > 0)
 			{
 				stream.seek(0);
-			}
-			
-			if(_mask)
-			{
-				_mask.scaleX = 1;
-			}
-			
-			if(hasScrollText)
-			{
-				scrollText.stopScrolling();
 			}
 			
 			if(_autoplay)
@@ -201,10 +150,6 @@ package com.allofus.taqa.led.view.video
 		public function play() : void
 		{
 			stream.resume();
-			if(_mask)
-			{
-				_mask.scaleX = 1;
-			}
 		}
 		
 		public function get currentTime():Number
@@ -212,15 +157,9 @@ package com.allofus.taqa.led.view.video
 			return stream.time;
 		}
 
-
 		public function get duration() : Number
 		{
 			return _duration;
-		}
-		
-		public function get usingMask():Boolean
-		{
-			return _useMask;
 		}
 		
 		override public function toString():String
@@ -228,35 +167,28 @@ package com.allofus.taqa.led.view.video
 			return "[VideoPlayer] -> " + id;
 		}
 		
-
-		public function alphaMaskOut() : void
-		{
-			TweenMax.to(_mask, LoopVideoPlayer.TRANSITION_DURATION, {scaleX:0});
-		}
-
-		private static const logger : ILogger = GetLogger.qualifiedName(VideoPlayer);
-
-		public function addTextScroller(value:EnglishScrollText) : void
-		{
-			scrollText = value;
-			addChild(scrollText);
-		}
-		
-		public function get hasScrollText():Boolean
-		{
-			if(!scrollText) return false;
-			return contains(scrollText);
-		}
-
-		public function startTextScrolling() : void
-		{
-			bringToTop(scrollText);
-			scrollText.startScrolling(videoWidth);
-		}
-		
 		protected function bringToTop(vp:DisplayObject):void
 		{
 			setChildIndex(vp, numChildren -1);
 		}
+
+		public function dispose() : void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, initPlayer);
+			
+			video.attachNetStream(null);
+			video.clear();
+			if(contains(video))removeChild(video);
+			video = null;
+
+			stream.removeEventListener(NetStatusEvent.NET_STATUS, handleNetStatus);
+			stream.close();
+			stream = null;
+
+			connection.close();
+			connection = null;
+		}
+
+		private static const logger : ILogger = GetLogger.qualifiedName(VideoPlayer);
 	}
 }
