@@ -28,7 +28,7 @@ package com.allofus.taqa.led.view.components
 		
 		protected var testPattern:Bitmap;
 		
-		//slide refs
+		//slide refs (video & image)
 		protected var currentSlide:AbstractSlide;
 		protected var queuedSlide:AbstractSlide;
 		protected var slideToDispose:AbstractSlide;

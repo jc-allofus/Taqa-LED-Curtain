@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.model
 {
+	import flash.utils.getTimer;
+	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
 	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
@@ -77,8 +79,13 @@ package com.allofus.taqa.led.model
 						vo = parseVideoSlideVO(item);
 						break;
 						
+					case SlideTypes.SCROLLING_TEXT_SMALL:
+						vo = parseScrollingTextVO(item);
+						break;
+						
+					case SlideTypes.SCROLLING_TEXT_PIXEL:
 					default:
-						logger.warn("cannot handle this type in proxy for small LED: " + type);
+						logger.warn("no parsing implemented for: " + type);
 						vo = null;
 						break;
 				}
@@ -107,6 +114,17 @@ package com.allofus.taqa.led.model
 			var vo:VideoSlideVO = new VideoSlideVO();
 			vo.id = item.body.toString();
 			vo.videoURL = configProxy.videosDir.url + "/" + item.body.toString();
+			return vo;
+		}
+		
+		protected function parseScrollingTextVO(item:XML):ScrollingTextVO
+		{
+			var vo:ScrollingTextVO = new ScrollingTextVO();
+			vo.id = "st"+getTimer();
+			vo.isHeadlineContent = item.headline.toString() == "Yes";
+			vo.language = item.body_language.toString();
+			vo.theme = item.theme.toString();
+			vo.text = item.body.toString();
 			return vo;
 		}
 		
