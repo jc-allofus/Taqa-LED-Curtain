@@ -48,7 +48,7 @@ package com.allofus.taqa.led.model.vo
 
 		public function get type() : String
 		{
-			return null;
+			return TYPE;
 		}
 	}
 }

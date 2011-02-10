@@ -1,13 +1,14 @@
 package com.allofus.taqa.led.view.components
 {
-	import com.allofus.taqa.led.view.slides.VideoSlide;
-	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
+	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
+	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.taqa.led.view.slides.AbstractSlide;
 	import com.allofus.taqa.led.view.slides.ImageSlide;
+	import com.allofus.taqa.led.view.slides.VideoSlide;
 	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice;
 
 	import mx.logging.ILogger;
@@ -57,7 +58,7 @@ package com.allofus.taqa.led.view.components
 			}
 			else
 			{
-				//logger.debug("we got null returned from a call to makeSlide() so request the next one.");
+				logger.debug("we got null returned from a call to makeSlide() so request the next one.");
 				dispatchEvent(new Event(AbstractLEDSource.REQUEST_NEXT_SLIDE));
 				return;
 			}
@@ -92,6 +93,11 @@ package com.allofus.taqa.led.view.components
 					
 				case VideoSlideVO.TYPE:
 					slide = new VideoSlide(vo as VideoSlideVO, WIDTH, HEIGHT);
+					break;
+					
+				case ScrollingTextVO.TYPE:
+					logger.fatal("here we got a text slide.");
+					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
 					break;
 			}
 			return slide;
