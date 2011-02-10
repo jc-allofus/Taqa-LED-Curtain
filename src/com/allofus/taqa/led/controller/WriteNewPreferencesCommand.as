@@ -20,7 +20,6 @@ package com.allofus.taqa.led.controller
 		
 		override public function execute():void
 		{
-			logger.info("write new prefs to file. ");
 			
 			//position prefs
 			var posString:String = '<?xml version="1.0" encoding="utf-8"?>\n';

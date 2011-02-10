@@ -77,7 +77,7 @@ package com.allofus.taqa.led.view.slides
 		
 		protected function handleLoadComplete(event:LoaderEvent):void
 		{
-			logger.debug("image finished loading");
+			//logger.debug("image finished loading");
 			ready = true;
 		}
 		
@@ -108,7 +108,7 @@ package com.allofus.taqa.led.view.slides
 		
 		protected function handleTimerComplete(event:TimerEvent):void
 		{
-			logger.debug("image finished, dispatch complete.");
+			//logger.debug("image finished, dispatch complete.");
 			onComplete();
 		}
 		

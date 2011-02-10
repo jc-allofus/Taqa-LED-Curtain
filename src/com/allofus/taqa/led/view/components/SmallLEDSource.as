@@ -46,14 +46,14 @@ package com.allofus.taqa.led.view.components
 		
 		public function queueSlide(vo : ISlideVO) : void
 		{
-			logger.debug("i will make & show a slide: " + vo);
+			logger.debug("make & show a slide: " + vo);
 			
 			queuedSlide = makeSlide(vo);
 			addChild(queuedSlide);
 			if(currentSlide)
 			{
 				//wait to get finished event from slide
-				logger.info("i've got a queued slide, but i'm gonna chillax till the current dude is done playing...");
+				//logger.info("i've got a queued slide, but i'm gonna chillax till the current dude is done playing...");
 			}
 			else
 			{
@@ -111,18 +111,19 @@ package com.allofus.taqa.led.view.components
 		{
 			if(slideToDispose)
 			{
-				logger.debug("disposing: " + slideToDispose);
+				//logger.debug("disposing: " + slideToDispose);
 				if(contains(slideToDispose))removeChild(slideToDispose);
 				slideToDispose.dispose();
+				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);
 				slideToDispose.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
-				slideToDispose.addEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
+				slideToDispose.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
 				slideToDispose = null;
 			}
 		}
 		
 		protected function handleSlideFinished(event:Event):void
 		{
-			logger.debug("slide finished.");
+			//logger.debug("slide finished.");
 			playQueued();
 		}
 		

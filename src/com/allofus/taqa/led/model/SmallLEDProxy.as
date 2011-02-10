@@ -35,9 +35,6 @@ package com.allofus.taqa.led.model
 			headlineItems = new Vector.<ISlideVO>();
 			notHeadlineItems = new Vector.<ISlideVO>();
 			history = new Vector.<ISlideVO>();
-			
-			//basePathRegex= new RegExp(configProxy.apiBaseURL + configProxy.imageBasePath, "g");
-			logger.debug("dp" + configProxy);
 		}
 		
 		public function getNext():ISlideVO
@@ -47,7 +44,6 @@ package com.allofus.taqa.led.model
 			{
 				selected = allItems[index];
 				history.push(selected);
-				logger.fatal("sending: " + selected + " i: " + index);
 				if(index + 1 > allItems.length -1)
 				{
 					index = 0;
@@ -84,8 +80,6 @@ package com.allofus.taqa.led.model
 				
 				if(vo)
 				{
-					logger.fatal("push to all items: " + vo);
-					logger.fatal("is it headline: " + vo.isHeadlineContent);
 					allItems.push(vo);
 					vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
 				}

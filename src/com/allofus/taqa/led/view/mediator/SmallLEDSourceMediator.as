@@ -41,10 +41,10 @@ package com.allofus.taqa.led.view.mediator
 		protected function handleModelUpdated(event:Event):void
 		{
 			logger.warn("debug, i see the update.");
-			initSmallLED();
+			queueNextSlide();
 		}
 		
-		protected function initSmallLED():void
+		protected function queueNextSlide():void
 		{
 			var vo:ISlideVO = model.getNext();
 			if(vo)
@@ -65,8 +65,7 @@ package com.allofus.taqa.led.view.mediator
 		protected function handleNextSlidePlaying(event:Event):void
 		{
 			//we just started playing the slide that was queued so queue up the next one
-			logger.debug("we just started playing the slide that was queued so queue up the next one");
-			initSmallLED();
+			queueNextSlide();
 		}
 		
 		private static const logger:ILogger = GetLogger.qualifiedName( SmallLEDSourceMediator );

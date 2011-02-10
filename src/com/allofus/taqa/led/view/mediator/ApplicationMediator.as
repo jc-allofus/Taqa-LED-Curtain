@@ -1,13 +1,11 @@
 package com.allofus.taqa.led.view.mediator
 {
 	import com.allofus.shared.logging.GetLogger;
-	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 
 	import org.robotlegs.mvcs.Mediator;
 
 	import mx.logging.ILogger;
 
-	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 
