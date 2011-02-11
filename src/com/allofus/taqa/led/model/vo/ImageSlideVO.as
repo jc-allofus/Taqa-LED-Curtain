@@ -1,6 +1,5 @@
 package com.allofus.taqa.led.model.vo
 {
-	import com.allofus.taqa.led.model.SlideTypes;
 	/**
 	 * @author jc
 	 */
@@ -9,10 +8,10 @@ package com.allofus.taqa.led.model.vo
 		//vars on interface
 		protected var _id:String;
 		protected var _isHeadlineContent:Boolean;
+		protected var _type:String;
 		
 		//vars specific to this content type
 		public var imageURL:String;
-		public static const TYPE:String = SlideTypes.IMAGE_SMALL;
 		
 		public function toString():String
 		{
@@ -20,7 +19,7 @@ package com.allofus.taqa.led.model.vo
 			+ "  id: " + id
 			+ "  imageURL: " + imageURL
 			+ "  isheadlineContent: " + isHeadlineContent
-			+ ", TYPE: " + TYPE;
+			+ ", TYPE: " + type;
 		}
 
 		public function get id() : String
@@ -35,7 +34,12 @@ package com.allofus.taqa.led.model.vo
 
 		public function get type() : String
 		{
-			return TYPE;
+			return _type;
+		}
+		
+		public function set type(value:String):void
+		{
+			_type = value;
 		}
 
 		public function get isHeadlineContent() : Boolean
@@ -47,7 +51,5 @@ package com.allofus.taqa.led.model.vo
 		{
 			_isHeadlineContent = isHeadlineContent;
 		}
-
-		
 	}
 }

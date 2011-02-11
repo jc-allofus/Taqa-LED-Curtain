@@ -1,11 +1,11 @@
 package com.allofus.taqa.led.view.text
 {
 	import com.allofus.shared.logging.GetLogger;
-	import com.allofus.taqa.led.view.components.ScrollingTextSlide;
-
+	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
+	import flash.display.Sprite;
 	import mx.logging.ILogger;
 
-	import flash.display.Sprite;
+
 
 	/**
 	 * @author jc

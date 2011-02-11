@@ -1,10 +1,10 @@
-package com.allofus.taqa.led.view.components
+package com.allofus.taqa.led.view.slides
 {
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.model.Languages;
 	import com.allofus.taqa.led.model.Themes;
 	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
-	import com.allofus.taqa.led.view.slides.AbstractSlide;
+	import com.allofus.taqa.led.view.components.GradientBG;
 	import com.allofus.taqa.led.view.text.IScrollState;
 	import com.allofus.taqa.led.view.text.ScrollStateLTR;
 	import com.allofus.taqa.led.view.text.ScrollStateRTL;
@@ -12,10 +12,10 @@ package com.allofus.taqa.led.view.components
 	import com.allofus.taqa.led.view.text.TypeStyles;
 	import com.allofus.taqa.led.view.video.LoopVideoPlayer;
 	import com.allofus.taqa.ledcurtain.swcassets.SolarMask;
-
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+
 
 	/**
 	 * @author jc
@@ -66,13 +66,13 @@ package com.allofus.taqa.led.view.components
 				case Themes.ATOMIC:
 				case Themes.GENERIC:
 					
-					vidBGs = [vo.bgVidsDir + "atomic.f4v", vo.bgVidsDir + "solar.f4v"];
+					vidBGs = [vo.bgVidsDir + "atomic.f4v", vo.bgVidsDir + "atomic.f4v"];
 					break;
 					
 				case Themes.GEOTHERMAL:
 				case Themes.SOLAR:
 				case Themes.WIND:
-					vidBGs = [vo.bgVidsDir + "solar.f4v", vo.bgVidsDir + "atomic.f4v"];
+					vidBGs = [vo.bgVidsDir + "solar.f4v", vo.bgVidsDir + "solar.f4v"];
 					break;
 			}
 			_videoBG= new LoopVideoPlayer(_slideWidth, _slideHeight, vidBGs);

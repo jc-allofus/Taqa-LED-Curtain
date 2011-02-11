@@ -40,14 +40,17 @@ package com.allofus.taqa.led.model
 				{
 					case SlideTypes.IMAGE_SMALL:
 						vo = parseImageSlideVO(item);
+						vo.type = SlideTypes.IMAGE_SMALL;
 						break;
 						
 					case SlideTypes.VIDEO_SMALL:
 						vo = parseVideoSlideVO(item);
+						vo.type = SlideTypes.VIDEO_SMALL;
 						break;
 						
 					case SlideTypes.SCROLLING_TEXT_SMALL:
 						vo = parseScrollingTextVO(item);
+						vo.type = SlideTypes.SCROLLING_TEXT_SMALL;
 						break;
 						
 					case SlideTypes.SCROLLING_TEXT_PIXEL:

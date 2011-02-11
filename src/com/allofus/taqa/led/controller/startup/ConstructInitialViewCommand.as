@@ -1,16 +1,16 @@
 package com.allofus.taqa.led.controller.startup
 {
-	import com.allofus.taqa.led.view.components.SmallLEDSliced;
 	import com.allofus.shared.logging.GetLogger;
-	import com.allofus.shared.text.FontManager;
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.model.ConfigProxy;
+	import com.allofus.taqa.led.view.components.CinemaLED;
+	import com.allofus.taqa.led.view.components.SmallLEDSliced;
 	import com.allofus.taqa.led.view.components.SmallLEDSource;
 	import com.allofus.taqa.led.view.preferences.PreferencesPane;
-	import flash.display.Sprite;
-	import flashx.textLayout.formats.Direction;
-	import mx.logging.ILogger;
+
 	import org.robotlegs.mvcs.Command;
+
+	import mx.logging.ILogger;
 
 	/**
 	 * @author jc
@@ -29,6 +29,8 @@ package com.allofus.taqa.led.controller.startup
 			var smallLEDSliced:SmallLEDSliced = new SmallLEDSliced(smallLEDSource);
 			contextView.addChild(smallLEDSliced);
 			
+			var cinemaLED:CinemaLED = new CinemaLED();
+			contextView.addChild(cinemaLED);
 			
 			var preferencesPane:PreferencesPane = new PreferencesPane(configProxy.randomArabic);
 			contextView.addChild(preferencesPane);

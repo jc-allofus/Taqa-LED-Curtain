@@ -111,6 +111,8 @@ package com.allofus.taqa.led.view.video
 
 		public function dispose() : void
 		{
+			logger.fatal("im disposing");
+			TweenMax.killTweensOf(currentPlayer);
 			transitionTimer.removeEventListener(TimerEvent.TIMER, handleTimerTick);
 			transitionTimer.stop();
 			transitionTimer = null;

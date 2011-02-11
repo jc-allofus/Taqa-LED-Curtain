@@ -1,7 +1,6 @@
 package com.allofus.taqa.led.model.vo
 {
 
-	import com.allofus.taqa.led.model.SlideTypes;
 	/**
 	 * @author jc
 	 */
@@ -9,11 +8,12 @@ package com.allofus.taqa.led.model.vo
 	{
 		protected var _id:String; //do NOT rely on this to be unique; should we add something to the api that gives us unique id?
 		protected var _isHeadline:Boolean;
+		protected var _type:String;
+
 		public var text:String;
 		public var language:String;
 		public var theme:String;
 		public var bgVidsDir:String;
-		public static const TYPE:String = SlideTypes.SCROLLING_TEXT_SMALL;
 		
 		
 		public function toString():String
@@ -50,7 +50,12 @@ package com.allofus.taqa.led.model.vo
 
 		public function get type() : String
 		{
-			return TYPE;
+			return _type;
+		}
+		
+		public function set type(value:String):void
+		{
+			_type = value;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.view.components
 {
+	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -8,6 +9,7 @@ package com.allofus.taqa.led.view.components
 	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.taqa.led.view.slides.AbstractSlide;
 	import com.allofus.taqa.led.view.slides.ImageSlide;
+	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
 	import com.allofus.taqa.led.view.slides.VideoSlide;
 	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice;
 
@@ -15,10 +17,7 @@ package com.allofus.taqa.led.view.components
 
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
-	import flash.events.Event;
-	import flash.filesystem.File;
 	import flash.geom.Rectangle;
-
 
 	/**
 	 * @author jc
@@ -30,50 +29,40 @@ package com.allofus.taqa.led.view.components
 		
 		protected var testPattern:Bitmap;
 		
-		//slide refs (video & image)
-		protected var currentSlide:AbstractSlide;
-		protected var queuedSlide:AbstractSlide;
-		protected var slideToDispose:AbstractSlide;
-		
-		protected var _running:Boolean = false;
-		
-		
 		public function SmallLEDSource()
 		{
 			var r:Rectangle = new Rectangle(0,0,WIDTH,HEIGHT);
 			scrollRect = r;
 			
-			graphics.beginFill(0xff0000);
+			graphics.beginFill(0x333333);
 			graphics.drawRect(0, 0, WIDTH, HEIGHT);
 			
 			updateToPrefs();
 		}
 		
-		public function queueSlide(vo : ISlideVO) : void
+		override protected function makeSlide(vo:ISlideVO):AbstractSlide
 		{
-			logger.debug("make & show a slide: " + vo.id + " - " + vo.type);
-			
-			queuedSlide = makeSlide(vo);
-			if(queuedSlide)
+			var slide:AbstractSlide;
+			switch (vo.type)
 			{
-				addChild(queuedSlide);
+				case SlideTypes.IMAGE_SMALL:
+					slide = new ImageSlide(vo as ImageSlideVO);
+					break;
+					
+				case SlideTypes.VIDEO_SMALL:
+					slide = new VideoSlide(vo as VideoSlideVO, WIDTH, HEIGHT);
+					break;
+					
+				case SlideTypes.SCROLLING_TEXT_SMALL:
+					//logger.fatal("here we got a text slide.");
+					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
+					break;
+					
+				default:
+					logger.warn("don't know/haven't implemented how to make:" + vo.type);
+					break;
 			}
-			else
-			{
-				logger.debug("we got null returned from a call to makeSlide() so request the next one.");
-				dispatchEvent(new Event(AbstractLEDSource.REQUEST_NEXT_SLIDE));
-				return;
-			}
-			
-			if(currentSlide)
-			{
-				//wait to get finished event from slide
-				//logger.info("i've got a queued slide, but i'm gonna chillax till the current dude is done playing...");
-			}
-			else
-			{
-				playQueued();
-			}
+			return slide;
 		}
 		
 		public function updateToPrefs():void
@@ -82,73 +71,6 @@ package com.allofus.taqa.led.view.components
 			y = PositionPreferences.SMALL_LED_Y;
 			PositionPreferences.SHOW_SMALL_LED_TESTPATTERN ? showTestPattern() : hideTestPattern();
 			visible = PositionPreferences.SHOW_SMALL_LED_SOURCE;
-		}
-		
-		protected function makeSlide(vo:ISlideVO):AbstractSlide
-		{
-			var slide:AbstractSlide;
-			switch (vo.type)
-			{
-				case ImageSlideVO.TYPE:
-					slide = new ImageSlide(vo as ImageSlideVO);
-					break;
-					
-				case VideoSlideVO.TYPE:
-					slide = new VideoSlide(vo as VideoSlideVO, WIDTH, HEIGHT);
-					break;
-					
-				case ScrollingTextVO.TYPE:
-					//logger.fatal("here we got a text slide.");
-					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
-					break;
-			}
-			return slide;
-		}
-		
-		protected function playQueued(event:Event = null):void
-		{
-			if(queuedSlide.ready)
-			{
-				//first update our references
-				slideToDispose = currentSlide;
-				currentSlide = queuedSlide;
-				queuedSlide = null;
-				
-				//then get our new current slide transitioning in
-				currentSlide.removeEventListener(AbstractSlide.READY, playQueued);
-				currentSlide.addEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
-				currentSlide.addEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
-				bringToTop(currentSlide);
-				currentSlide.transitionIn();
-				
-				notifyNextPlaying();
-				_running = true;
-			}
-			else
-			{
-				logger.warn("oh feck! queued slide not ready: "  +queuedSlide);
-				queuedSlide.addEventListener(AbstractSlide.READY, playQueued);
-			}
-		}
-
-		private function handleCurrentSlideTransitionInComplete(event : Event) : void
-		{
-			if(slideToDispose)
-			{
-				//logger.debug("disposing: " + slideToDispose);
-				if(contains(slideToDispose))removeChild(slideToDispose);
-				slideToDispose.dispose();
-				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);
-				slideToDispose.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
-				slideToDispose.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
-				slideToDispose = null;
-			}
-		}
-		
-		protected function handleSlideFinished(event:Event):void
-		{
-			//logger.debug("slide finished.");
-			playQueued();
 		}
 		
 		override protected function bringToTop(vp:DisplayObject):void

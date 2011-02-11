@@ -11,6 +11,7 @@ package com.allofus.taqa.led.model.vo
 		function get isHeadlineContent():Boolean;
 		function set isHeadlineContent(value:Boolean):void;
 		
-		function get type():String; //read-only
+		function get type():String;
+		function set type(value:String):void;
 	}
 }

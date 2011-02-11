@@ -1,7 +1,6 @@
 package com.allofus.taqa.led.model.vo
 {
 
-	import com.allofus.taqa.led.model.SlideTypes;
 	/**
 	 * @author jc
 	 */
@@ -9,14 +8,14 @@ package com.allofus.taqa.led.model.vo
 	{
 		protected var _id:String;
 		public var videoURL:String;
-		public static const TYPE:String = SlideTypes.VIDEO_SMALL;
+		public var _type:String;
 		
 		public function toString():String
 		{
 			return "[VideoSlideVO]: "
 			+ "  id: " + _id 
 			+ ", videoURL: " + videoURL 
-			+ ", type: " + TYPE
+			+ ", type: " + type
 			;
 		}
 		
@@ -35,15 +34,17 @@ package com.allofus.taqa.led.model.vo
 		{
 			return false;
 		}
+		
+		public function set isHeadlineContent(value : Boolean) : void{}
 
 		public function get type() : String
 		{
-			return TYPE;
+			return _type;
 		}
 
-
-		public function set isHeadlineContent(value : Boolean) : void
+		public function set type(type : String) : void
 		{
+			_type = type;
 		}
 	}
 }

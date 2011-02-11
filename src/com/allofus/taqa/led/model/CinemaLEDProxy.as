@@ -31,10 +31,12 @@ package com.allofus.taqa.led.model
 				{
 					case SlideTypes.IMAGE_CINEMA:
 						vo = parseImageSlideVO(item);
+						vo.type = SlideTypes.IMAGE_CINEMA;
 						break;
 						
 					case SlideTypes.VIDEO_CINEMA:
 						vo = parseVideoSlideVO(item);
+						vo.type = SlideTypes.VIDEO_CINEMA;
 						break;
 						
 					default:
