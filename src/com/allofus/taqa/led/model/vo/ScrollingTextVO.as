@@ -12,6 +12,7 @@ package com.allofus.taqa.led.model.vo
 		public var text:String;
 		public var language:String;
 		public var theme:String;
+		public var bgVidsDir:String;
 		public static const TYPE:String = SlideTypes.SCROLLING_TEXT_SMALL;
 		
 		
@@ -22,6 +23,7 @@ package com.allofus.taqa.led.model.vo
 			+ ", isHeadline: " + isHeadlineContent
 			+ ", language: " + language
 			+ ", theme: " + theme
+			+ ", vidsDir: " + bgVidsDir
 			+ ", text" + text
 			;
 		}

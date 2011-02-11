@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.view.video
 {
+	import nl.demonsters.debugger.MonsterDebugger;
 	import com.allofus.shared.logging.GetLogger;
 
 	import mx.logging.ILogger;
@@ -98,6 +99,14 @@ package com.allofus.taqa.led.view.video
 					// finished
 					logger.debug("stream reached end finished.");
 					dispatchEvent(new Event(Event.COMPLETE));
+					break;
+					
+				case "NetStream.Play.StreamNotFound":
+					logger.error("stream not found" + _vidURL);
+					break;
+					
+				default:
+					//logger.info("here is info: " + event.info);
 					break;
 			}
 		}

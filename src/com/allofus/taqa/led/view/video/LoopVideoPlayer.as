@@ -68,7 +68,7 @@ package com.allofus.taqa.led.view.video
 		
 		protected function startTransition():void
 		{
-			logger.warn("starting transition.");
+//			logger.debug("starting transition.");
 			bringToTop(currentPlayer);
 			queuedPlayer.alpha = 1;
 			queuedPlayer.visible = true;
@@ -88,13 +88,13 @@ package com.allofus.taqa.led.view.video
 			
 			queuedPlayer.queueVideo(vids[queuedIndex]);
 			
-			logger.info("switched videos: " 
-				+ "  currentIndex: " + currentIndex
-				+ ", queuedIndex: " + queuedIndex 
-				+ ", next video: " + vids[queuedIndex]
-				+ ", currentPlayer: " + currentPlayer
-				+ ", queuedPlayer: " + queuedPlayer
-			);
+//			logger.debug("switched videos: " 
+//				+ "  currentIndex: " + currentIndex
+//				+ ", queuedIndex: " + queuedIndex 
+//				+ ", next video: " + vids[queuedIndex]
+//				+ ", currentPlayer: " + currentPlayer
+//				+ ", queuedPlayer: " + queuedPlayer
+//			);
 			
 			transitionTimer.start();
 		}
@@ -108,8 +108,30 @@ package com.allofus.taqa.led.view.video
 		{
 			setChildIndex(vp, numChildren -1);
 		}
-		
-		
-		private static const logger:ILogger = GetLogger.qualifiedName( LoopVideoPlayer );
+
+		public function dispose() : void
+		{
+			transitionTimer.removeEventListener(TimerEvent.TIMER, handleTimerTick);
+			transitionTimer.stop();
+			transitionTimer = null;
+			
+			while(numChildren > 0)
+			{
+				removeChildAt(0);
+			}
+			
+			vids.length = 0;
+			vids = null;
+			
+			currentPlayer = null;
+			queuedPlayer = null;
+			
+			vid1.dispose();
+			vid1 = null;
+
+			vid2.dispose();
+			vid2 = null;
+		}
+		private static const logger : ILogger = GetLogger.qualifiedName(LoopVideoPlayer);
 	}
 }

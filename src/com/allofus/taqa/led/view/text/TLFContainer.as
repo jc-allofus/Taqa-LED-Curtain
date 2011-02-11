@@ -20,6 +20,9 @@ package com.allofus.taqa.led.view.text
 		public function refresh():void
 		{
 			_flow.flowComposer.updateAllControllers();
+//			graphics.clear();
+//			graphics.beginFill(0x00cc00);
+//			graphics.drawRect(0, 0, width, height);
 		}
 		
 		public function set format(format:TextLayoutFormat):void

@@ -11,3 +11,4 @@ Thumbs.db
 bin-debug
 build/user.properties
 build/user.build.xml
+lib/swc/Assets.swf

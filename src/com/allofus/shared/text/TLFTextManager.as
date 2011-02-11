@@ -1,23 +1,20 @@
 package com.allofus.shared.text
 {
-	import com.allofus.taqa.led.view.text.TLFContainer;
-	import flashx.textLayout.formats.TextLayoutFormat;
 	import flashx.textLayout.container.ContainerController;
 	import flashx.textLayout.elements.ParagraphElement;
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.elements.TextFlow;
 	import flashx.textLayout.formats.Direction;
 	import flashx.textLayout.formats.LineBreak;
+	import flashx.textLayout.formats.TextLayoutFormat;
 
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.view.text.TLFContainer;
 
 	import mx.logging.ILogger;
 
-	import flash.display.Sprite;
 	import flash.text.Font;
 	import flash.text.StyleSheet;
-	import flash.text.engine.FontLookup;
-	import flash.text.engine.RenderingMode;
 	/**
 	 * @author jcehle
 	 */
@@ -47,7 +44,6 @@ package com.allofus.shared.text
 //			container.graphics.beginFill(0x00cc00, 0.5);
 //			container.graphics.drawRect(0, 0, container.width, container.height);
 			container.flow = flow;
-			
 			return container;
 		}
 		

@@ -16,6 +16,7 @@ package com.allofus.taqa.led.view.components
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.filesystem.File;
 	import flash.geom.Rectangle;
 
 
@@ -36,6 +37,7 @@ package com.allofus.taqa.led.view.components
 		
 		protected var _running:Boolean = false;
 		
+		
 		public function SmallLEDSource()
 		{
 			var r:Rectangle = new Rectangle(0,0,WIDTH,HEIGHT);
@@ -49,7 +51,7 @@ package com.allofus.taqa.led.view.components
 		
 		public function queueSlide(vo : ISlideVO) : void
 		{
-			logger.debug("make & show a slide: " + vo);
+			logger.debug("make & show a slide: " + vo.id + " - " + vo.type);
 			
 			queuedSlide = makeSlide(vo);
 			if(queuedSlide)
@@ -96,7 +98,7 @@ package com.allofus.taqa.led.view.components
 					break;
 					
 				case ScrollingTextVO.TYPE:
-					logger.fatal("here we got a text slide.");
+					//logger.fatal("here we got a text slide.");
 					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
 					break;
 			}
