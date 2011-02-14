@@ -47,7 +47,6 @@ package
 			
 			//SERVICE			
 			injector.mapSingleton(ApplicationUpdaterService);
-			//injector.mapSingleton(UpdatePropertyInfoService);
 			injector.mapSingleton(PreferencesService);
 			
 			//VIEW

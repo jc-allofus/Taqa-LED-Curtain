@@ -43,7 +43,6 @@ package
 			//initializeMonsterDebuggerLogging();
 			initializeSOSLogging();
 			initializeFileLogging();
-			createLayers();
 			createContext();
 		}
 
@@ -95,36 +94,6 @@ package
 			Log.addTarget(fileLogTarget);
 		}
 		
-		protected function createLayers():void
-		{
-//			var a:Array = ["assets/videos/s1_01_sun_848x34.mp4", "assets/videos/s1_01_wind_848x34.mp4"];
-//			var vidLoop1:LoopVideoPlayer = new LoopVideoPlayer(848, 34, a,true);
-//			vidLoop1.x = 75;
-//			vidLoop1.y = 150;
-//			addChild(vidLoop1);
-//			
-//			var b:Array = ["assets/videos/s2_sun_640x127.mp4", "assets/videos/s2_wind_640x127.mp4"];
-//			var vidLoop2:LoopVideoPlayer = new LoopVideoPlayer(640, 127, b);
-//			vidLoop2.x = 75;
-//			vidLoop2.y = 200;
-//			addChild(vidLoop2);
-//			
-//			var snapshot:BannerSnapshot = new BannerSnapshot(vidLoop1);
-//			addChild(snapshot);
-//			
-//			vidLoop1.showTestPattern(0.4);
-			
-
-//			_statsLayer = new Sprite();
-//			//_statsLayer.visible = false;
-//			
-//			addChild(_statsLayer);
-
-//			addChild(new PreferencesPane());
-
-
-			
-		}
 		
 		protected function createContext() : void
 		{

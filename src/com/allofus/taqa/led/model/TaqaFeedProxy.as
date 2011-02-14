@@ -35,7 +35,7 @@ package com.allofus.taqa.led.model
 		
 		public function set data(xml:XML):void
 		{
-			//TODO implement in children.
+			logger.error("must implement set data() in descendant class.");
 		}
 		
 		public function getNext():ISlideVO

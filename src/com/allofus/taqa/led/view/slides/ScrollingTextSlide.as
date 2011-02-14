@@ -51,7 +51,7 @@ package com.allofus.taqa.led.view.slides
 			{
 				case Languages.ENGLISH:
 					_textSprite = TLFTextManager.createText(vo.text, TypeStyles.englishLarge);
-					scrollState = _scrollStateRTL;//TODO implement a RTL
+					scrollState = _scrollStateRTL;
 					break;
 				
 				case Languages.ARABIC:
@@ -64,9 +64,12 @@ package com.allofus.taqa.led.view.slides
 			switch(vo.theme)
 			{
 				case Themes.ATOMIC:
-				case Themes.GENERIC:
-					
 					vidBGs = [vo.bgVidsDir + "atomic.f4v", vo.bgVidsDir + "atomic.f4v"];
+					break;
+				
+				case Themes.GENERIC:
+					_gradientBG = new GradientBG(_slideWidth, _slideHeight);
+					addChild(_gradientBG);
 					break;
 					
 				case Themes.GEOTHERMAL:
@@ -75,12 +78,15 @@ package com.allofus.taqa.led.view.slides
 					vidBGs = [vo.bgVidsDir + "solar.f4v", vo.bgVidsDir + "solar.f4v"];
 					break;
 			}
-			_videoBG= new LoopVideoPlayer(_slideWidth, _slideHeight, vidBGs);
-			addChild(_videoBG);
-//			_gradientBG = new GradientBG(_slideWidth, _slideHeight);
-//			addChild(_gradientBG);
+			
+			if(vidBGs)
+			{
+				_videoBG= new LoopVideoPlayer(_slideWidth, _slideHeight, vidBGs);
+				addChild(_videoBG);
+			}
 			addChild(_textSprite);
 			
+			//TODO implement the other mask styles when they are prepared.
 			_maskClip = new SolarMask();
 			_maskClip.gotoAndStop(1);
 			addChild(_maskClip);

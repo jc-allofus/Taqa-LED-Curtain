@@ -13,7 +13,7 @@ package com.allofus.taqa.led.view.slides
 	/**
 	 * @author jc
 	 */
-	public class AbstractSlide extends Sprite
+	public class AbstractSlide extends Sprite implements IContentSlide
 	{
 		public static const READY:String = "abstractSlide/ready";
 		public static const TRANSITION_IN_COMPLETE:String = "abstractSlide/transitionInComplete";

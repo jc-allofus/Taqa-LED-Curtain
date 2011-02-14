@@ -58,6 +58,8 @@ package com.allofus.taqa.led.view.components
 					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
 					break;
 					
+				case SlideTypes.SCROLLING_TEXT_PIXEL:
+					//TODO implement...
 				default:
 					logger.warn("don't know/haven't implemented how to make:" + vo.type);
 					break;

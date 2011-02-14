@@ -32,8 +32,7 @@ package com.allofus.taqa.led.view.text
 			f.lineBreak = LineBreak.EXPLICIT;
 			f.fontLookup = FontLookup.EMBEDDED_CFF;
 			f.direction = Direction.RTL;
-//			f.fontFamily = "pixelEnglish";
-			f.fontFamily = "helveticaArabic";
+			f.fontFamily = "pixelEnglish";
 			f.fontSize = ES_fontSize;
 			f.color = ES_color;
 			return f;

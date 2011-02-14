@@ -59,7 +59,7 @@ package com.allofus.taqa.led.view.preferences
 			
 			_sampleArabicString = sampleArabicString;
 			
-			graphics.beginFill(0xffffff, 0.9);
+			graphics.beginFill(0, 0.9);
 			graphics.drawRect(0, 0, ApplicationGlobals.APP_WIDTH, ApplicationGlobals.APP_HEIGHT);
 			
 			config = new MinimalConfigurator(this);
