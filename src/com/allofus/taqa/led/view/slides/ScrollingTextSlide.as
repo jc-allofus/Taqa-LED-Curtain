@@ -1,5 +1,8 @@
 package com.allofus.taqa.led.view.slides
 {
+	import com.allofus.taqa.ledcurtain.swcassets.GeoMask;
+	import com.allofus.taqa.ledcurtain.swcassets.WindMask;
+	import com.allofus.taqa.ledcurtain.swcassets.AtomicMask;
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.model.Languages;
 	import com.allofus.taqa.led.model.Themes;
@@ -36,7 +39,7 @@ package com.allofus.taqa.led.view.slides
 		protected var _gradientBG:GradientBG;
 		protected var _maskClip:MovieClip;
 		
-		public var scrollingSpeed:Number = 5;
+		public var scrollingSpeed:Number = 3;
 		
 		public function ScrollingTextSlide(vo:ScrollingTextVO, width:int, height:int)
 		{
@@ -65,17 +68,28 @@ package com.allofus.taqa.led.view.slides
 			{
 				case Themes.ATOMIC:
 					vidBGs = [vo.bgVidsDir + "atomic.f4v", vo.bgVidsDir + "atomic.f4v"];
+					_maskClip = new AtomicMask();
 					break;
 				
 				case Themes.GENERIC:
 					_gradientBG = new GradientBG(_slideWidth, _slideHeight);
 					addChild(_gradientBG);
+					_maskClip = new SolarMask();
 					break;
 					
 				case Themes.GEOTHERMAL:
+					vidBGs = [vo.bgVidsDir + "Geo.f4v", vo.bgVidsDir + "Geo.f4v"];
+					_maskClip = new GeoMask();
+					break;
+					
 				case Themes.SOLAR:
-				case Themes.WIND:
 					vidBGs = [vo.bgVidsDir + "solar.f4v", vo.bgVidsDir + "solar.f4v"];
+					_maskClip = new SolarMask();
+					break;
+					
+				case Themes.WIND:
+					vidBGs = [vo.bgVidsDir + "Wind.f4v", vo.bgVidsDir + "Wind.f4v"];
+					_maskClip = new WindMask();
 					break;
 			}
 			
@@ -86,8 +100,6 @@ package com.allofus.taqa.led.view.slides
 			}
 			addChild(_textSprite);
 			
-			//TODO implement the other mask styles when they are prepared.
-			_maskClip = new SolarMask();
 			_maskClip.gotoAndStop(1);
 			addChild(_maskClip);
 			
