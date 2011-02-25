@@ -1,9 +1,7 @@
 package com.allofus.taqa.led.view.slides
 {
-	import com.allofus.taqa.ledcurtain.swcassets.GeoMask;
-	import com.allofus.taqa.ledcurtain.swcassets.WindMask;
-	import com.allofus.taqa.ledcurtain.swcassets.AtomicMask;
 	import com.allofus.shared.text.TLFTextManager;
+	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.allofus.taqa.led.model.Languages;
 	import com.allofus.taqa.led.model.Themes;
 	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
@@ -14,7 +12,12 @@ package com.allofus.taqa.led.view.slides
 	import com.allofus.taqa.led.view.text.TLFContainer;
 	import com.allofus.taqa.led.view.text.TypeStyles;
 	import com.allofus.taqa.led.view.video.LoopVideoPlayer;
+	import com.allofus.taqa.ledcurtain.swcassets.AtomicMask;
+	import com.allofus.taqa.ledcurtain.swcassets.GeoMask;
 	import com.allofus.taqa.ledcurtain.swcassets.SolarMask;
+	import com.allofus.taqa.ledcurtain.swcassets.WindMask;
+	import com.greensock.TweenMax;
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -134,14 +137,14 @@ package com.allofus.taqa.led.view.slides
 			scrollState.doScrollTick();
 			if(scrollState.isFinishedScrolling)
 			{
-				onComplete();
+				removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
+				fadeOut();
 			}
 		}
 		
-		override protected function onComplete():void
+		protected function fadeOut():void
 		{
-			removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
-			super.onComplete();
+			TweenMax.to(this, ApplicationGlobals.FADE_DURATION, {alpha:0, onComplete:onComplete});
 		}
 		
 		override public function dispose():void

@@ -34,7 +34,7 @@ package com.allofus.taqa.led.view.components
 			var r:Rectangle = new Rectangle(0,0,WIDTH,HEIGHT);
 			scrollRect = r;
 			
-			graphics.beginFill(0x333333);
+			graphics.beginFill(0);
 			graphics.drawRect(0, 0, WIDTH, HEIGHT);
 			
 			updateToPrefs();

@@ -1,6 +1,7 @@
 package com.allofus.taqa.led.view.slides
 {
 
+	import com.allofus.taqa.led.ApplicationGlobals;
 	import flash.events.TimerEvent;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -109,7 +110,7 @@ package com.allofus.taqa.led.view.slides
 		protected function handleTimerComplete(event:TimerEvent):void
 		{
 			//logger.debug("image finished, dispatch complete.");
-			onComplete();
+			TweenMax.to(this, ApplicationGlobals.FADE_DURATION, {alpha:0, onComplete:onComplete});
 		}
 		
 		

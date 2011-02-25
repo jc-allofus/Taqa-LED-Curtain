@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.view.slides
 {
+	import com.allofus.taqa.led.ApplicationGlobals;
 	import flash.events.TimerEvent;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.VideoSlideVO;
@@ -31,7 +32,7 @@ package com.allofus.taqa.led.view.slides
 			player.queueVideo(vo.videoURL);
 			addChild(player);
 			
-			videoTimer = new Timer(250);
+			videoTimer = new Timer(10);
 			videoTimer.addEventListener(TimerEvent.TIMER, handleTimerTick);
 		}
 
@@ -52,13 +53,16 @@ package com.allofus.taqa.led.view.slides
 		
 		protected function handleTimerTick(event : TimerEvent) : void
 		{
-			if((player.duration - player.currentTime) < TRANSITION_DURATION)
+			if((player.duration - player.currentTime) < ApplicationGlobals.FADE_DURATION + 0.5) 
 			{
-				//here we want to dispatch the 'complete' event before the stream runs out, 
-				//so we can start the transition of the next slide before the video ends and sits on a still frame.
 				videoTimer.stop();
-				dispatchEvent(new Event(AbstractSlide.COMPLETE));
+				fadeOut();
 			}
+		}
+		
+		protected function fadeOut():void
+		{
+			TweenMax.to(this, ApplicationGlobals.FADE_DURATION, {alpha:0, onComplete:onComplete});	
 		}
 
 		protected function handleStreamFinishedPlaying(event : Event) : void
