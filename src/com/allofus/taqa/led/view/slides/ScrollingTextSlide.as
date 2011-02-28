@@ -26,7 +26,7 @@ package com.allofus.taqa.led.view.slides
 	/**
 	 * @author jc
 	 */
-	public class ScrollingTextSlide extends AbstractSlide
+	public class ScrollingTextSlide extends AbstractSlide implements IScrollingContentSlide
 	{
 		protected var _vo:ScrollingTextVO;
 		protected var _textSprite:TLFContainer;
@@ -35,14 +35,12 @@ package com.allofus.taqa.led.view.slides
 		protected var _slideHeight:int;
 		
 		protected var scrollState:IScrollState;
-		protected var _scrollStateLTR:ScrollStateLTR;
-		protected var _scrollStateRTL:ScrollStateRTL;
 		
 		protected var _videoBG:LoopVideoPlayer;
 		protected var _gradientBG:GradientBG;
 		protected var _maskClip:MovieClip;
 		
-		public var scrollingSpeed:Number = 3;
+		protected var _scrollingSpeed:Number = 3;
 		
 		public function ScrollingTextSlide(vo:ScrollingTextVO, width:int, height:int)
 		{
@@ -51,18 +49,16 @@ package com.allofus.taqa.led.view.slides
 			_slideWidth = width;
 			_slideHeight = height;
 			
-			_scrollStateLTR = new ScrollStateLTR(this);
-			_scrollStateRTL = new ScrollStateRTL(this);
 			switch(vo.language)
 			{
 				case Languages.ENGLISH:
 					_textSprite = TLFTextManager.createText(vo.text, TypeStyles.englishLarge);
-					scrollState = _scrollStateRTL;
+					scrollState = new ScrollStateRTL(this, _textSprite);
 					break;
 				
 				case Languages.ARABIC:
 					_textSprite = TLFTextManager.createText(vo.text, TypeStyles.arabicLarge);
-					scrollState = _scrollStateLTR;
+					scrollState = new ScrollStateLTR(this, _textSprite);
 					break;				
 			}
 			
@@ -114,12 +110,32 @@ package com.allofus.taqa.led.view.slides
 		override public function transitionIn():void
 		{
 			centerVertically(_textSprite);
+			_textSprite.y += (_vo.language == Languages.ENGLISH) ? TypeStyles.EL_offsetY : TypeStyles.AL_offsetY;
 			scrollState.initScroll();
 			visible = true;
 			alpha = 1;
 			_maskClip.play();
 			addEventListener(Event.ENTER_FRAME, handleTransitioningIn);
 //			TweenMax.from(this, 0.5, {alpha:0, onComplete:handleTransitionInComplete});
+		}
+		
+		override public function updateToPrefs():void
+		{
+			switch(_vo.language)
+			{
+				case Languages.ENGLISH:
+					_textSprite.format = TypeStyles.englishLarge;
+					centerVertically(_textSprite);
+					_textSprite.y += TypeStyles.EL_offsetY;
+					break;
+					
+				case Languages.ARABIC:
+					_textSprite.format = TypeStyles.arabicLarge;
+					centerVertically(_textSprite);
+					_textSprite.y += TypeStyles.AL_offsetY;
+					break;
+			}
+			
 		}
 		
 		protected function handleTransitioningIn(event:Event):void
@@ -156,11 +172,8 @@ package com.allofus.taqa.led.view.slides
 			
 			_vo = null;
 			
-			_scrollStateLTR.dispose();
-			_scrollStateLTR = null;
-			
-			_scrollStateRTL.dispose();
-			_scrollStateRTL = null;
+			scrollState.dispose();
+			scrollState = null;			
 			
 			if(_videoBG)
 			{
@@ -195,6 +208,16 @@ package com.allofus.taqa.led.view.slides
 		public function set textSprite(textSprite : TLFContainer) : void
 		{
 			_textSprite = textSprite;
+		}
+
+		public function get scrollingSpeed() : int
+		{
+			return _scrollingSpeed;
+		}
+
+		public function set scrollingSpeed(value : int) : void
+		{
+			_scrollingSpeed = value;
 		}
 	}
 }

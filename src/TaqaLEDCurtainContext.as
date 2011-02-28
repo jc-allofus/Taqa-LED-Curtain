@@ -1,7 +1,6 @@
 package
 {
-	import com.allofus.taqa.led.view.mediator.PositionPreferencesMediator;
-	import com.allofus.taqa.led.view.preferences.PositionPreferences;
+	import com.allofus.taqa.led.view.mediator.ScrollingTextSlideMediator;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
 	import com.allofus.taqa.led.controller.startup.PrepareFSMCommand;
@@ -17,14 +16,20 @@ package
 	import com.allofus.taqa.led.view.components.SmallLEDSource;
 	import com.allofus.taqa.led.view.mediator.ApplicationMediator;
 	import com.allofus.taqa.led.view.mediator.CinemaLEDMediator;
+	import com.allofus.taqa.led.view.mediator.PositionPreferencesMediator;
 	import com.allofus.taqa.led.view.mediator.PreferencesPaneMediator;
 	import com.allofus.taqa.led.view.mediator.SmallLEDSlicedMediator;
 	import com.allofus.taqa.led.view.mediator.SmallLEDSourceMediator;
+	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.taqa.led.view.preferences.PreferencesPane;
-	import flash.display.DisplayObjectContainer;
-	import mx.logging.ILogger;
+	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
+
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
+
+	import mx.logging.ILogger;
+
+	import flash.display.DisplayObjectContainer;
 
 	/**
 	 * @author jc
@@ -59,6 +64,7 @@ package
 			mediatorMap.mapView(SmallLEDSource, SmallLEDSourceMediator);
 			mediatorMap.mapView(CinemaLED, CinemaLEDMediator);
 			mediatorMap.mapView(SmallLEDSliced, SmallLEDSlicedMediator);
+			mediatorMap.mapView(ScrollingTextSlide, ScrollingTextSlideMediator);
 			
 			//CONTROLLER
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);

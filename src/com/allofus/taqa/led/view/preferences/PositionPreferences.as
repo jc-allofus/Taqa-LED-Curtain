@@ -25,7 +25,7 @@ package com.allofus.taqa.led.view.preferences
 		
 		//SMALL LED SOURCE-> 848 x 34
 		public static var SHOW_SMALL_LED_SOURCE:Boolean = true;
-		public static var SHOW_SMALL_LED_TESTPATTERN:Boolean = true;
+		public static var SHOW_SMALL_LED_TESTPATTERN:Boolean = false;
 		public static var SMALL_LED_X:int = 5;
 		public static var SMALL_LED_Y:int = 105;
 		public var showSmallBannerSource:CheckBox;

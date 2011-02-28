@@ -1,7 +1,8 @@
 package com.allofus.taqa.led.view.text
 {
 	import com.allofus.shared.logging.GetLogger;
-	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
+	import com.allofus.taqa.led.view.slides.IScrollingContentSlide;
+
 	import mx.logging.ILogger;
 
 
@@ -10,27 +11,29 @@ package com.allofus.taqa.led.view.text
 	 */
 	public class ScrollStateLTR implements IScrollState
 	{
-		protected var _slide:ScrollingTextSlide;
+		protected var _slide:IScrollingContentSlide;
+		protected var _textSprite:TLFContainer;
 		protected var _speed:Number;
 		protected var _finishedScrolling:Boolean = false;
 		
-		public function ScrollStateLTR(slide:ScrollingTextSlide)
+		public function ScrollStateLTR(slide:IScrollingContentSlide, textSprite:TLFContainer)
 		{
 			_slide = slide;
+			_textSprite = textSprite;
 			_speed = _slide.scrollingSpeed;
 		}
 		
 		public function initScroll() : void
 		{
-			var w:Number = _slide.textSprite.width;
-			_slide.textSprite.x = -w;
+			var w:Number = _textSprite.width;
+			_textSprite.x = -w;
 		}
 
 		public function doScrollTick() : void
 		{
-			_slide.textSprite.x += _speed;
-			_slide.textSprite.refresh();
-			if(_slide.textSprite.x > _slide.slideWidth)
+			_textSprite.x += _speed;
+			_textSprite.refresh();
+			if(_textSprite.x > _slide.slideWidth)
 			{
 				_finishedScrolling = true;
 			}
@@ -55,7 +58,5 @@ package com.allofus.taqa.led.view.text
 		}
 
 		private static const logger : ILogger = GetLogger.qualifiedName(ScrollStateLTR);
-
-
 	}
 }

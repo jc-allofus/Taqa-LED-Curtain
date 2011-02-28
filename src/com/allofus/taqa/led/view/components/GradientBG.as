@@ -20,10 +20,21 @@ package com.allofus.taqa.led.view.components
 		protected static const COLORS:Array	= [AQUA, YELLOW, GREEN, RED, VIOLET, PINK];
 		
 		
-		public function GradientBG(width:Number, height:Number)
+		public function GradientBG(width:Number, height:Number, color1:uint = NaN, color2:Number = NaN)
 		{
 			var type:String = GradientType.LINEAR;
-			var colors:Array = COLORS[Math.round(Math.random() * (COLORS.length-1) )];
+			var colors:Array;
+			
+			//if colors not provided, select a random from our COLORS array..
+			if(isNaN(color1) || isNaN(color2))
+			{
+				colors = COLORS[Math.round(Math.random() * (COLORS.length-1) )];
+			}
+			else
+			{
+				colors = [color1, color2];
+			}
+			
 			var alphas:Array = [1,1];
 			var ratios:Array = [0,255];
 			

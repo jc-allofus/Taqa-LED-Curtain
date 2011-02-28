@@ -1,9 +1,11 @@
 package com.allofus.taqa.led.view.text
 {
 	import com.allofus.shared.logging.GetLogger;
-	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
-	import flash.display.Sprite;
+	import com.allofus.taqa.led.view.slides.IScrollingContentSlide;
+
 	import mx.logging.ILogger;
+
+	import flash.display.Sprite;
 
 
 
@@ -12,27 +14,29 @@ package com.allofus.taqa.led.view.text
 	 */
 	public class ScrollStateRTL extends Sprite implements IScrollState
 	{
-		protected var _slide:ScrollingTextSlide;
+		protected var _slide:IScrollingContentSlide;
+		protected var _textSprite:TLFContainer;
 		protected var _speed:Number;
 		protected var _finishedScrolling:Boolean = false;
 		
-		public function ScrollStateRTL(slide:ScrollingTextSlide)
+		public function ScrollStateRTL(slide:IScrollingContentSlide, textSprite:TLFContainer)
 		{
 			_slide = slide;
+			_textSprite = textSprite;
 			_speed = _slide.scrollingSpeed;
 		}
 
 		public function initScroll() : void
 		{
 			var w:Number = _slide.slideWidth;
-			_slide.textSprite.x = w;
+			_textSprite.x = w;
 		}
 
 		public function doScrollTick() : void
 		{
-			_slide.textSprite.x -= _speed;
-			_slide.textSprite.refresh();
-			if(_slide.textSprite.x < - _slide.textSprite.width)
+			_textSprite.x -= _speed;
+			_textSprite.refresh();
+			if(_textSprite.x < - _textSprite.width)
 			{
 				_finishedScrolling = true;
 			}

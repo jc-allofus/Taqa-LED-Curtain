@@ -30,7 +30,7 @@ package com.allofus.taqa.led.view.text
 			_flow.format = format;
 			refresh();
 		}
-
+		
 		public function get flow() : TextFlow
 		{
 			return _flow;

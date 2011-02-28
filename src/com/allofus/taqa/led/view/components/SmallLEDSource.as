@@ -1,14 +1,16 @@
 package com.allofus.taqa.led.view.components
 {
-	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
+	import com.allofus.taqa.led.model.vo.PixelTextVO;
 	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
 	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.taqa.led.view.slides.AbstractSlide;
 	import com.allofus.taqa.led.view.slides.ImageSlide;
+	import com.allofus.taqa.led.view.slides.PixelTextSlide;
 	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
 	import com.allofus.taqa.led.view.slides.VideoSlide;
 	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice;
@@ -54,12 +56,13 @@ package com.allofus.taqa.led.view.components
 					break;
 					
 				case SlideTypes.SCROLLING_TEXT_SMALL:
-					//logger.fatal("here we got a text slide.");
 					slide = new ScrollingTextSlide(vo as ScrollingTextVO, WIDTH, HEIGHT);
 					break;
 					
 				case SlideTypes.SCROLLING_TEXT_PIXEL:
-					//TODO implement...
+					slide = new PixelTextSlide(vo as PixelTextVO, WIDTH, HEIGHT);
+					break;
+					
 				default:
 					logger.warn("don't know/haven't implemented how to make:" + vo.type);
 					break;
@@ -73,6 +76,10 @@ package com.allofus.taqa.led.view.components
 			y = PositionPreferences.SMALL_LED_Y;
 			PositionPreferences.SHOW_SMALL_LED_TESTPATTERN ? showTestPattern() : hideTestPattern();
 			visible = PositionPreferences.SHOW_SMALL_LED_SOURCE;
+			if(currentSlide)
+			{
+				currentSlide.updateToPrefs();
+			}
 		}
 		
 		override protected function bringToTop(vp:DisplayObject):void

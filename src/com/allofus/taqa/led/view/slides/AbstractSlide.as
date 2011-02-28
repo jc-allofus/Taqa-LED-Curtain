@@ -52,6 +52,11 @@ package com.allofus.taqa.led.view.slides
 			visible = false;
 		}
 		
+		public function updateToPrefs():void
+		{
+			logger.warn("implement in child classes");
+		}
+		
 		protected function handleTransitionInComplete():void
 		{
 			dispatchEvent(new Event(TRANSITION_IN_COMPLETE));

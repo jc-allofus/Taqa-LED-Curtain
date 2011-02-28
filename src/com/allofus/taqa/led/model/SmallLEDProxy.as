@@ -25,6 +25,18 @@ package com.allofus.taqa.led.model
 		override public function getNext():ISlideVO
 		{
 			//TODO implement headline choosing, history etc...
+//			var vo:ISlideVO;
+//			var hasPixeltext:Boolean = false;
+//			while(!hasPixeltext)
+//			{
+//				vo = super.getNext();
+//				if (vo is PixelTextVO)
+//				{
+//					return vo;
+//				}
+//			}
+//			return null;
+			
 			return super.getNext();
 		}
 		
@@ -54,9 +66,11 @@ package com.allofus.taqa.led.model
 						break;
 						
 					case SlideTypes.SCROLLING_TEXT_PIXEL:
+						vo = parsePixelTextVO(item);
+						vo.type = SlideTypes.SCROLLING_TEXT_PIXEL;
+						break;
+						
 					default:
-						logger.warn("no parsing implemented for: " + type);
-						vo = null;
 						break;
 				}
 				

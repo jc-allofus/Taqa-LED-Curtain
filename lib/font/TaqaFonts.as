@@ -10,7 +10,7 @@ package
 	public class TaqaFonts extends Sprite
 	{
 		
-		[Embed(source="Al Abdali 8 Regular.otf", mimeType="application/x-font-truetype", fontName="pixelArabic", embedAsCFF="true")] // All
+		[Embed(source="IT Gaza Demo Prod.ttf", mimeType="application/x-font-truetype", fontName="pixelArabic", embedAsCFF="true")] // All
 		public var PixelArabic:Class;
 		[Embed(source="HelveticaNeueLTArabic-Bold.ttf", mimeType="application/x-font-truetype", fontName="helveticaArabic", embedAsCFF="true")] // All
 		public var HelveticaArabic:Class;
@@ -18,7 +18,6 @@ package
 		public var PixelEnglish:Class;
 		[Embed(source="FUTURAB.TTF", mimeType="application/x-font-truetype", fontName="futuraEnglish", embedAsCFF="true")] // All
 		public var FuturaEnglish:Class;
-		
 		
 		public function TaqaFonts()
 		{
