@@ -34,14 +34,14 @@ package com.allofus.taqa.led.view.preferences
 		public var sby:NumericStepper;
 		
 		//CINEMA LED -> 640 x 127
-		public static var CINEMA_LED_X:int = 75;
-		public static var CINEMA_LED_Y:int = 200;
+		public static var CINEMA_LED_X:int = 5;
+		public static var CINEMA_LED_Y:int = 150;
 		public var lbx:NumericStepper;
 		public var lby:NumericStepper;
 		
 		//SLICED SMALL LED
-		public static var SLICED_SMALL_LED_X:int = 891;
-		public static var SLICED_SMALL_LED_Y:int = 104;
+		public static var SLICED_SMALL_LED_X:int = 895;
+		public static var SLICED_SMALL_LED_Y:int = 105;
 		public static var SLICED_SMALL_LED_ROTATION:int = 90;
 		public static var SLICED_SMALL_LED_SPACING:int = 34;
 		public var ssbx:NumericStepper;

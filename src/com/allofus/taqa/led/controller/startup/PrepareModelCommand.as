@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.controller.startup
 {
+	import com.allofus.taqa.led.model.SettingsProxy;
 	import com.allofus.taqa.led.model.CinemaLEDProxy;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.ConfigProxy;
@@ -18,6 +19,8 @@ package com.allofus.taqa.led.controller.startup
 	{
 		[Inject] public var configProxy:ConfigProxy;
 		
+		[Inject] public var settingsProxy:SettingsProxy;
+		
 		[Inject] public var smallLEDProxy:SmallLEDProxy;
 		
 		[Inject] public var cinemaLEDProxy:CinemaLEDProxy;
@@ -28,6 +31,9 @@ package com.allofus.taqa.led.controller.startup
 		{
 			logger.info("preparing models...");
 			logger.debug("xmlFeedService: " + xmlFeedService);
+			
+			//load "global" settings
+			xmlFeedService.retrieveFeed(configProxy.settingsFeedPath, settingsProxy);
 			
 			//load small LED content feed
 			xmlFeedService.retrieveFeed(configProxy.smallLEDFeedPath, smallLEDProxy);

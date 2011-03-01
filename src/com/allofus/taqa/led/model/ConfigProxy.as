@@ -29,6 +29,7 @@ package com.allofus.taqa.led.model
 		
 		protected var loader : LoaderMax;
 		
+		protected var _settingsFeedPath:String;
 		protected var _smallLEDFeedPath:String;
 		protected var _cinemaLEDFeedPath:String;
 		protected var _updateURL : String;
@@ -78,6 +79,7 @@ package com.allofus.taqa.led.model
 			if(result)
 			{
 				_apiBaseURL = result.APIEndpoints.APIBaseURL.@path;
+				_settingsFeedPath = result.APIEndpoints.SettingsFeed.@path;
 				_smallLEDFeedPath = result.APIEndpoints.SmallLEDFeed.@path;
 				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
 				_updateURL = result.UpdateURL.@path;
@@ -91,6 +93,16 @@ package com.allofus.taqa.led.model
 			{
 				dispatch(new Event(ConfigProxy.LOAD_FAIL));
 			}
+		}
+		
+		public function get settingsFeedPath() : String
+		{
+			return _settingsFeedPath;
+		}
+
+		public function set settingsFeedPath(settingsFeedPath : String) : void
+		{
+			_settingsFeedPath = settingsFeedPath;
 		}
 		
 		public function get apiBaseURL():String

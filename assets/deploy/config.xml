@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaqaLEDCurtain>
-	<UpdateURL path="http://pga.allofusit.com/catalunya/deploy/update.xml" />
+	<UpdateURL path="http://" />
 	<!-- inside user's documents directory -->
 	<VideoPath path="TaqaLEDCurtainVideos"/>
 	<APIEndpoints>
 		<APIBaseURL path="http://taqa-cms.local:8888/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
+		<SettingsFeed path="http://taqa-cms.local:8888/feeds/settings" />
 		<SmallLEDFeed path="http://taqa-cms.local:8888/feeds/small-led" />
 		<CinemaLEDFeed path="http://taqa-cms.local:8888/feeds/cinema-led" />
 	</APIEndpoints>

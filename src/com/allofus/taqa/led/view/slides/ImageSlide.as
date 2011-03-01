@@ -24,11 +24,13 @@ package com.allofus.taqa.led.view.slides
 		protected var imgContainer:Sprite;
 		protected var timer:Timer;
 		
+		protected var _timeoutSeconds:int = 2;
+		
 		public function ImageSlide(vo:ImageSlideVO):void
 		{
 			_imgVO = vo;
 			imgContainer = new Sprite();
-			timer = new Timer(2000, 1);
+			timer = new Timer(_timeoutSeconds*1000, 1);
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			addChild(imgContainer);	
 			loadImage();
@@ -114,6 +116,26 @@ package com.allofus.taqa.led.view.slides
 		}
 		
 		
-		private static const logger:ILogger = GetLogger.qualifiedName( ImageSlide );
+		private static const logger : ILogger = GetLogger.qualifiedName(ImageSlide);
+
+		public function get timeoutSeconds() : int
+		{
+			return _timeoutSeconds;
+		}
+
+		public function set timeoutSeconds(timeoutSeconds : int) : void
+		{
+			_timeoutSeconds = timeoutSeconds;
+			if(timer)
+			{
+				timer.delay = 1000 * _timeoutSeconds;
+				if(timer.running)
+				{
+					timer.reset();
+					timer.start();
+					
+				}
+			}
+		}
 	}
 }

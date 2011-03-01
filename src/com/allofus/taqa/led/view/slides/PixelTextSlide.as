@@ -244,6 +244,8 @@ package com.allofus.taqa.led.view.slides
 		public function set scrollingSpeed(value : int) : void
 		{
 			_scrollingSpeed = value;
+			if(scrollState1)scrollState1.speed = scrollingSpeed;
+			if(scrollState2)scrollState2.speed = scrollingSpeed;
 		}
 		
 		private static const logger : ILogger = GetLogger.qualifiedName(PixelTextSlide);

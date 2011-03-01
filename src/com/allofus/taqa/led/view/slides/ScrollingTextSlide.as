@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.view.slides
 {
+	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.text.TLFTextManager;
 	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.allofus.taqa.led.model.Languages;
@@ -17,6 +18,8 @@ package com.allofus.taqa.led.view.slides
 	import com.allofus.taqa.ledcurtain.swcassets.SolarMask;
 	import com.allofus.taqa.ledcurtain.swcassets.WindMask;
 	import com.greensock.TweenMax;
+
+	import mx.logging.ILogger;
 
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -40,7 +43,7 @@ package com.allofus.taqa.led.view.slides
 		protected var _gradientBG:GradientBG;
 		protected var _maskClip:MovieClip;
 		
-		protected var _scrollingSpeed:Number = 3;
+		protected var _scrollingSpeed:int = 2;
 		
 		public function ScrollingTextSlide(vo:ScrollingTextVO, width:int, height:int)
 		{
@@ -116,7 +119,6 @@ package com.allofus.taqa.led.view.slides
 			alpha = 1;
 			_maskClip.play();
 			addEventListener(Event.ENTER_FRAME, handleTransitioningIn);
-//			TweenMax.from(this, 0.5, {alpha:0, onComplete:handleTransitionInComplete});
 		}
 		
 		override public function updateToPrefs():void
@@ -218,6 +220,8 @@ package com.allofus.taqa.led.view.slides
 		public function set scrollingSpeed(value : int) : void
 		{
 			_scrollingSpeed = value;
+			if(scrollState)scrollState.speed = scrollingSpeed;
 		}
+		private static const logger:ILogger = GetLogger.qualifiedName( ScrollingTextSlide );
 	}
 }

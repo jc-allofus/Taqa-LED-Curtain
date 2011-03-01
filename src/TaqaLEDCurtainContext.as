@@ -1,5 +1,10 @@
 package
 {
+	import com.allofus.taqa.led.view.mediator.ImageSlideMediator;
+	import com.allofus.taqa.led.view.slides.ImageSlide;
+	import com.allofus.taqa.led.view.mediator.PixelTextSlideMediator;
+	import com.allofus.taqa.led.view.slides.PixelTextSlide;
+	import com.allofus.taqa.led.model.SettingsProxy;
 	import com.allofus.taqa.led.view.mediator.ScrollingTextSlideMediator;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
@@ -44,27 +49,30 @@ package
 		override public function startup():void
 		{
 			//MODEL
-			injector.mapSingleton(ConfigProxy);
-			injector.mapSingleton(InternetConnectionProxy);
-			injector.mapSingleton(SmallLEDProxy);
-			injector.mapSingleton(CinemaLEDProxy);
-			injector.mapSingleton(XMLFeedService);
+			injector.mapSingleton(ConfigProxy); 									// loads config.xml; stores values from it for later access
+			injector.mapSingleton(InternetConnectionProxy); 						// keeps track of user's internet connection
+			injector.mapSingleton(SettingsProxy); 									// parses & stores results from SettingsFeed (defined in config.xml)
+			injector.mapSingleton(SmallLEDProxy); 									// parses & stores results from SmallLEDFeed (defined in config.xml)
+			injector.mapSingleton(CinemaLEDProxy);	 								// parses & stores results from CinemaLEDFeed (defined in config.xml)
 			
 			//SERVICE			
-			injector.mapSingleton(ApplicationUpdaterService);
-			injector.mapSingleton(PreferencesService);
+			injector.mapSingleton(XMLFeedService);									// loads remote xml & pushes result into specified proxy
+			injector.mapSingleton(ApplicationUpdaterService);						// checks remote update.xml to see if a newer build is available
+			injector.mapSingleton(PreferencesService);								// reads/writes the prefs xml files
 			
 			//VIEW
 			//mediate main view
-			mediatorMap.mapView(TaqaLEDCurtain, ApplicationMediator);
-			mediatorMap.createMediator(contextView); 
+			mediatorMap.mapView(TaqaLEDCurtain, ApplicationMediator);				// document class
+			mediatorMap.createMediator(contextView); 								// mediate document class
 			
-			mediatorMap.mapView(PreferencesPane, PreferencesPaneMediator);
+			mediatorMap.mapView(PreferencesPane, PreferencesPaneMediator);			
 			mediatorMap.mapView(PositionPreferences, PositionPreferencesMediator);
 			mediatorMap.mapView(SmallLEDSource, SmallLEDSourceMediator);
 			mediatorMap.mapView(CinemaLED, CinemaLEDMediator);
 			mediatorMap.mapView(SmallLEDSliced, SmallLEDSlicedMediator);
 			mediatorMap.mapView(ScrollingTextSlide, ScrollingTextSlideMediator);
+			mediatorMap.mapView(PixelTextSlide, PixelTextSlideMediator);
+			mediatorMap.mapView(ImageSlide, ImageSlideMediator);
 			
 			//CONTROLLER
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);

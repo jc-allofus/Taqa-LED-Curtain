@@ -1,24 +1,21 @@
 package com.allofus.taqa.led.view.mediator
 {
-	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.SettingsProxy;
 	import com.allofus.taqa.led.service.PreferencesService;
 	import com.allofus.taqa.led.view.preferences.TypeStylePreferences;
-	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
+	import com.allofus.taqa.led.view.slides.PixelTextSlide;
 
 	import org.robotlegs.mvcs.Mediator;
-
-	import mx.logging.ILogger;
 
 	import flash.events.Event;
 
 	/**
 	 * @author jc
 	 */
-	public class ScrollingTextSlideMediator extends Mediator
+	public class PixelTextSlideMediator extends Mediator
 	{
 		
-		[Inject] public var view:ScrollingTextSlide;
+		[Inject] public var view:PixelTextSlide;
 		
 		[Inject] public var settingsProxy:SettingsProxy;
 		
@@ -51,7 +48,5 @@ package com.allofus.taqa.led.view.mediator
 					break;
 			}
 		}
-		
-		private static const logger:ILogger = GetLogger.qualifiedName( ScrollingTextSlideMediator );
 	}
 }

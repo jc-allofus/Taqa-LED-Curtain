@@ -1,10 +1,9 @@
 package com.allofus.taqa.led.model
 {
-	import com.allofus.taqa.led.view.text.TypeStyles;
-	import com.allofus.taqa.led.model.vo.PixelTextVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
+	import com.allofus.taqa.led.model.vo.PixelTextVO;
 	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
 	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 

@@ -29,8 +29,8 @@ package com.allofus.taqa.led.view.preferences
 		
 		public static var SHOW_SAMPLES:Boolean 	= true;
 		public static var SLOW:int 				= 1;
-		public static var MEDIUM:int 			= 5;
-		public static var FAST:int 				= 10;
+		public static var MEDIUM:int 			= 3;
+		public static var FAST:int 				= 5;
 		
 		public var showSamples:CheckBox;
 		public var slow:HUISlider;
@@ -130,7 +130,7 @@ package com.allofus.taqa.led.view.preferences
 
 		private function handlePrefsChanged(event : Event) : void
 		{
-			logger.warn("dispatch updated pos prefs");
+			//logger.warn("dispatch updated pos prefs");
 			updateValues();
 			redraw();
 			dispatchEvent(new Event(CHANGED));
@@ -140,8 +140,8 @@ package com.allofus.taqa.led.view.preferences
 		{
 			_xml..CheckBox.(@id == "showSamples").@selected 	= SHOW_SAMPLES = showSamples.selected;
 			_xml..HUISlider.(@id == "slow").@value 				= SLOW = slow.value;
-			_xml..HUISlider.(@id == "medium").@value 			= SLOW = medium.value;
-			_xml..HUISlider.(@id == "fast").@value 				= SLOW = fast.value;
+			_xml..HUISlider.(@id == "medium").@value 			= MEDIUM = medium.value;
+			_xml..HUISlider.(@id == "fast").@value 				= FAST = fast.value;
 			
 			_xml..HUISlider.(@id == "es_fontsize").@value = TypeStyles.ES_fontSize = es_fontsize.value;
 			_xml..ColorChooser.(@id == "es_color").@value = TypeStyles.ES_color = es_color.value;
@@ -239,10 +239,10 @@ package com.allofus.taqa.led.view.preferences
 					<!-- SPEED -->
 					<Window width="175" title="Genaral">
 						<VBox x="10" y="10" spacing="1">
-							<CheckBox id="showSamples" label="show samples" maximum="35" labelPrecision="0" value={SHOW_SAMPLES} />
-							<HUISlider id="slow" label="slow" maximum="20" labelPrecision="0" value={SLOW} />
-							<HUISlider id="medium" label="med" maximum="20" labelPrecision="0" value={MEDIUM} />
-							<HUISlider id="fast" label="fast" maximum="20" labelPrecision="0" value={FAST} />
+							<CheckBox id="showSamples" label="show samples" maximum="35" value={SHOW_SAMPLES} />
+							<HUISlider id="slow" label="slow" minimum="1" maximum="20" tick="1" labelPrecision="0" value={SLOW} />
+							<HUISlider id="medium" label="med" minimum="1" maximum="20"tick="1" labelPrecision="0" value={MEDIUM} />
+							<HUISlider id="fast" label="fast" minimum="1" maximum="20"tick="1" labelPrecision="0" value={FAST} />
 						</VBox>
 					</Window>
 				

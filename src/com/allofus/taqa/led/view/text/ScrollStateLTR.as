@@ -38,6 +38,11 @@ package com.allofus.taqa.led.view.text
 				_finishedScrolling = true;
 			}
 		}
+		
+		public function get speed() : Number
+		{
+			return _speed;
+		}
 
 		public function set speed(value : Number) : void
 		{
@@ -58,5 +63,6 @@ package com.allofus.taqa.led.view.text
 		}
 
 		private static const logger : ILogger = GetLogger.qualifiedName(ScrollStateLTR);
+
 	}
 }
