@@ -10,7 +10,7 @@ package
 	public class TaqaFonts extends Sprite
 	{
 		
-		[Embed(source="IT Gaza Demo Prod.ttf", mimeType="application/x-font-truetype", fontName="pixelArabic", embedAsCFF="true")] // All
+		[Embed(source="IT Gaza Regular Full.ttf", mimeType="application/x-font-truetype", fontName="pixelArabic", embedAsCFF="true")] // All
 		public var PixelArabic:Class;
 		[Embed(source="HelveticaNeueLTArabic-Bold.ttf", mimeType="application/x-font-truetype", fontName="helveticaArabic", embedAsCFF="true")] // All
 		public var HelveticaArabic:Class;

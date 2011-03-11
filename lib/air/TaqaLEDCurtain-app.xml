@@ -25,8 +25,8 @@
 		<minSize>1064 440</minSize>
 		<maxSize>1064 440</maxSize>
 	</initialWindow>
-	<installFolder>Example Company/Example Application</installFolder>
-	<programMenuFolder>Example Company/Example Application</programMenuFolder>
+	<installFolder>Taqa LED Curtain</installFolder>
+	<programMenuFolder>Taqa LED Curtain</programMenuFolder>
 	
 	<customUpdateUI>false</customUpdateUI>
 	<allowBrowserInvocation>false</allowBrowserInvocation>

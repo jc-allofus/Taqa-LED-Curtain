@@ -50,9 +50,8 @@ package com.allofus.taqa.led.model
 				}
 				return selected;	
 			}
-			return null;
 			
-			//loop through specific type 
+			//loop through specific type (mainly for debugging)
 //			var vo:ISlideVO;
 //			var hasCorrectType:Boolean = false;
 //			while(!hasCorrectType)
@@ -63,10 +62,9 @@ package com.allofus.taqa.led.model
 //					return vo;
 //				}
 //			}
-//			return null;
 			
-			//loop through all items in order they appear in XML
-			//return super.getNext();
+//			loop through all items in order they appear in XML
+			return super.getNext();
 		}
 		
 		override public function set data(xml:XML):void
@@ -116,11 +114,15 @@ package com.allofus.taqa.led.model
 				}
 				vo = null;
 			}
-			createPlaylist();
+			
+			if (headlineItems.length > 0)
+			{
+				createHeadlineWieghtedPlaylist();
+			}
 			dispatch(new Event(UPDATED));
 		}
 		
-		protected function createPlaylist():void
+		protected function createHeadlineWieghtedPlaylist():void
 		{
 			var headlineWeight:int = settingsProxy.headlineDisplayRate;
 			var playlist:Vector.<ISlideVO> = new Vector.<ISlideVO>();

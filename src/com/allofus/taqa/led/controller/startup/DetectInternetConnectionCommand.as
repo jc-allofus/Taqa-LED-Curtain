@@ -19,7 +19,6 @@ package com.allofus.taqa.led.controller.startup
 		
 		[Inject] public var configProxy:ConfigProxy;
 		
-		
 		public override function execute():void
 		{
 			logger.info(inetConnectionProxy + " will be detecting internet connection to URL from" + configProxy);
@@ -32,6 +31,7 @@ package com.allofus.taqa.led.controller.startup
 			inetConnectionProxy.eventDispatcher.removeEventListener(InternetConnectionEvent.STATUS, handleStatusObtained);
 			if(event.isConnected)
 			{
+				//never implemented check update stuff
 				dispatch(new StateEvent(StateEvent.ACTION, FSMConstants.INITIAL_CONNECTION_OFF));
 			}
 			else

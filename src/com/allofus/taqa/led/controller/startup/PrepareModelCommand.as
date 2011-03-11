@@ -38,7 +38,7 @@ package com.allofus.taqa.led.controller.startup
 			//load small LED content feed
 			xmlFeedService.retrieveFeed(configProxy.smallLEDFeedPath, smallLEDProxy);
 			
-			//load settings
+			//load cinema content feed
 			xmlFeedService.retrieveFeed(configProxy.cinemaLEDFeedPath, cinemaLEDProxy);
 			
 			dispatch(new StateEvent(StateEvent.ACTION, FSMConstants.PREPARE_MODELS_SUCCESS));

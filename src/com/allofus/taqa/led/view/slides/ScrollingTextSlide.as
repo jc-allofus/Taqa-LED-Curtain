@@ -80,7 +80,7 @@ package com.allofus.taqa.led.view.slides
 					break;
 					
 				case Themes.GEOTHERMAL:
-					vidBGs = [vo.bgVidsDir + "Geo.f4v", vo.bgVidsDir + "Geo.f4v"];
+					vidBGs = [vo.bgVidsDir + "geo.f4v", vo.bgVidsDir + "geo.f4v"];
 					_maskClip = new GeoMask();
 					break;
 					
@@ -90,7 +90,7 @@ package com.allofus.taqa.led.view.slides
 					break;
 					
 				case Themes.WIND:
-					vidBGs = [vo.bgVidsDir + "Wind.f4v", vo.bgVidsDir + "Wind.f4v"];
+					vidBGs = [vo.bgVidsDir + "wind.f4v", vo.bgVidsDir + "wind.f4v"];
 					_maskClip = new WindMask();
 					break;
 			}
