@@ -21,7 +21,12 @@ package com.allofus.taqa.led.model
 		
 		override public function set data(xml:XML):void
 		{
-			//logger.debug("CINEMA LED parse this into something useful: " + xml);
+			logger.debug("CINEMA LED parse this into something useful: " + xml);
+			
+			// reset
+			allItems.length = 0;
+			history.length = 0;
+			
 			var type:String;	
 			var vo:ISlideVO;
 			for each (var item:XML in xml.node)

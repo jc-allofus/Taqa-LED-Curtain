@@ -4,11 +4,12 @@
 	<!-- inside user's documents directory -->
 	<VideoPath path="TaqaLEDCurtainVideos"/>
 	<APIEndpoints>
-		<APIBaseURL path="http://taqa-cms.local:8888/" />
+		<APIBaseURL path="http://devmacmini.local:8888//kca/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
-		<SettingsFeed path="http://taqa-cms.local:8888/feeds/settings" />
-		<SmallLEDFeed path="http://taqa-cms.local:8888/feeds/small-led" />
-		<CinemaLEDFeed path="http://taqa-cms.local:8888/feeds/cinema-led" />
+		<SettingsFeed path="http://devmacmini.local:8888/kca/feeds/settings" />
+		<SmallLEDFeed path="http://devmacmini.local:8888/kca/feeds/small-led" />
+		<CinemaLEDFeed path="http://devmacmini.local:8888/kca/feeds/cinema-led" />
+		<UpdatedFeed path="http://devmacmini.local:8888/kca/feeds/settings_updated" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />

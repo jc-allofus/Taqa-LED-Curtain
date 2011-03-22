@@ -1,9 +1,10 @@
 package com.allofus.taqa.led.view.slides
 {
 
-	import com.allofus.taqa.led.ApplicationGlobals;
-	import flash.events.TimerEvent;
+	import com.greensock.loading.display.ContentDisplay;
+	import flash.display.Bitmap;
 	import com.allofus.shared.logging.GetLogger;
+	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
 	import com.greensock.TweenMax;
 	import com.greensock.events.LoaderEvent;
@@ -13,7 +14,9 @@ package com.allofus.taqa.led.view.slides
 
 	import mx.logging.ILogger;
 
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	/**
 	 * @author jc
@@ -23,11 +26,13 @@ package com.allofus.taqa.led.view.slides
 		protected var _imgVO:ImageSlideVO;
 		protected var imgContainer:Sprite;
 		protected var timer:Timer;
+		protected var _imageContent:ContentDisplay;
 		
 		protected var _timeoutSeconds:int = 2;
 		
 		public function ImageSlide(vo:ImageSlideVO):void
 		{
+			logger.debug("CONSTRUCTOR");
 			_imgVO = vo;
 			imgContainer = new Sprite();
 			timer = new Timer(_timeoutSeconds*1000, 1);
@@ -55,8 +60,9 @@ package com.allofus.taqa.led.view.slides
 				}
 				else
 				{
+					// TODO: find an alternative to the rnd hack below
 					_loader.append(
-						new ImageLoader(_imgVO.imageURL, lv)
+						new ImageLoader(_imgVO.imageURL + "?rnd=" + Math.random(), lv)
 					);
 				}
 				switch(_loader.status)
@@ -80,8 +86,9 @@ package com.allofus.taqa.led.view.slides
 		
 		protected function handleLoadComplete(event:LoaderEvent):void
 		{
-			//logger.debug("image finished loading");
+			logger.debug("image finished loading " + (event.target as ImageLoader).content);
 			ready = true;
+			_imageContent = (event.target as ImageLoader).content as ContentDisplay;
 		}
 		
 		override public function transitionIn():void
@@ -100,8 +107,12 @@ package com.allofus.taqa.led.view.slides
 		
 		override public function dispose():void
 		{
-			_loader.dispose(true);
-			_loader = null;
+			logger.debug("dispose");
+			
+			_imageContent.dispose(true, true);
+			_loader.empty(true, true);
+			//_loader.dispose(true);
+			//_loader = null;
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			timer = null;

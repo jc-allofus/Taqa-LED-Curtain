@@ -93,7 +93,7 @@ package com.allofus.taqa.led.view.components
 		{
 			if(slideToDispose)
 			{
-				//logger.debug("disposing: " + slideToDispose);
+				logger.debug("disposing: " + slideToDispose);
 				if(contains(slideToDispose))removeChild(slideToDispose);
 				slideToDispose.dispose();
 				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);

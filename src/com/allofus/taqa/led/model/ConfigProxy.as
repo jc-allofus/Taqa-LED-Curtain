@@ -32,6 +32,7 @@ package com.allofus.taqa.led.model
 		protected var _settingsFeedPath:String;
 		protected var _smallLEDFeedPath:String;
 		protected var _cinemaLEDFeedPath:String;
+		protected var _updatedFeedPath:String;
 		protected var _updateURL : String;
 		protected var _apiBaseURL : String;
 		protected var _imageBasePath:String;
@@ -82,6 +83,7 @@ package com.allofus.taqa.led.model
 				_settingsFeedPath = result.APIEndpoints.SettingsFeed.@path;
 				_smallLEDFeedPath = result.APIEndpoints.SmallLEDFeed.@path;
 				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
+				_updatedFeedPath = result.APIEndpoints.UpdatedFeed.@path;
 				_updateURL = result.UpdateURL.@path;
 				_imageBasePath = result.ImageBasePath.@path;
 				var vidPath:String =result.VideoPath.@path; 
@@ -140,6 +142,16 @@ package com.allofus.taqa.led.model
 			return _videosDir;
 		}
 
-		private static const logger : ILogger = GetLogger.qualifiedName(ConfigProxy);
+		private static const logger:ILogger = GetLogger.qualifiedName(ConfigProxy);
+
+		public function get updatedFeedPath():String
+		{
+			return _updatedFeedPath;
+		}
+
+		public function set updatedFeedPath(updatedFeedPath:String):void
+		{
+			_updatedFeedPath = updatedFeedPath;
+		}
 	}
 }

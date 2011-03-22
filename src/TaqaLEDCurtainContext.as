@@ -1,5 +1,8 @@
 package
 {
+	import com.allofus.taqa.led.controller.startup.StartLEDRefreshPollCommand;
+	import com.allofus.taqa.led.controller.LEDRefreshCommand;
+	import com.allofus.taqa.led.model.LEDRefreshPollProxy;
 	import com.allofus.taqa.led.view.mediator.ImageSlideMediator;
 	import com.allofus.taqa.led.view.slides.ImageSlide;
 	import com.allofus.taqa.led.view.mediator.PixelTextSlideMediator;
@@ -54,6 +57,7 @@ package
 			injector.mapSingleton(SettingsProxy); 									// parses & stores results from SettingsFeed (defined in config.xml)
 			injector.mapSingleton(SmallLEDProxy); 									// parses & stores results from SmallLEDFeed (defined in config.xml)
 			injector.mapSingleton(CinemaLEDProxy);	 								// parses & stores results from CinemaLEDFeed (defined in config.xml)
+			injector.mapSingleton(LEDRefreshPollProxy);								// Polls the CMS to frequently check for updates to content
 			
 			//SERVICE			
 			injector.mapSingleton(XMLFeedService);									// loads remote xml & pushes result into specified proxy
@@ -76,7 +80,9 @@ package
 			
 			//CONTROLLER
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);
+			commandMap.mapEvent(ContextEvent.STARTUP, StartLEDRefreshPollCommand);
 			commandMap.mapEvent(PreferencesPane.UPDATE, WriteNewPreferencesCommand);
+			commandMap.mapEvent(LEDRefreshPollProxy.UPDATE, LEDRefreshCommand);		// Dispatched when LED content has been updated, triggers content refresh
 			
 			//kick it off!
 			dispatchEvent(new ContextEvent(ContextEvent.STARTUP));
