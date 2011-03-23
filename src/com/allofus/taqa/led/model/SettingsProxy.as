@@ -18,9 +18,18 @@ package com.allofus.taqa.led.model
 
 		public function set data(xml : XML) : void
 		{
-			_headlineDisplayRate = int(xml.node.led_headline_display_rate);
-			_textScrollSpeed = xml.node.led_scroll_speed;
-			_imageDisplaySeconds = int(xml.node.led_img_display_dur);
+			if(xml)
+			{
+				_headlineDisplayRate = int(xml.node.led_headline_display_rate);
+				_textScrollSpeed = xml.node.led_scroll_speed;
+				_imageDisplaySeconds = int(xml.node.led_img_display_dur);
+			}
+			else
+			{
+				_headlineDisplayRate = 50;
+				_textScrollSpeed = "slow";
+				_imageDisplaySeconds = 10;
+			}
 		}
 
 		public function get headlineDisplayRate() : int

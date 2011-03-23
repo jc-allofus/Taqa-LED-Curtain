@@ -57,6 +57,14 @@ package com.allofus.taqa.led.model
 				return selected;	
 			}
 			logger.warn("nothing to give.");
+			// return getDefaultMessage, override in sub classes
+			return getDefaultMessage();
+			//return null;
+		}
+		
+		protected function getDefaultMessage():ISlideVO
+		{
+			logger.error("getDefaultMessage needs to be overriden");
 			return null;
 		}
 		

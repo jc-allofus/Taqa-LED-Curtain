@@ -33,7 +33,7 @@ package com.allofus.taqa.led.model
 		
 		public function start():void
 		{
-			TweenMax.delayedCall(_pollRate, checkForUpdate);
+			//TweenMax.delayedCall(_pollRate, checkForUpdate);
 		}
 
 		public function set data(xml:XML):void

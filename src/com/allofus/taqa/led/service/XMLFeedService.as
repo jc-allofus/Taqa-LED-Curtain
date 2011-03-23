@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.service
 {
+	import flash.events.HTTPStatusEvent;
 	import com.allofus.taqa.led.model.IXMLProxy;
 	import com.allofus.taqa.led.service.events.XMLFeedEvent;
 	import nl.demonsters.debugger.MonsterDebugger;
@@ -33,8 +34,10 @@ package com.allofus.taqa.led.service
 		
 		public function retrieveFeed(url:String, targetModel:IXMLProxy):void
 		{
+			logger.info("retrieveFeed " + url + " into " + targetModel);
 			var vo:XMLFeedVO = new XMLFeedVO();
 			vo.url = url;
+			//vo.url = url + "BROKEN!";
 			vo.targetModel = targetModel;
 			pendingRequests.push(vo);
 			loadResult(vo);
@@ -42,6 +45,7 @@ package com.allofus.taqa.led.service
 		
 		protected function loadResult(vo:XMLFeedVO):void
 		{
+			logger.info("loadResult loader.status: " + loader.status);
 			var xldr:XMLLoader = new XMLLoader(vo.url, {name:vo.url});
 			loader.append(xldr);
 			switch(loader.status)
@@ -105,17 +109,23 @@ package com.allofus.taqa.led.service
 		
 		protected function handleLoadError(event:LoaderEvent):void
 		{
-			logger.error("handleImageLoadError: " + event.target + " : " + event.text + " event: " + event);
+			logger.error("handleLoadError: " + event.target + " : " + event.text + " event: " + event);
 		}
 		
 		protected function handleLoadFail(event:LoaderEvent):void
 		{
-			logger.error("handleImageLoadFail: " + event.target + " : " + event.text + " event: " + event);
+			logger.error("handleLoadFail: " + event.target + " : " + event.text + " event: " + event);
 		}
 		
 		protected function handleIOError(event:LoaderEvent):void
 		{
-			logger.error("handleImageIOError: " + event.target + " : " + event.text + " event: " + event);
+			logger.error("handleIOError: " + event.target + " : " + event.text + " event: " + event);
+			var vo:XMLFeedVO;
+			for (var i : int = 0; i < pendingRequests.length; i++) 
+			{
+				vo = pendingRequests[i];
+				vo.targetModel.data = null;
+			}
 		}
 		
 		private static const logger:ILogger = GetLogger.qualifiedName( XMLFeedService );

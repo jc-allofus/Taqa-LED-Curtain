@@ -13,7 +13,7 @@ package com.allofus.taqa.led.controller.startup
 	{
 		override public function execute():void
 		{
-			
+			logger.info("App is Running" );
 		}
 		private static const logger:ILogger = GetLogger.qualifiedName( AppRunningCommand );
 	}

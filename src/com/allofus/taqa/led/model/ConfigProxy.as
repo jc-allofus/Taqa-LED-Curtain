@@ -38,6 +38,7 @@ package com.allofus.taqa.led.model
 		protected var _imageBasePath:String;
 		protected var _videosDir:File;
 		private var _randomArabic : String;
+		protected var _errorMessage:String;
 		
 		public function ConfigProxy()
 		{
@@ -89,6 +90,7 @@ package com.allofus.taqa.led.model
 				var vidPath:String =result.VideoPath.@path; 
 				_videosDir = File.documentsDirectory.resolvePath(vidPath);
 				_randomArabic = result.RandomArabicString.toString();
+				_errorMessage = result.ErrorMessage.toString();
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
 			}
 			else
@@ -152,6 +154,16 @@ package com.allofus.taqa.led.model
 		public function set updatedFeedPath(updatedFeedPath:String):void
 		{
 			_updatedFeedPath = updatedFeedPath;
+		}
+
+		public function get errorMessage():String
+		{
+			return _errorMessage;
+		}
+
+		public function set errorMessage(errorMessage:String):void
+		{
+			_errorMessage = errorMessage;
 		}
 	}
 }

@@ -2,7 +2,9 @@ package com.allofus.taqa.led.view.slides
 {
 
 	import com.greensock.loading.display.ContentDisplay;
+
 	import flash.display.Bitmap;
+
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -18,6 +20,7 @@ package com.allofus.taqa.led.view.slides
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+
 	/**
 	 * @author jc
 	 */
@@ -26,115 +29,90 @@ package com.allofus.taqa.led.view.slides
 		protected var _imgVO:ImageSlideVO;
 		protected var imgContainer:Sprite;
 		protected var timer:Timer;
-		protected var _imageContent:ContentDisplay;
-		
 		protected var _timeoutSeconds:int = 2;
-		
+		protected var _imageLoader:ImageLoader;
+
 		public function ImageSlide(vo:ImageSlideVO):void
 		{
 			logger.debug("CONSTRUCTOR");
 			_imgVO = vo;
 			imgContainer = new Sprite();
-			timer = new Timer(_timeoutSeconds*1000, 1);
+			timer = new Timer(_timeoutSeconds * 1000, 1);
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
-			addChild(imgContainer);	
+			addChild(imgContainer);
 			loadImage();
 		}
-		
+
 		protected function loadImage():void
 		{
-			_loader = super.getLoader();
-			if(_loader)
+			var lv:ImageLoaderVars = new ImageLoaderVars();
+			lv.name = _imgVO.imageURL;
+			lv.container = imgContainer;
+			lv.onComplete = handleLoadComplete;
+			lv.onError = handleLoadError;
+			lv.onFail = handleLoadFail;
+			lv.onIOError = handleIOError;
+			lv.noCache = true;
+			
+			if(!_imgVO.imageURL)
 			{
-				var lv : ImageLoaderVars = new ImageLoaderVars();
-				lv.name = _imgVO.imageURL;
-				lv.container = imgContainer;
-				lv.onComplete = handleLoadComplete;
-				lv.onError = handleLoadError;
-				lv.onFail = handleLoadFail;
-				lv.onIOError = handleIOError;
-				//lv.scaleX = lv.scaleY = 1.001;
-				if(!_imgVO.imageURL)
-				{
-					logger.warn("Image slide doesn't have a url to load!!! " + _imgVO);
-				}
-				else
-				{
-					// TODO: find an alternative to the rnd hack below
-					_loader.append(
-						new ImageLoader(_imgVO.imageURL + "?rnd=" + Math.random(), lv)
-					);
-				}
-				switch(_loader.status)
-				{
-					case LoaderStatus.READY:
-					case LoaderStatus.PAUSED:
-					case LoaderStatus.COMPLETED:
-						_loader.load();
-						break;
-
-					case LoaderStatus.LOADING:
-						//logger.info("loader already in loading state, should just pick up our append: " + _loader.status);
-						break;
-				}
+				logger.warn("Image slide doesn't have a url to load!!! " + _imgVO);
 			}
 			else
 			{
-				logger.error("could not get a loader instance for " + _imgVO.imageURL);
+				_imageLoader = new ImageLoader(_imgVO.imageURL, lv);
+				_imageLoader.load();
 			}
 		}
-		
+
 		protected function handleLoadComplete(event:LoaderEvent):void
 		{
 			logger.debug("image finished loading " + (event.target as ImageLoader).content);
 			ready = true;
-			_imageContent = (event.target as ImageLoader).content as ContentDisplay;
 		}
-		
+
 		override public function transitionIn():void
 		{
 			visible = true;
 			alpha = 1;
 			TweenMax.from(this, 0.5, {alpha:0, onComplete:handleTransitionInComplete});
 		}
-		
+
 		override protected function handleTransitionInComplete():void
 		{
 			timer.reset();
 			timer.start();
 			super.handleTransitionInComplete();
 		}
-		
+
 		override public function dispose():void
 		{
 			logger.debug("dispose");
 			
-			_imageContent.dispose(true, true);
-			_loader.empty(true, true);
-			//_loader.dispose(true);
-			//_loader = null;
+			_imageLoader.dispose(true);
+			
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			timer = null;
 			removeChild(imgContainer);
 			imgContainer = null;
 		}
-		
+
 		protected function handleTimerComplete(event:TimerEvent):void
 		{
-			//logger.debug("image finished, dispatch complete.");
+			// logger.debug("image finished, dispatch complete.");
 			TweenMax.to(this, ApplicationGlobals.FADE_DURATION, {alpha:0, onComplete:onComplete});
 		}
-		
-		
-		private static const logger : ILogger = GetLogger.qualifiedName(ImageSlide);
 
-		public function get timeoutSeconds() : int
+
+		private static const logger:ILogger = GetLogger.qualifiedName(ImageSlide);
+
+		public function get timeoutSeconds():int
 		{
 			return _timeoutSeconds;
 		}
 
-		public function set timeoutSeconds(timeoutSeconds : int) : void
+		public function set timeoutSeconds(timeoutSeconds:int):void
 		{
 			_timeoutSeconds = timeoutSeconds;
 			if(timer)
@@ -144,7 +122,7 @@ package com.allofus.taqa.led.view.slides
 				{
 					timer.reset();
 					timer.start();
-					
+
 				}
 			}
 		}
