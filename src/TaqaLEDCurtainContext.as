@@ -1,5 +1,6 @@
 package
 {
+	import com.allofus.taqa.led.controller.startup.PrepareModelCommand;
 	import com.allofus.taqa.led.controller.startup.StartLEDRefreshPollCommand;
 	import com.allofus.taqa.led.controller.LEDRefreshCommand;
 	import com.allofus.taqa.led.model.LEDRefreshPollProxy;
@@ -82,7 +83,7 @@ package
 			commandMap.mapEvent(ContextEvent.STARTUP, PrepareFSMCommand);
 			commandMap.mapEvent(ContextEvent.STARTUP, StartLEDRefreshPollCommand);
 			commandMap.mapEvent(PreferencesPane.UPDATE, WriteNewPreferencesCommand);
-			commandMap.mapEvent(LEDRefreshPollProxy.UPDATE, LEDRefreshCommand);		// Dispatched when LED content has been updated, triggers content refresh
+			commandMap.mapEvent(LEDRefreshPollProxy.UPDATE, PrepareModelCommand);		// Dispatched when LED content has been updated, triggers content refresh
 			
 			//kick it off!
 			dispatchEvent(new ContextEvent(ContextEvent.STARTUP));

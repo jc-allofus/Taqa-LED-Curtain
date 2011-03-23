@@ -1,10 +1,10 @@
 package com.allofus.taqa.led.service
 {
-	import flash.events.HTTPStatusEvent;
+	import nl.demonsters.debugger.MonsterDebugger;
+
+	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.IXMLProxy;
 	import com.allofus.taqa.led.service.events.XMLFeedEvent;
-	import nl.demonsters.debugger.MonsterDebugger;
-	import com.allofus.shared.logging.GetLogger;
 	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.LoaderMax;
 	import com.greensock.loading.LoaderStatus;
@@ -45,7 +45,6 @@ package com.allofus.taqa.led.service
 		
 		protected function loadResult(vo:XMLFeedVO):void
 		{
-			logger.info("loadResult loader.status: " + loader.status);
 			var xldr:XMLLoader = new XMLLoader(vo.url, {name:vo.url});
 			loader.append(xldr);
 			switch(loader.status)

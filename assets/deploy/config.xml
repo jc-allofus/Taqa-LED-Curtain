@@ -14,6 +14,8 @@
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />
     </LoaderMax>
+    <!-- in seconds -->
+    <UpdatedSettingsCheckFrequency>60</UpdatedSettingsCheckFrequency>
     <RandomArabicString>بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
     <ErrorMessage>SERVER IS DOWN!! SERVER IS DOWN!!</ErrorMessage>
 </TaqaLEDCurtain>

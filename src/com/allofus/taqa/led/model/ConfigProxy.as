@@ -39,6 +39,7 @@ package com.allofus.taqa.led.model
 		protected var _videosDir:File;
 		private var _randomArabic : String;
 		protected var _errorMessage:String;
+		protected var _updatedSettingsCheckFrequency:int;
 		
 		public function ConfigProxy()
 		{
@@ -91,6 +92,8 @@ package com.allofus.taqa.led.model
 				_videosDir = File.documentsDirectory.resolvePath(vidPath);
 				_randomArabic = result.RandomArabicString.toString();
 				_errorMessage = result.ErrorMessage.toString();
+				_updatedSettingsCheckFrequency = int(result.UpdatedSettingsCheckFrequency);
+				
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
 			}
 			else
@@ -164,6 +167,16 @@ package com.allofus.taqa.led.model
 		public function set errorMessage(errorMessage:String):void
 		{
 			_errorMessage = errorMessage;
+		}
+
+		public function get updatedSettingsCheckFrequency():int
+		{
+			return _updatedSettingsCheckFrequency;
+		}
+
+		public function set updatedSettingsCheckFrequency(updatedSettingsCheckFrequency:int):void
+		{
+			_updatedSettingsCheckFrequency = updatedSettingsCheckFrequency;
 		}
 	}
 }
