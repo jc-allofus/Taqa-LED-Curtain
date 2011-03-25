@@ -1,22 +1,17 @@
 package com.allofus.taqa.led.view.slides
 {
 
-	import com.greensock.loading.display.ContentDisplay;
-
-	import flash.display.Bitmap;
-
+	import flash.events.Event;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
 	import com.greensock.TweenMax;
 	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
-	import com.greensock.loading.LoaderStatus;
 	import com.greensock.loading.data.ImageLoaderVars;
 
 	import mx.logging.ILogger;
 
-	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -57,9 +52,13 @@ package com.allofus.taqa.led.view.slides
 			if(!_imgVO.imageURL)
 			{
 				logger.warn("Image slide doesn't have a url to load!!! " + _imgVO);
+				ready = true;
+				dispatchEvent(new Event(ERROR));
 			}
 			else
 			{
+				// Uncomment for broken image link recovery testing
+				//if(Math.random() > 0.6) _imgVO.imageURL += "BROKENLINK";
 				_imageLoader = new ImageLoader(_imgVO.imageURL, lv);
 				_imageLoader.load();
 			}
@@ -88,9 +87,7 @@ package com.allofus.taqa.led.view.slides
 		override public function dispose():void
 		{
 			logger.debug("dispose");
-			
 			_imageLoader.dispose(true);
-			
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			timer = null;

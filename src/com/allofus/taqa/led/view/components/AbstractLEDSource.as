@@ -76,6 +76,7 @@ package com.allofus.taqa.led.view.components
 				currentSlide.removeEventListener(AbstractSlide.READY, playQueued);
 				currentSlide.addEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
 				currentSlide.addEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
+				currentSlide.addEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
 				bringToTop(currentSlide);
 				currentSlide.transitionIn();
 				
@@ -88,26 +89,25 @@ package com.allofus.taqa.led.view.components
 				queuedSlide.addEventListener(AbstractSlide.READY, playQueued);
 			}
 		}
-		
+				
 		protected function handleCurrentSlideTransitionInComplete(event : Event) : void
 		{
-			if(slideToDispose)
-			{
-				logger.debug("disposing: " + slideToDispose);
-				if(contains(slideToDispose))removeChild(slideToDispose);
-				slideToDispose.dispose();
-				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);
-				slideToDispose.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
-				slideToDispose.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
-				slideToDispose = null;
-			}
+			disposeCurrentSlide();
 		}
 		
 		protected function handleSlideFinished(event:Event):void
 		{
 			//logger.debug("slide finished.");
 			playQueued();
-		}		
+		}
+		
+		
+		protected function handleCurrentSlideError(event:Event):void
+		{
+			logger.debug("handleCurrentSlideError");
+			disposeCurrentSlide();
+			notifyNextPlaying();
+		}	
 		
 		protected function notifyNextPlaying():void
 		{
@@ -118,6 +118,21 @@ package com.allofus.taqa.led.view.components
 		{
 			var ti:int = numChildren -1;
 			setChildIndex(vp, ti);
+		}
+		
+		private function disposeCurrentSlide():void
+		{
+			if(slideToDispose)
+			{
+				logger.debug("disposing: " + slideToDispose);
+				if(contains(slideToDispose))removeChild(slideToDispose);
+				slideToDispose.dispose();
+				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);
+				slideToDispose.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
+				slideToDispose.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
+				slideToDispose.removeEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
+				slideToDispose = null;
+			}
 		}
 		
 		private static const logger:ILogger = GetLogger.qualifiedName( AbstractLEDSource );

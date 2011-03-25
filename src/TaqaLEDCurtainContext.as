@@ -1,21 +1,15 @@
 package
 {
-	import com.allofus.taqa.led.controller.startup.PrepareModelCommand;
-	import com.allofus.taqa.led.controller.startup.StartLEDRefreshPollCommand;
-	import com.allofus.taqa.led.controller.LEDRefreshCommand;
-	import com.allofus.taqa.led.model.LEDRefreshPollProxy;
-	import com.allofus.taqa.led.view.mediator.ImageSlideMediator;
-	import com.allofus.taqa.led.view.slides.ImageSlide;
-	import com.allofus.taqa.led.view.mediator.PixelTextSlideMediator;
-	import com.allofus.taqa.led.view.slides.PixelTextSlide;
-	import com.allofus.taqa.led.model.SettingsProxy;
-	import com.allofus.taqa.led.view.mediator.ScrollingTextSlideMediator;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.controller.WriteNewPreferencesCommand;
 	import com.allofus.taqa.led.controller.startup.PrepareFSMCommand;
+	import com.allofus.taqa.led.controller.startup.PrepareModelCommand;
+	import com.allofus.taqa.led.controller.startup.StartLEDRefreshPollCommand;
 	import com.allofus.taqa.led.model.CinemaLEDProxy;
 	import com.allofus.taqa.led.model.ConfigProxy;
 	import com.allofus.taqa.led.model.InternetConnectionProxy;
+	import com.allofus.taqa.led.model.LEDRefreshPollProxy;
+	import com.allofus.taqa.led.model.SettingsProxy;
 	import com.allofus.taqa.led.model.SmallLEDProxy;
 	import com.allofus.taqa.led.service.ApplicationUpdaterService;
 	import com.allofus.taqa.led.service.PreferencesService;
@@ -25,12 +19,17 @@ package
 	import com.allofus.taqa.led.view.components.SmallLEDSource;
 	import com.allofus.taqa.led.view.mediator.ApplicationMediator;
 	import com.allofus.taqa.led.view.mediator.CinemaLEDMediator;
+	import com.allofus.taqa.led.view.mediator.ImageSlideMediator;
+	import com.allofus.taqa.led.view.mediator.PixelTextSlideMediator;
 	import com.allofus.taqa.led.view.mediator.PositionPreferencesMediator;
 	import com.allofus.taqa.led.view.mediator.PreferencesPaneMediator;
+	import com.allofus.taqa.led.view.mediator.ScrollingTextSlideMediator;
 	import com.allofus.taqa.led.view.mediator.SmallLEDSlicedMediator;
 	import com.allofus.taqa.led.view.mediator.SmallLEDSourceMediator;
 	import com.allofus.taqa.led.view.preferences.PositionPreferences;
 	import com.allofus.taqa.led.view.preferences.PreferencesPane;
+	import com.allofus.taqa.led.view.slides.ImageSlide;
+	import com.allofus.taqa.led.view.slides.PixelTextSlide;
 	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
 
 	import org.robotlegs.base.ContextEvent;

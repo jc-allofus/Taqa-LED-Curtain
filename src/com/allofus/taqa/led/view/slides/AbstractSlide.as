@@ -18,6 +18,7 @@ package com.allofus.taqa.led.view.slides
 		public static const READY:String = "abstractSlide/ready";
 		public static const TRANSITION_IN_COMPLETE:String = "abstractSlide/transitionInComplete";
 		public static const COMPLETE:String = "abstractSlide/complete";
+		public static const ERROR:String = "abstractSlide/error";
 		
 		protected var _ready:Boolean = false;
 		
@@ -59,7 +60,9 @@ package com.allofus.taqa.led.view.slides
 		
 		protected function handleLoadError(event:LoaderEvent):void
 		{
-			logger.error("handleImageLoadError: " + event.target + " : " + event.text + " event: " + event);
+			logger.error("CM handleImageLoadError: " + event.target + " : " + event.text + " event: " + event);
+			ready = true;
+			dispatchEvent(new Event(ERROR));
 		}
 		
 		protected function handleLoadFail(event:LoaderEvent):void

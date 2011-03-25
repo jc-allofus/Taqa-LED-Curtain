@@ -51,7 +51,7 @@ package com.allofus.taqa.led.view.mediator
 			}
 			else
 			{
-				logger.debug("tried to init small LED, but model has nothing yet; wait...");
+				logger.debug("tried to init Cinema LED, but model has nothing yet; wait...");
 			}
 		}
 		
