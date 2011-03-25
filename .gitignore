@@ -13,3 +13,5 @@ build/user.properties
 build/user.build.xml
 lib/swc/Assets.swf
 .com.apple.timemachine.supported
+/bin-release/TaqaLEDCurtain.air
+/bin-release/update.xml
