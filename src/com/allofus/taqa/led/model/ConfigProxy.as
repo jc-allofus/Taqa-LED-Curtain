@@ -38,7 +38,8 @@ package com.allofus.taqa.led.model
 		protected var _imageBasePath:String;
 		protected var _videosDir:File;
 		private var _randomArabic : String;
-		protected var _errorMessage:String;
+		protected var _errorMessageEnglish:String;
+		protected var _errorMessageArabic:String;
 		protected var _updatedSettingsCheckFrequency:int;
 		
 		public function ConfigProxy()
@@ -91,7 +92,8 @@ package com.allofus.taqa.led.model
 				var vidPath:String =result.VideoPath.@path; 
 				_videosDir = File.documentsDirectory.resolvePath(vidPath);
 				_randomArabic = result.RandomArabicString.toString();
-				_errorMessage = result.ErrorMessage.toString();
+				_errorMessageEnglish = result.ErrorMessageEnglish.toString();
+				_errorMessageArabic = result.ErrorMessageArabic.toString();
 				_updatedSettingsCheckFrequency = int(result.UpdatedSettingsCheckFrequency);
 				
 				dispatch(new Event(ConfigProxy.LOAD_COMPLETE));
@@ -159,16 +161,6 @@ package com.allofus.taqa.led.model
 			_updatedFeedPath = updatedFeedPath;
 		}
 
-		public function get errorMessage():String
-		{
-			return _errorMessage;
-		}
-
-		public function set errorMessage(errorMessage:String):void
-		{
-			_errorMessage = errorMessage;
-		}
-
 		public function get updatedSettingsCheckFrequency():int
 		{
 			return _updatedSettingsCheckFrequency;
@@ -177,6 +169,26 @@ package com.allofus.taqa.led.model
 		public function set updatedSettingsCheckFrequency(updatedSettingsCheckFrequency:int):void
 		{
 			_updatedSettingsCheckFrequency = updatedSettingsCheckFrequency;
+		}
+
+		public function get errorMessageEnglish():String
+		{
+			return _errorMessageEnglish;
+		}
+
+		public function set errorMessageEnglish(errorMessageEnglish:String):void
+		{
+			_errorMessageEnglish = errorMessageEnglish;
+		}
+
+		public function get errorMessageArabic():String
+		{
+			return _errorMessageArabic;
+		}
+
+		public function set errorMessageArabic(errorMessageArabic:String):void
+		{
+			_errorMessageArabic = errorMessageArabic;
 		}
 	}
 }

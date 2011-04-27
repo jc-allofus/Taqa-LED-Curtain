@@ -25,6 +25,7 @@ package com.allofus.taqa.led.model
 		public static const UPDATED:String = "smallLEDProxy/updated";
 
 		protected var playlistLength:int = 100;
+		protected var isErrorMsgEnglish:Boolean = true;
 
 		public function SmallLEDProxy()
 		{
@@ -185,9 +186,18 @@ package com.allofus.taqa.led.model
 			var vo:ScrollingTextVO = new ScrollingTextVO();
 			vo.id = "st"+getTimer();
 			vo.isHeadlineContent = false;
-			vo.language = Languages.ENGLISH;
+			if (isErrorMsgEnglish)
+			{
+				vo.language = Languages.ENGLISH;
+				vo.text = configProxy.errorMessageEnglish;
+			}
+			else
+			{
+				vo.language = Languages.ARABIC;
+				vo.text = configProxy.errorMessageArabic;
+			}
+			isErrorMsgEnglish = !isErrorMsgEnglish;
 			vo.theme = Themes.ATOMIC;
-			vo.text = configProxy.errorMessage;
 			vo.bgVidsDir = configProxy.videosDir.url + File.separator + "backgrounds" + File.separator;
 			vo.type = SlideTypes.SCROLLING_TEXT_SMALL;
 			return vo;

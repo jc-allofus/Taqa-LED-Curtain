@@ -87,7 +87,7 @@ package com.allofus.taqa.led.view.slides
 		override public function dispose():void
 		{
 			logger.debug("dispose");
-			_imageLoader.dispose(true);
+			if (_imageLoader) _imageLoader.dispose(true);
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, handleTimerComplete);
 			timer = null;

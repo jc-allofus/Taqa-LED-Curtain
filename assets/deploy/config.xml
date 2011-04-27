@@ -4,7 +4,7 @@
 	<!-- inside user's documents directory -->
 	<VideoPath path="TaqaLEDCurtainVideos"/>
 	<APIEndpoints>
-		<APIBaseURL path="http://devmacmini.local:8888//kca/" />
+		<APIBaseURL path="http://devmacmini.local:8888/kca/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
 		<SettingsFeed path="http://devmacmini.local:8888/kca/feeds/settings" />
 		<SmallLEDFeed path="http://devmacmini.local:8888/kca/feeds/small-led" />
@@ -17,5 +17,6 @@
     <!-- in seconds -->
     <UpdatedSettingsCheckFrequency>60</UpdatedSettingsCheckFrequency>
     <RandomArabicString>بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
-    <ErrorMessage>SERVER IS DOWN!! SERVER IS DOWN!!</ErrorMessage>
+    <ErrorMessageEnglish>To meet growing energy demand Saudi Arabia needs to find new ways to generate energy.</ErrorMessageEnglish>
+    <ErrorMessageArabic>تحتاج المملكة العربية السعودية إلى إيجاد طرق جديدة لتوليد الطاقة من أجل تلبية الطلب المتزايد على الطاقة</ErrorMessageArabic>
 </TaqaLEDCurtain>
