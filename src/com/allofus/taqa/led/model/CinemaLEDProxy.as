@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.model
 {
+	import flash.utils.getTimer;
+	import com.allofus.taqa.led.model.vo.VideoSlideVO;
 	import com.allofus.shared.logging.GetLogger;
 	import mx.logging.ILogger;
 	import flash.events.Event;
@@ -12,6 +14,7 @@ package com.allofus.taqa.led.model
 	public class CinemaLEDProxy extends TaqaFeedProxy implements IXMLProxy
 	{
 		public static const UPDATED:String = "cinemaLEDProxy/updated";
+
 
 		public function CinemaLEDProxy()
 		{
@@ -64,11 +67,21 @@ package com.allofus.taqa.led.model
 		
 		override protected function getDefaultMessage():ISlideVO
 		{
-			var vo:ImageSlideVO = new ImageSlideVO();
-			vo.id = "";
-			vo.imageURL = "";
-			vo.type = SlideTypes.IMAGE_CINEMA;
-			return vo;
+			if(configProxy && configProxy.defaultCinemaVidoes && configProxy.defaultCinemaVidoes.length > 0)
+			{
+				var index:int = Math.round(Math.random() * (configProxy.defaultCinemaVidoes.length -1));
+				var vidURL:String = configProxy.defaultCinemaVidoes[index];
+				if(vidURL)
+				{
+					var vo:VideoSlideVO = new VideoSlideVO();
+					vo.id = "vid" + getTimer();
+					vo.videoURL = vidURL;
+					vo.type = SlideTypes.VIDEO_CINEMA;
+					return vo;
+				}
+			}
+			logger.fatal("problem getting a default message for the cinema screen.");
+			return null;
 		}
 
 		private static const logger:ILogger = GetLogger.qualifiedName(CinemaLEDProxy);

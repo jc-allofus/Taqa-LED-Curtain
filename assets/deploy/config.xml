@@ -3,6 +3,12 @@
 	<UpdateURL path="http://" />
 	<!-- inside user's documents directory -->
 	<VideoPath path="TaqaLEDCurtainVideos"/>
+	<!--  relative to $videoPath -->
+	<DefaultCinemaVideos>
+		<video path="defaultCinemaVideos/Mishkat Wall 01.flv"/>
+		<video path="defaultCinemaVideos/Mishkat Wall 02.flv"/>
+		<video path="defaultCinemaVideos/Mishkat Wall 03.flv"/>
+	</DefaultCinemaVideos>
 	<APIEndpoints>
 		<APIBaseURL path="http://devmacmini.local:8888/kca/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />

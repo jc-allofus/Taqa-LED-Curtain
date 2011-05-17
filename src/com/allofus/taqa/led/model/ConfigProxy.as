@@ -37,6 +37,7 @@ package com.allofus.taqa.led.model
 		protected var _apiBaseURL : String;
 		protected var _imageBasePath:String;
 		protected var _videosDir:File;
+		protected var _defaultCinemaVidoes:Vector.<String>;
 		private var _randomArabic : String;
 		protected var _errorMessageEnglish:String;
 		protected var _errorMessageArabic:String;
@@ -48,6 +49,7 @@ package com.allofus.taqa.led.model
 
 		public function loadConfigFile(url : String) : void
 		{
+			_defaultCinemaVidoes = new Vector.<String>();
 			logger.debug("load config file from url: " + url);
 			loader = getLoader();
 			loader.append(new XMLLoader(url, {name:FILE_ID, estimatedBytes:ESTIMATED_BYTES}));
@@ -79,7 +81,6 @@ package com.allofus.taqa.led.model
 		{
 			//config xml
 			var result:XML = loader.getContent(FILE_ID) as XML;
-			//ogger.debug("result: " + result);
 			if(result)
 			{
 				_apiBaseURL = result.APIEndpoints.APIBaseURL.@path;
@@ -91,6 +92,11 @@ package com.allofus.taqa.led.model
 				_imageBasePath = result.ImageBasePath.@path;
 				var vidPath:String =result.VideoPath.@path; 
 				_videosDir = File.documentsDirectory.resolvePath(vidPath);
+				for each(var video:XML in result.DefaultCinemaVideos.children())
+				{
+					var p:String = _videosDir.url + File.separator + video.@path;
+					_defaultCinemaVidoes.push(p);
+				}
 				_randomArabic = result.RandomArabicString.toString();
 				_errorMessageEnglish = result.ErrorMessageEnglish.toString();
 				_errorMessageArabic = result.ErrorMessageArabic.toString();
@@ -148,8 +154,11 @@ package com.allofus.taqa.led.model
 		{
 			return _videosDir;
 		}
-
-		private static const logger:ILogger = GetLogger.qualifiedName(ConfigProxy);
+		
+		public function get defaultCinemaVidoes() : Vector.<String>
+		{
+			return _defaultCinemaVidoes;
+		}
 
 		public function get updatedFeedPath():String
 		{
@@ -190,5 +199,8 @@ package com.allofus.taqa.led.model
 		{
 			_errorMessageArabic = errorMessageArabic;
 		}
+
+		private static const logger:ILogger = GetLogger.qualifiedName(ConfigProxy);
+
 	}
 }
