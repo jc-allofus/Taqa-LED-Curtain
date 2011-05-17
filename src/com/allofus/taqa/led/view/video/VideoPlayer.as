@@ -1,6 +1,5 @@
 package com.allofus.taqa.led.view.video
 {
-	import nl.demonsters.debugger.MonsterDebugger;
 	import com.allofus.shared.logging.GetLogger;
 
 	import mx.logging.ILogger;

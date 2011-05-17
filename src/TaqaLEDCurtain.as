@@ -12,6 +12,8 @@ package
 
 	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.InvokeEvent;
 	import flash.filesystem.File;
@@ -54,8 +56,8 @@ package
 			NativeApplication.nativeApplication.removeEventListener(InvokeEvent.INVOKE, onApplicationInvoked);
 			if(!_invoked)
 			{
-//				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-//				stage.scaleMode = StageScaleMode.SHOW_ALL;
+				//do stuff on invoked
+				stage.scaleMode = StageScaleMode.NO_SCALE;
 				_invoked = true;
 			}
 		}
@@ -98,6 +100,18 @@ package
 		protected function createContext() : void
 		{
 			context = new TaqaLEDCurtainContext(this);
+		}
+
+		public function fullscreen(value : Boolean) : void
+		{
+			if(value)
+			{
+				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			}
+			else
+			{
+				stage.displayState = StageDisplayState.NORMAL;
+			}
 		}
 	}
 }

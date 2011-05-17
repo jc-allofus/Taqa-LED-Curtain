@@ -23,17 +23,21 @@ package com.allofus.taqa.led.controller.startup
 		{
 			logger.info("constructing initial view." );
 			
+			var main:TaqaLEDCurtain = contextView as TaqaLEDCurtain;
+			
 			var smallLEDSource:SmallLEDSource = new SmallLEDSource();
-			contextView.addChild(smallLEDSource);
+			main.addChild(smallLEDSource);
 			
 			var smallLEDSliced:SmallLEDSliced = new SmallLEDSliced(smallLEDSource);
-			contextView.addChild(smallLEDSliced);
+			main.addChild(smallLEDSliced);
 			
 			var cinemaLED:CinemaLED = new CinemaLED();
-			contextView.addChild(cinemaLED);
+			main.addChild(cinemaLED);
 			
 			var preferencesPane:PreferencesPane = new PreferencesPane(configProxy.randomArabic);
-			contextView.addChild(preferencesPane);
+			main.addChild(preferencesPane);
+			
+			main.fullscreen(true); //default the app to fullscreen
 			
 			TLFTextManager.listFonts();
 		}

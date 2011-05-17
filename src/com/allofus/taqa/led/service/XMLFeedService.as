@@ -1,7 +1,5 @@
 package com.allofus.taqa.led.service
 {
-	import nl.demonsters.debugger.MonsterDebugger;
-
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.IXMLProxy;
 	import com.allofus.taqa.led.service.events.XMLFeedEvent;
@@ -102,8 +100,8 @@ package com.allofus.taqa.led.service
 		
 		protected function handleQueueComplete(event:LoaderEvent):void
 		{
-			MonsterDebugger.trace("+++++", event);
 			logger.info("queueComplete: ");
+			pendingRequests.length = 0;
 		}
 		
 		protected function handleLoadError(event:LoaderEvent):void

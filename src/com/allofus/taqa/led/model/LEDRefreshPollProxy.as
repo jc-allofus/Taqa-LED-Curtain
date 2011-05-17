@@ -22,6 +22,9 @@ package com.allofus.taqa.led.model
 		// last time in seconds-since-epoch that content was updated
 		protected var _lastUpdated:int = -1;
 		
+		protected var failCount:int = 0; //how many times have we got no response
+		protected var giveUpAfterFails:int = 2;
+		
 		[Inject] public var configProxy:ConfigProxy;
 		[Inject] public var xmlFeedService:XMLFeedService;
 		
@@ -40,6 +43,12 @@ package com.allofus.taqa.led.model
 		 */
 		public function set data(xml:XML):void
 		{
+			if(!xml)
+			{
+				logger.warn("data was set to null, this probably means the CMS is unavailable. try again after dealy.");
+				start();
+				return;
+			}
 			// Get the date time and compare it to _lastUpdated
 			var updated:int = int(xml.node.updated);
 			// log
