@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TaqaLEDCurtain>
+	<!-- not currently used -->
 	<UpdateURL path="http://kca.allofusit.com/taqaLEDCurtains/update.xml" />
 	<!-- inside user's documents directory -->
 	<VideoPath path="TaqaLEDCurtainVideos"/>

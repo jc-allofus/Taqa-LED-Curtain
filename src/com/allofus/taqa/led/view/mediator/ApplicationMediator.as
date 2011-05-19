@@ -39,6 +39,10 @@ package com.allofus.taqa.led.view.mediator
 					dispatch(event);
 					break;
 					
+				case Keyboard.F:
+					view.toggleFullscreen();
+					break;
+					
 				default:
 					break;
 			}

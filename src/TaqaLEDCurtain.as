@@ -113,5 +113,10 @@ package
 				stage.displayState = StageDisplayState.NORMAL;
 			}
 		}
+
+		public function toggleFullscreen() : void
+		{
+			stage.displayState == StageDisplayState.NORMAL ? fullscreen(true) : fullscreen(false);
+		}
 	}
 }
