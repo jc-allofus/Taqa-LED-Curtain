@@ -67,22 +67,22 @@ package com.allofus.taqa.led.view.components
 		
 		protected function initBannerSnapshot(e:Event = null):void
 		{
-			bmd1 = new BitmapData(217, 34,false,0xFFFFFF);
+			bmd1 = new BitmapData(221, 34,false,0xFFFFFF);
 			bm1 = new Bitmap(bmd1);
 			addChild(bm1);
 			
-			bmd2 = new BitmapData(217, 34,false,0x00cc00);
-			m2 = new Matrix(1,0,0,1,-217,0);
+			bmd2 = new BitmapData(221, 34,false,0x00cc00);
+			m2 = new Matrix(1,0,0,1,-221,0);
 			bm2 = new Bitmap(bmd2);
 			addChild(bm2);
 			
-			bmd3 = new BitmapData(217, 34, false, 0x00cc00);
-			m3 = new Matrix(1,0,0,1,-434,0);
+			bmd3 = new BitmapData(221, 34, false, 0x00cc00);
+			m3 = new Matrix(1,0,0,1,-442,0);
 			bm3 = new Bitmap(bmd3);
 			addChild(bm3);
 			
 			bmd4 = new BitmapData(197, 34, false, 0x00cc00);
-			m4 = new Matrix(1,0,0,1,-651, 0);
+			m4 = new Matrix(1,0,0,1,-663, 0);
 			bm4 = new Bitmap(bmd4);
 			addChild(bm4);
 			

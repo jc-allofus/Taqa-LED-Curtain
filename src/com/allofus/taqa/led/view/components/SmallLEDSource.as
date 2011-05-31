@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.view.components
 {
+	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice_830x34;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
@@ -26,7 +27,7 @@ package com.allofus.taqa.led.view.components
 	 */
 	public class SmallLEDSource extends AbstractLEDSource
 	{
-		public static const WIDTH:int = 848;
+		public static const WIDTH:int = 860;
 		public static const HEIGHT:int = 34;
 		
 		protected var testPattern:Bitmap;
@@ -92,7 +93,7 @@ package com.allofus.taqa.led.view.components
 		{
 			if(!testPattern)
 			{
-				testPattern = new Bitmap(new TestBitmapSlice(0, 0));
+				testPattern = new Bitmap(new TestBitmapSlice_830x34(0, 0));
 				testPattern.alpha = alpha;
 				addChild(testPattern);
 			}
