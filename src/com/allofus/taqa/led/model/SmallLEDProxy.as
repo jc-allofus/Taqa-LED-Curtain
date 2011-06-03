@@ -124,12 +124,12 @@ package com.allofus.taqa.led.model
 			logger.fatal("how many total headline items:" + headlineItems.length);
 			if(headlineItems.length > 0)
 			{
-				createHeadlineWieghtedPlaylist();
+				createHeadlineWeightedPlaylist();
 			}
 			dispatch(new Event(UPDATED));
 		}
 
-		protected function createHeadlineWieghtedPlaylist():void
+		protected function createHeadlineWeightedPlaylist():void
 		{
 			var playlistLength:int = DEFAULT_PLAYLIST_LENGTH;
 			var headlineWeight:int = settingsProxy.headlineDisplayRate; //percentage that should be headline items
