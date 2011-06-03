@@ -112,14 +112,14 @@ package com.allofus.taqa.led.model
 						default:
 							break;
 					}
-				}
 
-				if(vo)
-				{
-					allItems.push(vo);
-					vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
+					if(vo)
+					{
+						allItems.push(vo);
+						vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
+					}
+					vo = null;
 				}
-				vo = null;
 			}
 
 			if(headlineItems.length > 0)
