@@ -1,6 +1,6 @@
-#Tue Mar 22 11:19:46 GMT 2011
+#Fri Jun 03 10:19:51 BST 2011
 com.powerflasher.fdt.core.CompatiblePlayers=AIR_Debug_Launcher
-com.powerflasher.fdt.core.CompilerArguments=-static-link-runtime-shared-libraries\=true\n-target-player\={playerVersion}\n-library-path+\="{flexSDK}/frameworks/locale/en_US"\n-default-size\=550,400
+com.powerflasher.fdt.core.CompilerArguments=-static-link-runtime-shared-libraries\=true\n-target-player\={playerVersion}\n-library-path+\="{flexSDK}/frameworks/locale/en_US"\n-default-size\=1064,440
 com.powerflasher.fdt.core.DefaultPlayer=AIR_Debug_Launcher
 com.powerflasher.fdt.core.Language=AS3
 com.powerflasher.fdt.core.PassClasspath=true
