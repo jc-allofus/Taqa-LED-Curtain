@@ -11,12 +11,12 @@
 		<video path="defaultCinemaVideos/Mishkat Wall 03.flv"/>
 	</DefaultCinemaVideos>
 	<APIEndpoints>
-		<APIBaseURL path="http://devmacmini.local:8888/kca/" />
+		<APIBaseURL path="http://diacon.local/kca/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
-		<SettingsFeed path="http://devmacmini.local:8888/kca/feeds/settings" />
-		<SmallLEDFeed path="http://devmacmini.local:8888/kca/feeds/small-led" />
-		<CinemaLEDFeed path="http://devmacmini.local:8888/kca/feeds/cinema-led" />
-		<UpdatedFeed path="http://devmacmini.local:8888/kca/feeds/settings_updated" />
+		<SettingsFeed path="http://diacon.local/kca/feeds/settings" />
+		<SmallLEDFeed path="http://diacon.local/kca/feeds/small-led" />
+		<CinemaLEDFeed path="http://diacon.local/kca/feeds/cinema-led" />
+		<UpdatedFeed path="http://diacon.local/kca/feeds/settings_updated" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />

@@ -24,7 +24,7 @@ package com.allofus.taqa.led.model
 
 		public static const UPDATED:String = "smallLEDProxy/updated";
 
-		protected var playlistLength:int = 100;
+		protected static const DEFAULT_PLAYLIST_LENGTH:int = 100;
 		protected var isErrorMsgEnglish:Boolean = true;
 
 		public function SmallLEDProxy()
@@ -112,47 +112,49 @@ package com.allofus.taqa.led.model
 						default:
 							break;
 					}
-				}
 
-				if(vo)
-				{
-					allItems.push(vo);
-					vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
+					if(vo)
+					{
+						allItems.push(vo);
+						vo.isHeadlineContent ? headlineItems.push(vo) : notHeadlineItems.push(vo);
+					}
+					vo = null;
 				}
-				vo = null;
 			}
-
+			logger.fatal("how many total headline items:" + headlineItems.length);
 			if(headlineItems.length > 0)
 			{
-				createHeadlineWieghtedPlaylist();
+				createHeadlineWeightedPlaylist();
 			}
 			dispatch(new Event(UPDATED));
 		}
 
-		protected function createHeadlineWieghtedPlaylist():void
+		protected function createHeadlineWeightedPlaylist():void
 		{
-			var headlineWeight:int = settingsProxy.headlineDisplayRate;
+			var playlistLength:int = DEFAULT_PLAYLIST_LENGTH;
+			var headlineWeight:int = settingsProxy.headlineDisplayRate; //percentage that should be headline items
+			var numHeadlineItems:int = Math.round((playlistLength * headlineWeight) / 100);
 			var playlist:Vector.<ISlideVO> = new Vector.<ISlideVO>();
 			var iheadline:int = 0;
 			var inotHeadline:int = 0;
 			for(var i:int = 0; i < playlistLength; i++)
 			{
-				if(i < headlineWeight)
+				if(i < numHeadlineItems)
 				{
 					playlist.push(headlineItems[iheadline]);
-					// logger.fatal(i + " add headline: " + iheadline + " / " + String(headlineItems.length -1));
+					// logger.debug(i + " add headline: " + iheadline + " / " + String(headlineItems.length -1));
 					iheadline = (iheadline + 1 > headlineItems.length - 1) ? 0 : iheadline + 1;
 				}
 				else
 				{
 					playlist.push(notHeadlineItems[inotHeadline]);
-					// logger.warn(i + " NON headline: " + inotHeadline + " / " + String(notHeadlineItems.length -1));
+					// logger.debug(i + " NON headline: " + inotHeadline + " / " + String(notHeadlineItems.length -1));
 					inotHeadline = (inotHeadline + 1 > notHeadlineItems.length - 1 ) ? 0 : inotHeadline + 1;
 				}
 			}
 			_playlist = randomize(playlist);
 			index = 0;
-			// showPlaylist();
+			showPlaylist();
 		}
 
 		protected function randomize(vec:Vector.<ISlideVO>):Vector.<ISlideVO>
