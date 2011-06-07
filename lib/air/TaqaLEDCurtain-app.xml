@@ -2,8 +2,8 @@
 <!-- AIR Application Descriptor File. See http://www.adobe.com/go/learn_air_1.0_application_descriptor_en. -->
 	<id>TaqaLEDCurtain</id>
 	<name>TaqaLEDCurtain</name>
-        <versionNumber>1.0.1</versionNumber>
-        <versionLabel>1.0.1</versionLabel>
+        <versionNumber>1.0.2</versionNumber>
+        <versionLabel>1.0.2</versionLabel>
 	<filename>TaqaLEDCurtain</filename>
 	<description>
 		<text xml:lang="en">Taqa LED Curtains</text>

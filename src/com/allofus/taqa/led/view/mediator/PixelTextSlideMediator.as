@@ -1,11 +1,14 @@
 package com.allofus.taqa.led.view.mediator
 {
+	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.SettingsProxy;
 	import com.allofus.taqa.led.service.PreferencesService;
 	import com.allofus.taqa.led.view.preferences.TypeStylePreferences;
 	import com.allofus.taqa.led.view.slides.PixelTextSlide;
 
 	import org.robotlegs.mvcs.Mediator;
+
+	import mx.logging.ILogger;
 
 	import flash.events.Event;
 
@@ -22,8 +25,14 @@ package com.allofus.taqa.led.view.mediator
 		override public function onRegister():void
 		{
 			eventMap.mapListener(eventDispatcher, PreferencesService.UPDATED, setScrollSpeed);
-			
+			eventMap.mapListener(eventDispatcher, SettingsProxy.UPDATE, onSettingsUpdated);
 			//set initial speed:
+			setScrollSpeed();
+		}
+		
+		protected function onSettingsUpdated(event:Event =null):void
+		{
+			logger.debug("pixel text sees settings updated");
 			setScrollSpeed();
 		}
 		
@@ -48,5 +57,7 @@ package com.allofus.taqa.led.view.mediator
 					break;
 			}
 		}
+		
+		private static const logger:ILogger = GetLogger.qualifiedName( PixelTextSlideMediator );
 	}
 }

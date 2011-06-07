@@ -227,6 +227,7 @@ package com.allofus.taqa.led.view.slides
 
 		public function set scrollingSpeed(value:int):void
 		{
+			logger.debug("setting scrolling speed on text slide: " + value);
 			_scrollingSpeed = value;
 			if(scrollState) scrollState.speed = scrollingSpeed;
 		}

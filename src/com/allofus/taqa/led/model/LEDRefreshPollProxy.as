@@ -34,7 +34,7 @@ package com.allofus.taqa.led.model
 		public function start():void
 		{
 			// Get poll rate from config or fallback to 60 seconds
-			var pollRate:int = configProxy.updatedSettingsCheckFrequency || 60;
+			var pollRate:int = configProxy.updatedSettingsCheckFrequency || 15;
 			TweenMax.delayedCall(pollRate, checkForUpdate);
 		}
 		

@@ -121,7 +121,7 @@ package com.allofus.taqa.led.model
 					vo = null;
 				}
 			}
-			logger.fatal("how many total headline items:" + headlineItems.length);
+			//logger.fatal("how many total headline items:" + headlineItems.length);
 			if(headlineItems.length > 0)
 			{
 				createHeadlineWeightedPlaylist();
@@ -154,7 +154,7 @@ package com.allofus.taqa.led.model
 			}
 			_playlist = randomize(playlist);
 			index = 0;
-			showPlaylist();
+			//showPlaylist();
 		}
 
 		protected function randomize(vec:Vector.<ISlideVO>):Vector.<ISlideVO>
