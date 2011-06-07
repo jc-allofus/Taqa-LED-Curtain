@@ -25,13 +25,20 @@ package com.allofus.taqa.led.view.mediator
 		override public function onRegister():void
 		{
 			eventMap.mapListener(eventDispatcher, PreferencesService.UPDATED, setScrollSpeed);
-			
+			eventMap.mapListener(eventDispatcher, SettingsProxy.UPDATE, onSettingsUpdated);
 			//set initial speed:
+			setScrollSpeed();
+		}
+		
+		protected function onSettingsUpdated(event:Event =null):void
+		{
+			logger.debug("scrolling text sees settings updated");
 			setScrollSpeed();
 		}
 		
 		protected function setScrollSpeed(event:Event = null):void
 		{
+			logger.debug("what is the scroll speed: " + settingsProxy.textScrollSpeed);
 			switch(settingsProxy.textScrollSpeed)
 			{
 				case "slow":

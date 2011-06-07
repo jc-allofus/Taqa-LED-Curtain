@@ -11,18 +11,18 @@
 		<video path="defaultCinemaVideos/Mishkat Wall 03.flv"/>
 	</DefaultCinemaVideos>
 	<APIEndpoints>
-		<APIBaseURL path="http://diacon.local/kca/" />
+		<APIBaseURL path="http://dev.allofus.com/kca" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
-		<SettingsFeed path="http://diacon.local/kca/feeds/settings" />
-		<SmallLEDFeed path="http://diacon.local/kca/feeds/small-led" />
-		<CinemaLEDFeed path="http://diacon.local/kca/feeds/cinema-led" />
-		<UpdatedFeed path="http://diacon.local/kca/feeds/settings_updated" />
+		<SettingsFeed path="http://dev.allofus.com/kca/feeds/settings" />
+		<SmallLEDFeed path="http://dev.allofus.com/kca/feeds/small-led" />
+		<CinemaLEDFeed path="http://dev.allofus.com/kca/feeds/cinema-led" />
+		<UpdatedFeed path="http://dev.allofus.com/kca/feeds/settings_updated" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />
     </LoaderMax>
     <!-- in seconds -->
-    <UpdatedSettingsCheckFrequency>60</UpdatedSettingsCheckFrequency>
+    <UpdatedSettingsCheckFrequency>15</UpdatedSettingsCheckFrequency>
     <RandomArabicString>بسبب بالتوقيع بريطانيا، قصف, ما أواخر السبب الخطّة حيث. قد لغات لفشل الحزب يتم, قبل بداية ومطالبة بعتادم</RandomArabicString>
     <ErrorMessageEnglish>To meet growing energy demand Saudi Arabia needs to find new ways to generate energy.</ErrorMessageEnglish>
     <ErrorMessageArabic>تحتاج المملكة العربية السعودية إلى إيجاد طرق جديدة لتوليد الطاقة من أجل تلبية الطلب المتزايد على الطاقة</ErrorMessageArabic>

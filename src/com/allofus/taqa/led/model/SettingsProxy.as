@@ -1,6 +1,7 @@
 package com.allofus.taqa.led.model
 {
 
+	import flash.events.Event;
 	import com.allofus.shared.logging.GetLogger;
 
 	import org.robotlegs.mvcs.Actor;
@@ -11,6 +12,7 @@ package com.allofus.taqa.led.model
 	 */
 	public class SettingsProxy extends Actor implements IXMLProxy
 	{
+		public static const UPDATE:String = "SettingsProxy/Update";
 		
 		protected var _headlineDisplayRate:int;
 		protected var _textScrollSpeed:String; //slow, med, fast
@@ -18,6 +20,7 @@ package com.allofus.taqa.led.model
 
 		public function set data(xml : XML) : void
 		{
+			logger.debug("CONFIG PROXY updated settings: " + xml);
 			if(xml)
 			{
 				_headlineDisplayRate = int(xml.node.led_headline_display_rate);
@@ -30,6 +33,8 @@ package com.allofus.taqa.led.model
 				_textScrollSpeed = "slow";
 				_imageDisplaySeconds = 10;
 			}
+			logger.debug("send update to system.");
+			dispatch(new Event(UPDATE));
 		}
 
 		public function get headlineDisplayRate() : int

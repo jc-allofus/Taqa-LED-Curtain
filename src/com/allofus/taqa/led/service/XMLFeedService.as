@@ -84,6 +84,9 @@ package com.allofus.taqa.led.service
 			for (var i : int = 0; i < pendingRequests.length; i++) 
 			{
 				vo = pendingRequests[i];
+				if(vo.url != event.target.name)
+					continue;
+				logger.fatal("ITEM COMPLETE here what was loaded: " + event.target.name + "\n and the VO: " + vo.url + "\n and the model he goes to: " + vo.targetModel);
 				xloader = loader.getLoader(vo.url);
 				xml = xloader.getContent(vo.url) as XML;
 				if(xml)
@@ -95,13 +98,17 @@ package com.allofus.taqa.led.service
 					pendingRequests.splice(i, 1);
 					i--;
 				}
+				else
+				{
+					logger.error("couldn't get result for: " + vo);
+				}
 			}
 		}
 		
 		protected function handleQueueComplete(event:LoaderEvent):void
 		{
 			logger.info("queueComplete: ");
-			pendingRequests.length = 0;
+			//pendingRequests.length = 0;
 		}
 		
 		protected function handleLoadError(event:LoaderEvent):void
