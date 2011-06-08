@@ -1,15 +1,14 @@
 package com.allofus.taqa.led.model
 {
-	import flash.events.TimerEvent;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.service.XMLFeedService;
-	import com.greensock.TweenMax;
 
 	import org.robotlegs.mvcs.Actor;
 
 	import mx.logging.ILogger;
 
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 
 	/**
@@ -48,6 +47,7 @@ package com.allofus.taqa.led.model
 			timer.reset();
 			timer.delay = pollRate;
 			timer.start();
+			logger.info("start timer for refresh: " + timer.delay +  " configProxy.checkFrequency: " + configProxy.updatedSettingsCheckFrequency);
 		}
 		
 		/**

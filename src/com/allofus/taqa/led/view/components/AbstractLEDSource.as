@@ -121,10 +121,16 @@ package com.allofus.taqa.led.view.components
 		
 		protected function disposeOldSlides():void
 		{
+			logger.info("dispose old slides...");
 			var oldSlide:AbstractSlide;
 			while (numChildren > 2)
 			{
 				oldSlide = getChildAt(0) as AbstractSlide;
+				if(oldSlide === currentSlide)
+				{
+					logger.warn("EASY NOW. was about to get rid of duder who is my current slide: " + oldSlide);
+					return;
+				}
 				logger.debug("killing slide: " + oldSlide);
 				oldSlide.dispose();
 				oldSlide.removeEventListener(AbstractSlide.READY, playQueued);
