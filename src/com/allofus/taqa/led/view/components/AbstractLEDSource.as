@@ -21,7 +21,6 @@ package com.allofus.taqa.led.view.components
 		//slide refs (text, video & image)
 		protected var currentSlide:AbstractSlide;
 		protected var queuedSlide:AbstractSlide;
-		protected var slideToDispose:AbstractSlide;
 		
 		protected var _running:Boolean = false;
 		
@@ -68,7 +67,6 @@ package com.allofus.taqa.led.view.components
 			if(queuedSlide.ready)
 			{
 				//first update our references
-				slideToDispose = currentSlide;
 				currentSlide = queuedSlide;
 				queuedSlide = null;
 				
@@ -92,7 +90,8 @@ package com.allofus.taqa.led.view.components
 				
 		protected function handleCurrentSlideTransitionInComplete(event : Event) : void
 		{
-			disposeCurrentSlide();
+			disposeOldSlides();
+			//disposeCurrentSlide();
 		}
 		
 		protected function handleSlideFinished(event:Event):void
@@ -105,7 +104,7 @@ package com.allofus.taqa.led.view.components
 		protected function handleCurrentSlideError(event:Event):void
 		{
 			logger.debug("handleCurrentSlideError");
-			disposeCurrentSlide();
+			disposeOldSlides();
 			notifyNextPlaying();
 		}	
 		
@@ -120,18 +119,20 @@ package com.allofus.taqa.led.view.components
 			setChildIndex(vp, ti);
 		}
 		
-		private function disposeCurrentSlide():void
+		protected function disposeOldSlides():void
 		{
-			if(slideToDispose)
+			var oldSlide:AbstractSlide;
+			while (numChildren > 2)
 			{
-				logger.debug("disposing: " + slideToDispose);
-				if(contains(slideToDispose))removeChild(slideToDispose);
-				slideToDispose.dispose();
-				slideToDispose.removeEventListener(AbstractSlide.READY, playQueued);
-				slideToDispose.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
-				slideToDispose.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
-				slideToDispose.removeEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
-				slideToDispose = null;
+				oldSlide = getChildAt(0) as AbstractSlide;
+				logger.debug("killing slide: " + oldSlide);
+				oldSlide.dispose();
+				oldSlide.removeEventListener(AbstractSlide.READY, playQueued);
+				oldSlide.removeEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
+				oldSlide.removeEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
+				oldSlide.removeEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
+				removeChild(oldSlide);
+				oldSlide = null;
 			}
 		}
 		

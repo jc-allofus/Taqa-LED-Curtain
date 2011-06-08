@@ -86,7 +86,7 @@ package com.allofus.taqa.led.service
 				vo = pendingRequests[i];
 				if(vo.url != event.target.name)
 					continue;
-				logger.fatal("ITEM COMPLETE here what was loaded: " + event.target.name + "\n and the VO: " + vo.url + "\n and the model he goes to: " + vo.targetModel);
+				logger.debug("ITEM COMPLETE here what was loaded: " + event.target.name + "\n and the VO: " + vo.url + "\n and the model he goes to: " + vo.targetModel);
 				xloader = loader.getLoader(vo.url);
 				xml = xloader.getContent(vo.url) as XML;
 				if(xml)

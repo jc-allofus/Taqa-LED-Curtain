@@ -9,6 +9,7 @@ package com.allofus.taqa.led.controller.startup
 	import com.allofus.taqa.led.view.preferences.PreferencesPane;
 
 	import org.robotlegs.mvcs.Command;
+	import org.robotlegs.utilities.statemachine.StateEvent;
 
 	import mx.logging.ILogger;
 
@@ -40,6 +41,8 @@ package com.allofus.taqa.led.controller.startup
 			main.fullscreen(true); //default the app to fullscreen
 			
 			TLFTextManager.listFonts();
+			
+			dispatch(new StateEvent(StateEvent.ACTION, FSMConstants.CONSTRUCTING_VIEW_COMPLETE));
 		}
 		
 		private static const logger:ILogger = GetLogger.qualifiedName( ConstructInitialViewCommand );

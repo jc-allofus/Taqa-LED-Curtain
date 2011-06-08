@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.model
 {
+	import flash.events.TimerEvent;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.service.XMLFeedService;
 	import com.greensock.TweenMax;
@@ -9,6 +10,7 @@ package com.allofus.taqa.led.model
 	import mx.logging.ILogger;
 
 	import flash.events.Event;
+	import flash.utils.Timer;
 
 	/**
 	 * @author chrismullany
@@ -21,12 +23,20 @@ package com.allofus.taqa.led.model
 		
 		// last time in seconds-since-epoch that content was updated
 		protected var _lastUpdated:int = -1;
+		protected var timer:Timer;
 		
 		protected var failCount:int = 0; //how many times have we got no response
 		protected var giveUpAfterFails:int = 2;
 		
+		[Inject] public var internetConnectionProxy:InternetConnectionProxy;
 		[Inject] public var configProxy:ConfigProxy;
 		[Inject] public var xmlFeedService:XMLFeedService;
+		
+		public function LEDRefreshPollProxy()
+		{
+			timer = new Timer(1000,1);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, checkForUpdate);
+		}
 		
 		/**
 		 * Kicks off a delayed call to check for updates
@@ -34,8 +44,10 @@ package com.allofus.taqa.led.model
 		public function start():void
 		{
 			// Get poll rate from config or fallback to 60 seconds
-			var pollRate:int = configProxy.updatedSettingsCheckFrequency || 15;
-			TweenMax.delayedCall(pollRate, checkForUpdate);
+			var pollRate:int = (configProxy.updatedSettingsCheckFrequency * 1000) || 5000;
+			timer.reset();
+			timer.delay = pollRate;
+			timer.start();
 		}
 		
 		/**
@@ -68,9 +80,14 @@ package com.allofus.taqa.led.model
 		/**
 		 * Requests XML from the CMS that contains a last updated time
 		 */
-		private function checkForUpdate():void
+		private function checkForUpdate(event:TimerEvent = null):void
 		{
-			logger.info("checkForUpdate");
+			if(!internetConnectionProxy.hasInternetConnection)
+			{
+				logger.info("checkForUpdate() called but we have no internet connection; try agin later...");
+				start();
+				return;
+			}
 			//load "/feeds/settings_updated"
 			xmlFeedService.retrieveFeed(configProxy.updatedFeedPath, this);
 		}

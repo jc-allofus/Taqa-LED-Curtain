@@ -15,7 +15,7 @@ package com.allofus.taqa.led.service
 			return "[XMLFeedVO]: " 
 			+ "  url: " + url
 			+ ", targetModel: " + targetModel
-			+ ", data: " + data.toString();
+			+ ", data: " + data;
 		}
 	}
 }

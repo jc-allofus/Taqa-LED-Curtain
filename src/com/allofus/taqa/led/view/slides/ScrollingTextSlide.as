@@ -175,6 +175,9 @@ package com.allofus.taqa.led.view.slides
 
 		override public function dispose():void
 		{
+			TweenMax.killTweensOf(this);
+			removeEventListener(Event.ENTER_FRAME, handleTransitioningIn);
+			removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			while(numChildren > 0)
 			{
 				removeChildAt(0);

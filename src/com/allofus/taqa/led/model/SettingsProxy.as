@@ -26,6 +26,8 @@ package com.allofus.taqa.led.model
 				_headlineDisplayRate = int(xml.node.led_headline_display_rate);
 				_textScrollSpeed = xml.node.led_scroll_speed;
 				_imageDisplaySeconds = int(xml.node.led_img_display_dur);
+				logger.debug("send update to system.");
+				dispatch(new Event(UPDATE));
 			}
 			else
 			{
@@ -33,8 +35,6 @@ package com.allofus.taqa.led.model
 				_textScrollSpeed = "slow";
 				_imageDisplaySeconds = 10;
 			}
-			logger.debug("send update to system.");
-			dispatch(new Event(UPDATE));
 		}
 
 		public function get headlineDisplayRate() : int

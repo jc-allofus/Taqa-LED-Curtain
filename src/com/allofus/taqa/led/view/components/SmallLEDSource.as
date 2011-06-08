@@ -1,6 +1,5 @@
 package com.allofus.taqa.led.view.components
 {
-	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice_830x34;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
@@ -14,7 +13,7 @@ package com.allofus.taqa.led.view.components
 	import com.allofus.taqa.led.view.slides.PixelTextSlide;
 	import com.allofus.taqa.led.view.slides.ScrollingTextSlide;
 	import com.allofus.taqa.led.view.slides.VideoSlide;
-	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice;
+	import com.allofus.taqa.ledcurtain.swcassets.TestBitmapSlice_830x34;
 
 	import mx.logging.ILogger;
 
