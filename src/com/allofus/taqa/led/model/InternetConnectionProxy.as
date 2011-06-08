@@ -28,10 +28,11 @@ package com.allofus.taqa.led.model
 		{
 		}
 		
-		public function detectConnection(url:String):void	
+		public function detectConnection(url:String, pollInterval:int = 5):void	
 		{
 			logger.debug("detectConnection: " + url);
 			monitor = new URLMonitor(new URLRequest(url));
+			monitor.pollInterval = pollInterval * 1000;
 			monitor.addEventListener(StatusEvent.STATUS, setHasInternetConnection);
 			monitor.start();
 			TweenMax.delayedCall(1, checkNow);
@@ -46,6 +47,7 @@ package com.allofus.taqa.led.model
 		protected function setHasInternetConnection(event : StatusEvent):void
 		{
 			logger.debug("do we have internet: " + monitor.available + " -> " + event.code + " initial connection?: " + _initialConnection);	
+			_hasInternetConnection = monitor.available;
 			checkNow(event);
 		}
 		

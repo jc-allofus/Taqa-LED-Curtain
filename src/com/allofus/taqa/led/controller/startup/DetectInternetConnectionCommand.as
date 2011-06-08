@@ -21,9 +21,9 @@ package com.allofus.taqa.led.controller.startup
 		
 		public override function execute():void
 		{
-			logger.info(inetConnectionProxy + " will be detecting internet connection to URL from" + configProxy);
+			logger.info(inetConnectionProxy + " will be detecting internet connection to URL " + configProxy.apiBaseURL);
 			inetConnectionProxy.eventDispatcher.addEventListener(InternetConnectionEvent.STATUS, handleStatusObtained);
-			inetConnectionProxy.detectConnection(configProxy.updateURL);
+			inetConnectionProxy.detectConnection(configProxy.apiBaseURL, configProxy.updatedSettingsCheckFrequency);
 		}
 
 		protected function handleStatusObtained(event : InternetConnectionEvent) : void
