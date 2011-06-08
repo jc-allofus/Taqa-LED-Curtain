@@ -33,8 +33,8 @@ package com.allofus.taqa.led.view.mediator
 			switch (event.keyCode)
 			{
 				case Keyboard.P:
-				case Keyboard.NUMBER_1:
-				case Keyboard.NUMBER_2:
+				case Keyboard.Q:
+				case Keyboard.W:
 					logger.info("dispatch to system (picked up by pref pane)");
 					dispatch(event);
 					break;

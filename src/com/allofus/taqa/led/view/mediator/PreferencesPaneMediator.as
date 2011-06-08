@@ -32,11 +32,11 @@ package com.allofus.taqa.led.view.mediator
 					view.toggleHidden();
 					break;
 					
-				case Keyboard.NUMBER_1:
+				case Keyboard.Q:
 					view.showPage(1);
 					break;
 					
-				case Keyboard.NUMBER_2:
+				case Keyboard.W:
 					view.showPage(2);
 					break;
 					
