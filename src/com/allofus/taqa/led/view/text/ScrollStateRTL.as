@@ -35,7 +35,7 @@ package com.allofus.taqa.led.view.text
 		public function doScrollTick() : void
 		{
 			_textSprite.x -= _speed;
-			logger.debug("my x: " + _textSprite.x);
+			//logger.debug("my x: " + _textSprite.x);
 			_textSprite.refresh();
 			if(_textSprite.x < - _textSprite.width)
 			{

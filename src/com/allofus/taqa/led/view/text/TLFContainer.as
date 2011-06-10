@@ -40,5 +40,20 @@ package com.allofus.taqa.led.view.text
 		{
 			_flow = flow;
 		}
+		
+		/*
+		 * make sure this is always sitting on a whole pixel eg this.x = 10 NOT this.x = 10.2
+		 */
+		override public function set x (value:Number):void
+		{
+			var rounded:Number = Math.round(value);
+			super.x = rounded;
+		}
+		
+		override public function set y (value:Number):void
+		{
+			var rounded:Number = Math.round(value);
+			super.y = rounded;
+		}
 	}
 }
