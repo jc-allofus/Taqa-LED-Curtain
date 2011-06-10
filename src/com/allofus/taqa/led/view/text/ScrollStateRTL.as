@@ -28,13 +28,14 @@ package com.allofus.taqa.led.view.text
 
 		public function initScroll() : void
 		{
-			var w:Number = _slide.slideWidth;
+			var w:Number = Math.round(_slide.slideWidth);
 			_textSprite.x = w;
 		}
 
 		public function doScrollTick() : void
 		{
 			_textSprite.x -= _speed;
+			logger.debug("my x: " + _textSprite.x);
 			_textSprite.refresh();
 			if(_textSprite.x < - _textSprite.width)
 			{
