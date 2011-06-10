@@ -1,5 +1,6 @@
-package com.allofus.shared.text
-{
+package com.allofus.shared.text {
+	import flashx.textLayout.conversion.TextConverter;
+	import flashx.textLayout.conversion.ITextImporter;
 	import flashx.textLayout.container.ContainerController;
 	import flashx.textLayout.elements.ParagraphElement;
 	import flashx.textLayout.elements.SpanElement;
@@ -29,11 +30,26 @@ package com.allofus.shared.text
 		{
 			var txt : String = copy || LOREM_IPSUM;
 			
+			
+			var container:TLFContainer = new TLFContainer();
+			var controller : ContainerController = new ContainerController(container, NaN);
+			
+			// updated to use importer to support HTML encoded character as content now coming via ckeditor - Tim D
+			
+			var importer:ITextImporter = TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT);
+			var flow:TextFlow = importer.importToFlow(txt);
+			flow.format = format || getFormat();
+			flow.flowComposer.addController(controller);
+			flow.flowComposer.updateAllControllers();
+			container.flow = flow;
+			
+			/*
 			var container:TLFContainer = new TLFContainer();
 			var flow:TextFlow = new TextFlow();
 			var p:ParagraphElement = new ParagraphElement();
 			var span:SpanElement = new SpanElement();
 
+			
 			var controller : ContainerController = new ContainerController(container, NaN);
 			flow.flowComposer.addController(controller);
 			flow.format = format || getFormat();
@@ -44,7 +60,10 @@ package com.allofus.shared.text
 //			container.graphics.beginFill(0x00cc00, 0.5);
 //			container.graphics.drawRect(0, 0, container.width, container.height);
 			container.flow = flow;
+			*/
+			
 			return container;
+			 
 		}
 		
 		public static function getFormat():TextLayoutFormat
