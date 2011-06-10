@@ -1,5 +1,6 @@
 package
 {
+	import flash.display.StageAlign;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.shared.logging.LogWriter;
 	import com.allofus.shared.logging.MonsterDebuggerTarget;
@@ -21,7 +22,7 @@ package
 	/**
 	 * @author jc
 	 */
-	[SWF(backgroundColor="#000000", frameRate="31", width="1064", height="440")]
+	[SWF(backgroundColor="#000000", frameRate="30", width="1064", height="440")]
 	public class TaqaLEDCurtain extends Sprite
 	{
 		private static const logger:ILogger = GetLogger.qualifiedName( TaqaLEDCurtain );
@@ -40,6 +41,8 @@ package
 		
 		protected function initApp(event : Event = null) : void
 		{
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
 //			initializeMonsterDebuggerLogging();
 			//initializeTraceLogging();
 			//initializeMonsterDebuggerLogging();
@@ -57,7 +60,6 @@ package
 			if(!_invoked)
 			{
 				//do stuff on invoked
-				stage.scaleMode = StageScaleMode.NO_SCALE;
 				_invoked = true;
 			}
 		}

@@ -50,8 +50,8 @@ package com.allofus.taqa.led.view.preferences
 		public var ssbs:NumericStepper;
 		
 		//WINDOW POSITION
-		public static var WINDOW_POSITION_X:int = 25;
-		public static var WINDOW_POSITION_Y:int = 50;
+		public static var WINDOW_POSITION_X:int = 500;
+		public static var WINDOW_POSITION_Y:int = 100;
 		public var wpx:Text;
 		public var wpy:Text;
 		

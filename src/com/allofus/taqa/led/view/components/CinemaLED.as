@@ -19,7 +19,7 @@ package com.allofus.taqa.led.view.components
 	 */
 	public class CinemaLED extends AbstractLEDSource
 	{
-		public static const WIDTH:int = 1216;
+		public static const WIDTH:int = 608;
 		public static const HEIGHT:int = 127;
 		
 		public function CinemaLED()
@@ -31,7 +31,7 @@ package com.allofus.taqa.led.view.components
 			graphics.drawRect(0, 0, WIDTH, HEIGHT);
 			
 			updateToPrefs();
-			scaleX = 0.5;
+			//scaleX = 0.5;
 		}
 		
 		override protected function makeSlide(vo:ISlideVO):AbstractSlide

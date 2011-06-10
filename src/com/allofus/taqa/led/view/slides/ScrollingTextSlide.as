@@ -111,6 +111,11 @@ package com.allofus.taqa.led.view.slides
 			addChild(_textSprite);
 
 			_maskClip.gotoAndStop(1);
+			
+			// masks are centred to stage so need to be re-aligned
+			_maskClip.x = slideWidth/2;
+			_maskClip.y = slideHeight/2;
+			
 			addChild(_maskClip);
 
 			mask = _maskClip;
