@@ -6,17 +6,17 @@
 	<VideoPath path="TaqaLEDCurtainVideos"/>
 	<!--  relative to $videoPath -->
 	<DefaultCinemaVideos>
-		<video path="defaultCinemaVideos/Mishkat Wall 01.flv"/>
-		<video path="defaultCinemaVideos/Mishkat Wall 02.flv"/>
-		<video path="defaultCinemaVideos/Mishkat Wall 03.flv"/>
+		<video path="defaultCinemaVideos/Mishkat-Wall-01.f4v"/>
+		<video path="defaultCinemaVideos/Mishkat-Wall-06.f4v"/>
+		<video path="defaultCinemaVideos/Mishkat-Wall-07.f4v"/>
 	</DefaultCinemaVideos>
 	<APIEndpoints>
-		<APIBaseURL path="http://dev.allofus.com/kca" />
+		<APIBaseURL path="http://localhost/kca/" />
 		<ImageBasePath path="sites/default/files/imagecache/" />
-		<SettingsFeed path="http://dev.allofus.com/kca/feeds/settings" />
-		<SmallLEDFeed path="http://dev.allofus.com/kca/feeds/small-led" />
-		<CinemaLEDFeed path="http://dev.allofus.com/kca/feeds/cinema-led" />
-		<UpdatedFeed path="http://dev.allofus.com/kca/feeds/settings_updated" />
+		<SettingsFeed path="http://localhost/kca/feeds/settings" />
+		<SmallLEDFeed path="http://localhost/kca/feeds/small-led" />
+		<CinemaLEDFeed path="http://localhost/kca/feeds/cinema-led" />
+		<UpdatedFeed path="http://localhost/kca/feeds/settings_updated" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />
