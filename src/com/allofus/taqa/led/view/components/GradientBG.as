@@ -10,12 +10,12 @@ package com.allofus.taqa.led.view.components
 	 */
 	public class GradientBG extends Sprite
 	{
-		protected static const AQUA:Array 		= [0x41b5aa, 0x008d80];
-		protected static const YELLOW:Array 	= [0xf5cc35, 0xedb440];
-		protected static const GREEN:Array 		= [0x84c347, 0x37732f];
-		protected static const RED:Array 		= [0xdc5a3c, 0xa72c2a];
-		protected static const VIOLET:Array 	= [0x332777, 0x1a0c3d];
-		protected static const PINK:Array 		= [0xb41e80, 0x70055d];
+		protected static const AQUA:Array 		= [0x1bb3a3, 0x179c8e];
+		protected static const YELLOW:Array 	= [0xb39424, 0x997e1f];
+		protected static const GREEN:Array 		= [0x67b31b, 0x589917];
+		protected static const RED:Array 		= [0xb3371b, 0x992f17];
+		protected static const VIOLET:Array 	= [0x321bb3, 0x2a1799];
+		protected static const PINK:Array 		= [0xB31B7D, 0x99176b];
 		
 		protected static const COLORS:Array	= [AQUA, YELLOW, GREEN, RED, VIOLET, PINK];
 		
@@ -39,7 +39,7 @@ package com.allofus.taqa.led.view.components
 			var ratios:Array = [0,255];
 			
 			var matr:Matrix = new Matrix();
-			matr.createGradientBox(width, height);
+			matr.createGradientBox(width, height, 90 * (Math.PI / 180));
 			
 			graphics.beginGradientFill(type, colors, alphas, ratios,matr, SpreadMethod.PAD);
 			graphics.drawRect(0, 0, width, height);

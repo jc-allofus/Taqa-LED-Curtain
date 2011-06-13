@@ -38,7 +38,7 @@ package com.allofus.taqa.led.controller.startup
 			var preferencesPane:PreferencesPane = new PreferencesPane(configProxy.randomArabic);
 			main.addChild(preferencesPane);
 			
-			main.fullscreen(false); //default the app to fullscreen
+			main.fullscreen(true); //default the app to fullscreen
 			
 			TLFTextManager.listFonts();
 			

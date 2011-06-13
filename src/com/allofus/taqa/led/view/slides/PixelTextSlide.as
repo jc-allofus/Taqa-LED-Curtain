@@ -25,13 +25,14 @@ package com.allofus.taqa.led.view.slides
 	 */
 	public class PixelTextSlide extends AbstractSlide implements IScrollingContentSlide
 	{
-		protected static const AQUA:uint 		= 0x41b5aa;
-		protected static const YELLOW:uint 		= 0xf5cc35;
-		protected static const GREEN:uint 		= 0x84c347;
-		protected static const RED:uint 		= 0xdc5a3c;
-		protected static const PINK:uint 		= 0xb41e80;
+		protected static const AQUA:uint 		= 0x1bb3a3 //0x41b5aa;
+		protected static const YELLOW:uint 		= 0xb39424 //0xf5cc35;
+		protected static const GREEN:uint 		= 0x67b31b //0x84c347;
+		protected static const RED:uint 		= 0xb3371b //0xdc5a3c;
+		protected static const VIOLET:uint		= 0x321bb3 //wasn't here before?
+		protected static const PINK:uint 		= 0xB31B7D //0xb41e80;
 		
-		protected var COLORS:Array = [AQUA, YELLOW, GREEN, RED, PINK];
+		protected var COLORS:Array = [AQUA, YELLOW, GREEN, RED, VIOLET, PINK];
 		
 		protected var _vo:PixelTextVO;
 		protected var _slideWidth:int;
@@ -98,6 +99,11 @@ package com.allofus.taqa.led.view.slides
 			
 			_maskClip = new SolarMask();
 			_maskClip.gotoAndStop(1);
+			
+			// masks are centred to stage so need to be re-aligned
+			_maskClip.x = slideWidth/2;
+			_maskClip.y = slideHeight/2;
+			
 			addChild(_maskClip);
 			mask = _maskClip;
 			
@@ -193,16 +199,16 @@ package com.allofus.taqa.led.view.slides
 			if(_vo.text2)
 			{
 				_textSprite1.y = 5;
-				_textSprite1.y += (_vo.text1Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY;
+				_textSprite1.y += Math.round((_vo.text1Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY);
 				
-				_textSprite2.y = _slideHeight - _textSprite2.height -5;
-				_textSprite2.y += (_vo.text2Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY;
+				_textSprite2.y = Math.round(_slideHeight - _textSprite2.height -5)
+				_textSprite2.y += Math.round((_vo.text2Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY);
 				
 			}
 			else
 			{
 				_textSprite1.y = Math.round((_slideHeight * 0.5) - (_textSprite1.height * 0.5));
-				_textSprite1.y += (_vo.text1Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY;
+				_textSprite1.y += Math.round((_vo.text1Language == Languages.ENGLISH) ? TypeStyles.ES_offsetY : TypeStyles.AS_offsetY);
 			}
 		}
 		
@@ -234,6 +240,11 @@ package com.allofus.taqa.led.view.slides
 		public function get slideWidth() : Number
 		{
 			return _slideWidth;
+		}
+		
+		public function get slideHeight() : Number
+		{
+			return _slideHeight;
 		}
 
 		public function get scrollingSpeed() : int
