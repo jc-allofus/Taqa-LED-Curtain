@@ -71,7 +71,7 @@ package com.allofus.taqa.led.view.slides
 		}
 
 		override public function transitionIn():void
-		{
+		{	
 			visible = true;
 			alpha = 1;
 			TweenMax.from(this, 0.5, {alpha:0, onComplete:handleTransitionInComplete});

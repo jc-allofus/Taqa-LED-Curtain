@@ -33,6 +33,7 @@ package com.allofus.taqa.led.view.components
 			logger.debug("make & show a slide: " + vo.id + " - " + vo.type);
 			
 			queuedSlide = makeSlide(vo);
+			queuedSlide.addEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
 			if(queuedSlide)
 			{
 				addChild(queuedSlide);
@@ -74,7 +75,6 @@ package com.allofus.taqa.led.view.components
 				currentSlide.removeEventListener(AbstractSlide.READY, playQueued);
 				currentSlide.addEventListener(AbstractSlide.COMPLETE, handleSlideFinished);
 				currentSlide.addEventListener(AbstractSlide.TRANSITION_IN_COMPLETE, handleCurrentSlideTransitionInComplete);
-				currentSlide.addEventListener(AbstractSlide.ERROR, handleCurrentSlideError);
 				bringToTop(currentSlide);
 				currentSlide.transitionIn();
 				
