@@ -12,11 +12,11 @@
 	</DefaultCinemaVideos>
 	<APIEndpoints>
 		<APIBaseURL path="http://localhost/kca/" />
-		<ImageBasePath path="sites/default/files/imagecache/" />
-		<SettingsFeed path="http://localhost/kca/feeds/settings" />
-		<SmallLEDFeed path="http://localhost/kca/feeds/small-led" />
-		<CinemaLEDFeed path="http://localhost/kca/feeds/cinema-led" />
-		<UpdatedFeed path="http://localhost/kca/feeds/settings_updated" />
+        <!-- relative to $APIBaseURL -->
+		<SettingsFeed path="feeds/settings" />
+		<SmallLEDFeed path="feeds/small-led" />
+		<CinemaLEDFeed path="feeds/cinema-led" />
+		<UpdatedFeed path="feeds/settings_updated" />
 	</APIEndpoints>
 	<LoaderMax name="locale-assets" load="true">
         <SWFLoader url="assets/fonts/TaqaFonts.swf" name="taqa-fonts" estimatedBytes="100100"  />

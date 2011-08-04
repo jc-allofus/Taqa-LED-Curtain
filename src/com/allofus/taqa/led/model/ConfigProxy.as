@@ -84,13 +84,23 @@ package com.allofus.taqa.led.model
 			if(result)
 			{
 				_apiBaseURL = result.APIEndpoints.APIBaseURL.@path;
+				/*	making these relative to above so simpler to edit config file
+					also doesn't look like _imageBasePath is ever used so omitting and removing from config
+				 
 				_settingsFeedPath = result.APIEndpoints.SettingsFeed.@path;
 				_smallLEDFeedPath = result.APIEndpoints.SmallLEDFeed.@path;
 				_cinemaLEDFeedPath = result.APIEndpoints.CinemaLEDFeed.@path;
 				_updatedFeedPath = result.APIEndpoints.UpdatedFeed.@path;
 				_updateURL = result.UpdateURL.@path;
 				_imageBasePath = result.ImageBasePath.@path;
-				var vidPath:String =result.VideoPath.@path; 
+				*/
+				_settingsFeedPath = _apiBaseURL + result.APIEndpoints.SettingsFeed.@path;
+				_smallLEDFeedPath = _apiBaseURL + result.APIEndpoints.SmallLEDFeed.@path;
+				_cinemaLEDFeedPath = _apiBaseURL + result.APIEndpoints.CinemaLEDFeed.@path;
+				_updatedFeedPath = _apiBaseURL + result.APIEndpoints.UpdatedFeed.@path;
+				_updateURL = _apiBaseURL + result.UpdateURL.@path;
+				 
+				 var vidPath:String =result.VideoPath.@path; 
 				_videosDir = File.documentsDirectory.resolvePath(vidPath);
 				for each(var video:XML in result.DefaultCinemaVideos.children())
 				{
