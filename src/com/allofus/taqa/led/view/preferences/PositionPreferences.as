@@ -248,7 +248,7 @@ package com.allofus.taqa.led.view.preferences
 					<!-- SMALL LED CONTENT TYPE -->
 					<Window width="150" title="Content type" hasMinimizeButton="true" draggable="false">
 						<VBox x="10" y="10">
-							<RadioButton id="rbPlaylist" groupName="contentType" label="Playlist" selected="true" />
+							<RadioButton id="rbPlaylist" groupName="contentType" label="Shuffled" selected="true" />
 							<RadioButton id="rbFeedOrder" groupName="contentType" label="Feed Order" selected="false" />
 							<RadioButton id="rbKTF" groupName="contentType" label="KTF Content" selected="false" />
 						</VBox>
