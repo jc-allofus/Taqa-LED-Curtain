@@ -22,9 +22,9 @@ package com.allofus.taqa.led.model.vo
 			+ "  id: " + id
 			+ ", isHeadline: " + isHeadlineContent
 			+ ", language: " + language
+			+ ", text" + text
 			+ ", theme: " + theme
 			+ ", vidsDir: " + bgVidsDir
-			+ ", text" + text
 			;
 		}
 		

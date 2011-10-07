@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.view.preferences
 {
+	import com.allofus.taqa.led.model.SmallBannerPlaylistTypes;
+	import com.bit101.components.RadioButton;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.ApplicationGlobals;
 	import com.bit101.components.CheckBox;
@@ -55,6 +57,13 @@ package com.allofus.taqa.led.view.preferences
 		public var wpx:Text;
 		public var wpy:Text;
 		
+		//CONTENT TYPE
+		public static var SELECTED_PLAYLIST_TYPE:String = SmallBannerPlaylistTypes.SHUFFLED_PLAYLIST;
+		public var rbPlaylist:RadioButton;
+		public var rbFeedOrder:RadioButton;
+		public var rbKTF:RadioButton;
+		
+		
 		public static var VIDEOS_DIR:File;
 		
 		public var btnOpnDir:PushButton;
@@ -81,7 +90,36 @@ package com.allofus.taqa.led.view.preferences
 			ssby.addEventListener(Event.CHANGE, handlePrefsChanged);
 			ssbr.addEventListener(Event.CHANGE, handlePrefsChanged);
 			ssbs.addEventListener(Event.CHANGE, handlePrefsChanged);
+			
+			//radio buttons for playlist type on small banner
+			logger.fatal("what is rbPlaylist: " + rbPlaylist);
+			rbPlaylist.addEventListener(MouseEvent.CLICK, onRBChange);
+			rbFeedOrder.addEventListener(MouseEvent.CLICK, onRBChange);
+			rbKTF.addEventListener(MouseEvent.CLICK, onRBChange);
+			
 		}
+
+		private function onRBChange(event : Event = null) : void
+		{
+			if(rbPlaylist.selected)
+			{
+				SELECTED_PLAYLIST_TYPE = SmallBannerPlaylistTypes.SHUFFLED_PLAYLIST;
+			}			
+			else if(rbFeedOrder.selected)
+			{
+				SELECTED_PLAYLIST_TYPE = SmallBannerPlaylistTypes.FEED_ORDER;
+			}			
+			else if(rbKTF.selected)
+			{
+				SELECTED_PLAYLIST_TYPE = SmallBannerPlaylistTypes.SPECIFIC_CONTENT;
+			}
+			else
+			{
+				//DEFAULT
+				SELECTED_PLAYLIST_TYPE = SmallBannerPlaylistTypes.FEED_ORDER;
+			}
+		}
+		
 		protected function handleOpenVidDir(event:Event = null):void
 		{
 			VIDEOS_DIR.openWithDefaultApplication();	
@@ -192,7 +230,8 @@ package com.allofus.taqa.led.view.preferences
 	        			</VBox>
 	    			</Window>
 	    			
-	    			<Window width="200" title="Misc." hasMinimizeButton="true" draggable="false">
+					<!-- WINDOW POSITION/ VIDEOS DIR -->	
+	    			<Window width="150" title="Misc." hasMinimizeButton="true" draggable="false">
 	    				<VBox x="10" y="10">
 	    					<HBox>
 	    						<Label text="window position x: " />
@@ -205,6 +244,16 @@ package com.allofus.taqa.led.view.preferences
 	    					<PushButton id="btnOpnDir" label="open video dir" />
 	    				</VBox>
 	    			</Window>
+					
+					<!-- SMALL LED CONTENT TYPE -->
+					<Window width="150" title="Content type" hasMinimizeButton="true" draggable="false">
+						<VBox x="10" y="10">
+							<RadioButton id="rbPlaylist" groupName="contentType" label="Playlist" selected="true" />
+							<RadioButton id="rbFeedOrder" groupName="contentType" label="Feed Order" selected="false" />
+							<RadioButton id="rbKTF" groupName="contentType" label="KTF Content" selected="false" />
+						</VBox>
+					</Window>
+					
 	    		 </HBox>
 				</Panel>
 			</comps>;

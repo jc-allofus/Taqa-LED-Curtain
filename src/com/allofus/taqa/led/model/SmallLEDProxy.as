@@ -1,5 +1,7 @@
 package com.allofus.taqa.led.model
 {
+	import com.allofus.taqa.led.view.preferences.PositionPreferences;
+	import com.allofus.taqa.led.model.vo.EnglishAndArabicTextVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ScrollingTextVO;
@@ -39,35 +41,51 @@ package com.allofus.taqa.led.model
 		override public function getNext():ISlideVO
 		{
 			// loop through playlist of weighted headline content vs. non-headline content
-			var selected:ISlideVO;
-			if(_playlist && _playlist.length > 0)
+			if(PositionPreferences.SELECTED_PLAYLIST_TYPE == SmallBannerPlaylistTypes.SHUFFLED_PLAYLIST)
 			{
-				selected = _playlist[index];
-				history.push(selected);
-				if(index + 1 > _playlist.length - 1)
+				var selected:ISlideVO;
+				if(_playlist && _playlist.length > 0)
 				{
-					index = 0;
+					selected = _playlist[index];
+					history.push(selected);
+					if(index + 1 > _playlist.length - 1)
+					{
+						index = 0;
+					}
+					else
+					{
+						index++;
+					}
+					return selected;
 				}
-				else
-				{
-					index++;
-				}
-				return selected;
 			}
 
-			// loop through specific type (mainly for debugging)
-			// var vo:ISlideVO;
-			// var hasCorrectType:Boolean = false;
-			// while(!hasCorrectType)
-			// {
-			// vo = super.getNext();
-			// if (vo is ImageSlideVO)
-			// {
-			// return vo;
-			// }
-			// }
+			else if(PositionPreferences.SELECTED_PLAYLIST_TYPE == SmallBannerPlaylistTypes.SPECIFIC_CONTENT)
+			{
+				 /*loop through specific type (mainly for debugging)*/
+				 var vo:ISlideVO;
+				 var hasCorrectType:Boolean = false;
+				 while(!hasCorrectType)
+				 {
+					 vo = super.getNext();
+					 if (vo is EnglishAndArabicTextVO)
+					 {
+					 	return vo;
+					 }
+				 }
+			}
 
-			// loop through all items in order they appear in XML
+			else if (PositionPreferences.SELECTED_PLAYLIST_TYPE == SmallBannerPlaylistTypes.FEED_ORDER)
+			{
+				// loop through all items in order they appear in XML
+				return super.getNext();
+			}
+			
+			else
+			{
+				logger.warn("uh oh, wtf are we doing in here?")
+			}
+			
 			return super.getNext();
 		}
 
@@ -108,8 +126,14 @@ package com.allofus.taqa.led.model
 							vo = parsePixelTextVO(item);
 							vo.type = SlideTypes.SCROLLING_TEXT_PIXEL;
 							break;
+							
+						case SlideTypes.ENGLISH_AND_ARABIC:
+							vo = parseEnglishAndArabicVO(item);
+							vo.type = SlideTypes.ENGLISH_AND_ARABIC;
+							break;
 
 						default:
+							logger.warn("no parser for type: " + type);
 							break;
 					}
 

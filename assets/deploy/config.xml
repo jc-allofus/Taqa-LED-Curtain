@@ -11,7 +11,7 @@
 		<video path="defaultCinemaVideos/Mishkat-Wall-07.f4v"/>
 	</DefaultCinemaVideos>
 	<APIEndpoints>
-		<APIBaseURL path="http://localhost/kca/" />
+		<APIBaseURL path="http://diacon.local/kca/" />
         <!-- relative to $APIBaseURL -->
 		<SettingsFeed path="feeds/settings" />
 		<SmallLEDFeed path="feeds/small-led" />

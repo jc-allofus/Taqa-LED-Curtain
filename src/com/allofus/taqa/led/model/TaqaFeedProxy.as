@@ -1,5 +1,6 @@
 package com.allofus.taqa.led.model
 {
+	import com.allofus.taqa.led.model.vo.EnglishAndArabicTextVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
 	import com.allofus.taqa.led.model.vo.ImageSlideVO;
@@ -99,7 +100,7 @@ package com.allofus.taqa.led.model
 		
 		protected function parsePixelTextVO(item:XML):PixelTextVO
 		{
-			var vo:PixelTextVO = new PixelTextVO;
+			var vo:PixelTextVO = new PixelTextVO();
 			vo.id = "pt"+getTimer();
 			vo.isHeadlineContent = item.headline.toString() == "Yes";
 			vo.text1 = item.body.toString();
@@ -108,6 +109,17 @@ package com.allofus.taqa.led.model
 			vo.text2 = item.body_2.toString();
 			vo.text2Language = item.body_2_language.toString();
 //			vo.text2Format = (vo.text2Language == Languages.ENGLISH) ? TypeStyles.englishSmall : TypeStyles.arabicSmall;
+			return vo;
+		}
+		
+		protected function parseEnglishAndArabicVO(item : XML) : EnglishAndArabicTextVO
+		{
+			var vo:EnglishAndArabicTextVO = new EnglishAndArabicTextVO();
+			vo.id = "eab" + getTimer();
+			vo.isHeadlineContent = false;
+			vo.englishText = item.english.toString();
+			vo.arabicText = item.arabic.toString();
+			vo.bgVidsDir = configProxy.videosDir.url + File.separator + "backgrounds" + File.separator;
 			return vo;
 		}
 		

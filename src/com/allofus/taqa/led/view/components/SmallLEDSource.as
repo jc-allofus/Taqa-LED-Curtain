@@ -1,5 +1,8 @@
 package com.allofus.taqa.led.view.components
 {
+	import com.allofus.taqa.led.model.Languages;
+	import com.allofus.taqa.led.model.Themes;
+	import com.allofus.taqa.led.model.vo.EnglishAndArabicTextVO;
 	import com.allofus.shared.logging.GetLogger;
 	import com.allofus.taqa.led.model.SlideTypes;
 	import com.allofus.taqa.led.model.vo.ISlideVO;
@@ -63,11 +66,41 @@ package com.allofus.taqa.led.view.components
 					slide = new PixelTextSlide(vo as PixelTextVO, WIDTH, HEIGHT);
 					break;
 					
+				case SlideTypes.ENGLISH_AND_ARABIC:
+					var stvo:ScrollingTextVO = createScrollingTextVOFrom(vo);
+					slide = new ScrollingTextSlide(stvo, WIDTH, HEIGHT);
+					
 				default:
 					logger.warn("don't know/haven't implemented how to make:" + vo.type);
 					break;
 			}
 			return slide;
+		}
+
+		//turn one type of VO into a Scrolling Text VO
+		private function createScrollingTextVOFrom(vo : ISlideVO) : ScrollingTextVO
+		{
+			var stVO:ScrollingTextVO = new ScrollingTextVO();
+			switch (vo.type)
+			{
+				case SlideTypes.ENGLISH_AND_ARABIC:
+					//choose randomly between english & arabic and display the selected one;
+					var eaaVO:EnglishAndArabicTextVO = EnglishAndArabicTextVO(vo);
+					var chosenLang:String = Math.random() > 0.5 ? Languages.ENGLISH : Languages.ARABIC;
+					stVO.type = SlideTypes.SCROLLING_TEXT_SMALL;
+					stVO.theme = Themes.GENERIC;
+					stVO.isHeadlineContent = false;
+					stVO.language = chosenLang;
+					stVO.text = (chosenLang == Languages.ENGLISH) ? eaaVO.englishText : eaaVO.arabicText;
+					stVO.bgVidsDir = eaaVO.bgVidsDir;
+					stVO.id = eaaVO.id;
+					break;
+					
+				default:
+					logger.error("no current support for converting" + vo.type + " to a ScrollingTextVO");
+					break;
+			}
+			return stVO;
 		}
 		
 		public function updateToPrefs():void
